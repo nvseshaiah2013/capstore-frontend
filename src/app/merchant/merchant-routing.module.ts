@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 const routes: Routes = [
@@ -11,6 +13,8 @@ const routes: Routes = [
     { path :'addCustomer' , component: AddCustomerComponent }
    
    */
+    {path:'inventory', component:InventoryComponent},
+    {path:'orders', component:OrdersComponent}
   ]}
 ];
 
