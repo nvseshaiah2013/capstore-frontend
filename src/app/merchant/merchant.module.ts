@@ -4,10 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MerchantRoutingModule } from './merchant-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, InventoryComponent, OrdersComponent],
   imports: [
     CommonModule,
     MerchantRoutingModule,
