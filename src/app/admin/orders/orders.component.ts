@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -12,7 +13,8 @@ export class OrdersComponent implements OnInit {
   editForm:FormGroup;
   submitted:boolean=false;
 
-  constructor(private formBuilder:FormBuilder,private router:Router) { }
+  constructor(private formBuilder:FormBuilder,private router:Router) { 
+  }
 
   ngOnInit() {
     this.editForm=this.formBuilder.group({
@@ -28,6 +30,7 @@ export class OrdersComponent implements OnInit {
     }
 
     alert("updated..!!");
+    $('#exampleModalCenter').modal('toggle');
     this.router.navigate(['admin/orders']);
   }
 }
