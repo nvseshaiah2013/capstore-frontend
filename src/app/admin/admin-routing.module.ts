@@ -19,6 +19,7 @@ const routes: Routes = [
   { path :'home' , component: AdminHomeComponent },
   { path :'stats' , component: StatisticsComponent },
   {path:'orders',component:OrdersComponent},
+  {path:'viewCustomers',component:ViewCustomersComponent},
   { path :'**' , component: AdminHomeComponent }
   ]}
 ];
