@@ -6,10 +6,11 @@ import { MerchantRoutingModule } from './merchant-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, InventoryComponent, OrdersComponent],
+  declarations: [DashboardComponent, InventoryComponent, OrdersComponent, MerchantHomeComponent],
   imports: [
     CommonModule,
     MerchantRoutingModule,
