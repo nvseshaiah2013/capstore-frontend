@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
    
    */
     {path:'inventory', component:InventoryComponent},
-    {path:'orders', component:OrdersComponent}
+    {path:'orders', component:OrdersComponent},
+    {path:'**', component:MerchantHomeComponent}
   ]}
 ];
 
