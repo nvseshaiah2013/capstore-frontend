@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+   todaysDate = new Date();
+
+  constructor() {
+    setInterval(() => {
+      this.todaysDate = new Date();
+    }, 1000);
+  }
 
   ngOnInit() {
   }
