@@ -52,6 +52,20 @@
                     </li>
 
                     <li class="nav-item main">
+                        <a class="nav-link main" data-toggle="collapse" href="#ordersInventory" role="button"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fas fa-people-carry"></i>&nbsp;
+                            Orders
+                         
+                        </a>
+                        <span class="collapse" id="ordersInventory">
+                            <a class="nav-link main ml-4" href="#">
+                                - View all Orders
+                            </a>
+                        </span>
+                    </li>
+
+                    <li class="nav-item main">
                         <a class="nav-link main" data-toggle="collapse" href="#couponInventory" role="button"
                             aria-expanded="false" aria-controls="collapseExample">
                             <i class="fas fa-gift"></i>&nbsp;
@@ -93,7 +107,9 @@
                             Statistics
                         </a>
                     </li>
-               
+            
+                    <br>
+
                     <li class="nav-item">
                         <a class="nav-link">
                             <p><i class="fas fa-calendar-alt"></i> &nbsp;{{todaysDate | date}}</p>
