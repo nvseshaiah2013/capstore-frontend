@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MerchantRoutingModule } from './merchant-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -13,8 +12,6 @@ import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
   declarations: [DashboardComponent, InventoryComponent, OrdersComponent, MerchantHomeComponent],
   imports: [
     CommonModule,
-    MerchantRoutingModule,
-    FontAwesomeModule
-  ]
+    MerchantRoutingModule]
 })
 export class MerchantModule { }
