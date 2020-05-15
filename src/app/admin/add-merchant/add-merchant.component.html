@@ -1,5 +1,8 @@
-<h2 style="margin-top:1%">Add Third Party Merchant</h2>
-<div class="container row" style="margin-top: 2%;">
+<div class="animated">
+
+    
+    <h2 class="mt-5">Add Third Party Merchant</h2>
+<div class="container row mb-5" style="margin-top: 2%;">
     <div class="col-md-6">
         <form [formGroup]="addForm">
             <!-- Start of name input field -->
@@ -40,7 +43,7 @@
                 </div>
             </div>
             <!-- End of username input field -->
-
+            
             <!-- Start of alternate email input field -->
             <div class="col-md-11">
                 <div class="input-group mb-3 input-field">
@@ -72,7 +75,7 @@
                 <div class="input-group mb-3 input-field">
                     <span style="font-weight: 700;font-size: x-large;"><img
                             src="https://img.icons8.com/ios-filled/50/000000/phone.png">+91</span>&nbsp;&nbsp;
-                    <input type="text" formControlName="phoneNo" placeholder="Phone Number">
+                            <input type="text" formControlName="phoneNo" placeholder="Phone Number">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.phoneNo.errors">
@@ -90,11 +93,11 @@
             <!-- End of phone number input field -->
 
             <!-- Start of alternate phone number input field -->
-
+            
             <div class="col-md-11">
                 <div class="input-group mb-3 input-field">
                     <span style="font-weight: 700;font-size: x-large;"><img
-                            src="https://img.icons8.com/ios-filled/50/000000/phone.png">+91</span>&nbsp;&nbsp;
+                        src="https://img.icons8.com/ios-filled/50/000000/phone.png">+91</span>&nbsp;&nbsp;
                     <input type="text" formControlName="alternatePhoneNo" placeholder="Alternate Phone Number">
                 </div>
                 <!-- Validation Messages -->
@@ -111,7 +114,7 @@
                 </div>
             </div>
             <!-- End of alternate phone number input field -->
-
+            
             <!-- Start of gender input field -->
             <div class="col-md-11">
                 <div class="input-group mb-3 input-field">
@@ -121,14 +124,14 @@
                         <input type="radio" value="Male" formControlName="gender"> Male
                         <input type="radio" value="Female" formControlName="gender"> Female
                         <input type="radio" value="Other" formControlName="gender"> Other </div>
-                </div>
+                    </div>
             </div>
             <!-- Validation Messages -->
             <div *ngIf="submitted && addForm.controls.gender.errors">
                 <div class="text-danger" *ngIf="addForm.controls.gender.errors.required">
                     Gender is required ..!
                 </div>
-
+                
             </div>
             <!-- End of gender input field -->
 
@@ -179,7 +182,7 @@
             <div class="col-md-11">
                 <div class="input-group mb-3 input-field">
                     <span><img src="https://img.icons8.com/windows/64/000000/stack-exchange-answer.png"
-                            width=50 /></span>&nbsp;&nbsp;
+                        width=50 /></span>&nbsp;&nbsp;
                     <input type="text" formControlName="securityAnswer" placeholder="Security Answer">
                 </div>
                 <!-- Validation Messages -->
@@ -190,17 +193,18 @@
 
                 </div>
             </div>
-
+            
             <!-- End of Security answer field -->
             <div>
                 <button class="signupButton" (click)="addMerchant()">Add Merchant</button> &nbsp; &nbsp;
-
+                
             </div>
         </form>
 
-
+        
     </div>
     <div class="col-md-1">
-        <img src="../../../assets/merchant.png">
+        <img src="../../../assets/merchant.png" class="image">
     </div>
+</div>
 </div>
