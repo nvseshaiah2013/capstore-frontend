@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { Subscription } from 'rxjs';
+declare var $:any;
 
 @Component({
   selector: 'app-orders',
@@ -30,7 +31,10 @@ export class OrdersComponent implements OnInit {
     }
 
     alert("updated..!!");
-    $('#exampleModalCenter').modal('toggle');
+    $(document).ready(function(){
+      $('#exampleModalCenter').modal('toggle');
+
+    })
     this.router.navigate(['admin/orders']);
   }
 }
