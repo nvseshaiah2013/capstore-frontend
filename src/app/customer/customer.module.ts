@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -10,8 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
-    CustomerRoutingModule,
-    FontAwesomeModule
+    CustomerRoutingModule
   ]
 })
 export class CustomerModule { }

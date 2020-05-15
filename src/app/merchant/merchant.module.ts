@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MerchantRoutingModule } from './merchant-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
+import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, InventoryComponent, OrdersComponent],
+  declarations: [DashboardComponent, InventoryComponent, OrdersComponent, MerchantHomeComponent, MerchantStatisticsComponent],
   imports: [
     CommonModule,
-    MerchantRoutingModule,
-    FontAwesomeModule
-  ]
+    MerchantRoutingModule]
 })
 export class MerchantModule { }

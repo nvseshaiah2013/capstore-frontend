@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-statistics',
-  templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  selector: 'app-merchant-statistics',
+  templateUrl: './merchant-statistics.component.html',
+  styleUrls: ['./merchant-statistics.component.css']
 })
-export class StatisticsComponent implements OnInit {
+export class MerchantStatisticsComponent implements OnInit {
 
   chart = [];
   date=["Day1","Day2","Day3","Day4","Day5","Day6","Day7"];
