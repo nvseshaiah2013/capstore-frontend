@@ -7,6 +7,7 @@ import { ViewCustomersComponent } from './view-customers/view-customers.componen
 import { OrdersComponent } from './orders/orders.component';
 import { CategoryComponent } from './category/category.component';
 import { MinimumOrderValueComponent } from './minimum-order-value/minimum-order-value.component';
+import { InviteMerchantComponent } from './invite-merchant/invite-merchant.component';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'viewCustomers',component:ViewCustomersComponent},
   {path:'minOrderValue',component:MinimumOrderValueComponent},
   {path:'category',component:CategoryComponent},
+  {path:'send-invite',component:InviteMerchantComponent},
   { path :'**' , component: AdminHomeComponent }
   ]}
 ];
