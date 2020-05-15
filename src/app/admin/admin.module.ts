@@ -17,15 +17,34 @@ import { MerchantOrdersComponent } from './merchant-orders/merchant-orders.compo
 import { MerchantFeedbacksComponent } from './merchant-feedbacks/merchant-feedbacks.component';
 import { MerchantProductsComponent } from './merchant-products/merchant-products.component';
 import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
+import { HttpClientModule} from '@angular/common/http';
+import { InvitesComponent } from './invites/invites.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, AdminHomeComponent, StatisticsComponent, OrdersComponent,ViewCustomersComponent, CategoryComponent, MinimumOrderValueComponent, AllMerchantComponent, InviteMerchantComponent, MerchantOrdersComponent, MerchantFeedbacksComponent, MerchantProductsComponent, AllFeedbacksComponent,AddMerchantComponent],
+  declarations: [
+    DashboardComponent, 
+    AdminHomeComponent, 
+    StatisticsComponent, 
+    OrdersComponent,
+    ViewCustomersComponent, 
+    CategoryComponent, 
+    MinimumOrderValueComponent, 
+    AllMerchantComponent, 
+    InviteMerchantComponent, 
+    MerchantOrdersComponent, 
+    MerchantFeedbacksComponent, 
+    MerchantProductsComponent, 
+    AllFeedbacksComponent,
+    AddMerchantComponent,
+    InvitesComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }

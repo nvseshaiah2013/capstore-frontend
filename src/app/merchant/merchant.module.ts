@@ -10,7 +10,12 @@ import { MerchantStatisticsComponent } from './merchant-statistics/merchant-stat
 
 
 @NgModule({
-  declarations: [DashboardComponent, InventoryComponent, OrdersComponent, MerchantHomeComponent, MerchantStatisticsComponent],
+  declarations: [
+    DashboardComponent, 
+    InventoryComponent, 
+    OrdersComponent, 
+    MerchantHomeComponent, 
+    MerchantStatisticsComponent],
   imports: [
     CommonModule,
     MerchantRoutingModule]
