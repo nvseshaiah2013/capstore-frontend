@@ -10,10 +10,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ViewCustomersComponent } from './view-customers/view-customers.component';
 import { CategoryComponent } from './category/category.component';
 import { MinimumOrderValueComponent } from './minimum-order-value/minimum-order-value.component';
+import { AddMerchantComponent } from './add-merchant/add-merchant.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, AdminHomeComponent, StatisticsComponent, OrdersComponent,ViewCustomersComponent, CategoryComponent, MinimumOrderValueComponent],
+  declarations: [DashboardComponent, AdminHomeComponent, StatisticsComponent, OrdersComponent,ViewCustomersComponent, CategoryComponent, MinimumOrderValueComponent, AddMerchantComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
