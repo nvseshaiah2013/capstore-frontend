@@ -17,6 +17,7 @@ import { MerchantOrdersComponent } from './merchant-orders/merchant-orders.compo
 import { MerchantFeedbacksComponent } from './merchant-feedbacks/merchant-feedbacks.component';
 import { MerchantProductsComponent } from './merchant-products/merchant-products.component';
 import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }
