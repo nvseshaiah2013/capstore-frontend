@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Merchant } from '../models/merchant.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Invitation } from '../models/invitation.model';
 
 @Injectable({
@@ -30,4 +30,13 @@ export class InviteService {
     return this.http.get<Merchant[]>('http://localhost:8080/merchants/all');
   }
 
+  getMerchantOrderCount(username:string){
+    let params = new HttpParams().set('username',username);
+    return this.http.get<number>('http://localhost:8080/admin/orderCount',{params:params});
+  }
+
+  getMerchantProductCount(username:string){
+    let params = new HttpParams().set('username',username);
+    return this.http.get<number>('http://localhost:8080/admin/productCount',{params:params});
+  }
 }
