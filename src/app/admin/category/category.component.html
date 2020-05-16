@@ -4,10 +4,10 @@
         <form [formGroup]="addCategoryForm">
             <div class="inputField">
                 <span><img src="./../../../assets/categoryIcon.png"  width=50 /></span>
-                <input type="text" class="categoryInput" formControlName="category" placeholder="Enter Category">
+                <input type="text" class="categoryInput" formControlName="name" placeholder="Enter Category">
             </div>
-            <div *ngIf="submitted && addCategoryForm.controls.category.errors">
-                <div class="text-danger" *ngIf="addCategoryForm.controls.category.errors.required" style="margin-left: 5%;">
+            <div *ngIf="submitted && addCategoryForm.controls.name.errors">
+                <div class="text-danger" *ngIf="addCategoryForm.controls.name.errors.required" style="margin-left: 5%;">
                     <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Category ..!</h4>
                 </div>
             </div>
@@ -22,19 +22,20 @@
                     <th>Category Id</th>
                     <th>Category Name</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Sub Category</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let i of pp">
-                    <!-- <tr *ngFor="let category of categories"> -->
-                    <td>101</td>
-                    <td>Electronic Appliances</td>
-                    <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>
+                <tr *ngFor="let category of categories">
+                    <td>{{category.id}}</td>
+                    <td>{{category.name}}</td>
+                    <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" (click)=editButton(category.name) data-target="#exampleModal">Edit</button>
                     </td>
-                    <td><button class="btn btn-outline-danger" (click)="deleteCategory()">Delete</button></td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" (click)=changeCategoryName(category.name) data-target="#exampleModalCenter" (click)="getSubCategory(category.id)">
+                        View Sub Category
+                      </button>
+                    </td>
                 </tr>
-
             </tbody>
         </table>
         <!-- Modal -->
@@ -51,11 +52,11 @@
                         <form [formGroup]="updateCategoryForm">
                             <div class="inputField">
                                 <span><img src="./../../../assets/categoryIcon.png"  width=50 /></span>
-                                <input type="text" class="categoryInput" formControlName="category" placeholder="Enter Category">
+                                <input type="text" class="categoryInput" formControlName="name" placeholder="Enter Category">
                             </div>
 
-                            <div *ngIf="submitted2 && updateCategoryForm.controls.category.errors">
-                                <div class="text-danger" *ngIf="updateCategoryForm.controls.category.errors.required" style="margin-left: 5%;">
+                            <div *ngIf="submitted2 && updateCategoryForm.controls.name.errors">
+                                <div class="text-danger" *ngIf="updateCategoryForm.controls.name.errors.required" style="margin-left: 5%;">
                                     <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Category ..!</h4>
                                 </div>
                             </div>
@@ -69,6 +70,53 @@
             </div>
         </div>
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{categoryName}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-responsive table-hover text-bold">
+                            <thead style="background-color: #807191;">
+                                <tr>
+                                    <th>Category Id</th>
+                                    <th>Category Name</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subCategory of subCategories">
+                                    <td>{{subCategory.id}}</td>
+                                    <td>{{subCategory.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-left:5%">
+                        <form [formGroup]="addSubCategoryForm">
+                            <div class="inputField">
+                                <span><img src="./../../../assets/categoryIcon.png"  width=50 /></span>
+                                <input type="text" class="categoryInput" formControlName="name" placeholder="Enter Category">
+                            </div>
+                            <div *ngIf="submitted3 && addSubCategoryForm.controls.name.errors">
+                                <div class="text-danger" *ngIf="addSubCategoryForm.controls.name.errors.required">
+                                    <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Sub Category ..!</h4>
+                                </div>
+                            </div>
+                            <button class="btn btn-success" style="width:30%;margin-top:2% ;margin-left:50%;margin-bottom:2%" (click)="addSubCategory()">Add</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

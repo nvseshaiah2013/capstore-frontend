@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-view-customers',
@@ -9,39 +10,38 @@ export class ViewCustomersComponent implements OnInit {
 
   searchText:string;
   view:boolean=true;
-  pp=[];
-  cc=[];
+  addresses:any;
+  name:string;
   customers:any;
-  constructor() { }
+  constructor(private service:AdminService) {
+    this.service.getListOfCustomers().subscribe(data=>
+      {
+        this.customers=data
+        console.log(data)
+      })
+      
+   }
 
   ngOnInit() {
-    this.cc.push(1);
-    this.cc.push(2);
-    this.pp.push(1);
-    this.pp.push(1);
-    this.pp.push(2);
-    this.pp.push(3);
-    this.pp.push(4);
-    this.pp.push(2);
-    this.pp.push(3);
-    this.pp.push(4);
+    
+    
   }
   toggleViewList(){
     this.view=false;
-    console.log(this.view)
   }
   toggleViewCard()
   {
     this.view=true;
-    console.log(this.view)
   }
-  deleteCustomer()
+  
+  viewAddress(username:string,name:string)
   {
-    console.log("customerUsername");
-  }
-  viewAddress()
-  {
-    console.log("Address")
+    this.name=name
+    this.service.getAddressByUsername(username).subscribe(data=>
+      {
+        console.log(data)
+        this.addresses=data
+      })
   }
   deleteAddress()
   {
