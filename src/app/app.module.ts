@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchCustomerPipe } from './pipe/search-customer.pipe';
 
+
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -19,6 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponent,
     SearchCustomerPipe,
     ServerErrorComponent
+
+    SearchCustomerPipe
+
   ],
   imports: [
     BrowserModule,

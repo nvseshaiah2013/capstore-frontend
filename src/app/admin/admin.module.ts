@@ -10,6 +10,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ViewCustomersComponent } from './view-customers/view-customers.component';
 import { CategoryComponent } from './category/category.component';
 import { MinimumOrderValueComponent } from './minimum-order-value/minimum-order-value.component';
+
 import { AddMerchantComponent } from './add-merchant/add-merchant.component';
 import { AllMerchantComponent } from './all-merchant/all-merchant.component';
 import { InviteMerchantComponent } from './invite-merchant/invite-merchant.component';
@@ -46,6 +47,7 @@ import { InvitesComponent } from './invites/invites.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
+
   ]
 })
 export class AdminModule { }
