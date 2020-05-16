@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { AdminService } from '../services/admin.service';
-import { Orders } from '../models/order.model';
+import { Orders } from '../../models/order.model';
 declare var $:any;
 
 @Component({

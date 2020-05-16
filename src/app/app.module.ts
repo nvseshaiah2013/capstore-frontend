@@ -11,6 +11,7 @@ import { SearchCustomerPipe } from './pipe/search-customer.pipe';
 
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

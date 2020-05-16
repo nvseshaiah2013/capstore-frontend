@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Merchant } from '../models/merchant.model';
+import { Merchant } from '../../models/merchant.model';
 import { HttpClient } from '@angular/common/http';
-import { Invitation } from '../models/invitation.model';
+import { Invitation } from '../../models/invitation.model';
 
 @Injectable({
   providedIn: 'root'

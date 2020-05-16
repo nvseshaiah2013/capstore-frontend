@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InviteService } from '../services/invite.service';
-import { Merchant } from '../models/merchant.model';
+import { Merchant } from '../../models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
