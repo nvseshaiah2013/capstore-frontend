@@ -16,16 +16,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let order of orders,let i=index">
                     <th scope="row">1</th>
+                    <td>{{order.orderId}}</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><button data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-sm btn-outline-info">Update</button></td>
+                    <td></td>
+                    <td>{{order.orderDate}}</td>
+                    <td>{{order.orderAmount}}</td>
+                    <td>{{order.orderStatus}}</td>
+                    <td><button data-toggle="modal" data-target="#exampleModalCenter" (click)="getIndex(i)" class="btn btn-sm btn-outline-info">Update</button></td>
                 </tr>
             </tbody>
         </table>
