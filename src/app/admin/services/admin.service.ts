@@ -22,6 +22,6 @@ export class AdminService {
   }
 
   updateOrderStatus(orderId:number,status:string){
-    return this.http.get(this.url+"/orders/"+orderId+"/"+status);
+    return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
   }
 }
