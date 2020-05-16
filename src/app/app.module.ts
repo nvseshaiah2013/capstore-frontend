@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { SearchCustomerPipe } from './pipe/search-customer.pipe';
+
 
 
 import { ServerErrorComponent } from './server-error/server-error.component';
@@ -18,10 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    SearchCustomerPipe,
-    ServerErrorComponent,
-
-    SearchCustomerPipe
+    ServerErrorComponent
 
   ],
   imports: [
