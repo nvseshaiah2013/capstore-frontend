@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     NotFoundComponent,
     SearchCustomerPipe,
-    ServerErrorComponent
+    ServerErrorComponent,
 
     SearchCustomerPipe
 
