@@ -31,8 +31,13 @@ export class AdminService {
     return this.http.get<Merchant[]>(this.url + "/topRatedMerchants");
   }
 
+<<<<<<< HEAD
   getAllOrders() {
     return this.http.get<Orders[]>(this.url + "/orders");
+=======
+  updateOrderStatus(orderId:number,status:string){
+    return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
+>>>>>>> ankit
   }
 
   updateOrderStatus(orderId: number, status: string) {
