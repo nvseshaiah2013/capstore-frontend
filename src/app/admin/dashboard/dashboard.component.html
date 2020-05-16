@@ -2,7 +2,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/admin" style="background-color: #524361;">
         <i class="fas fa-shopping-cart"></i> &nbsp;Capstore Admin
     </a>
-    <input class="form-control form-control w-25" type="text" placeholder="Search" aria-label="Search">
+    <!-- <input class="form-control form-control w-25" type="text" placeholder="Search" aria-label="Search"> -->
     <!-- <div class="text-white">{{todaysDate | date: 'medium'}}</div> -->
     <ul class="navbar-nav px-3">
         <li class="nav-item">
@@ -26,11 +26,14 @@
                             <i class="fa fa-users" aria-hidden="true"></i>&nbsp; Merchant
                         </a>
                         <span class="collapse" id="merchantInventory">
-                            <a class="nav-link main ml-4" href="#">
+                            <a class="nav-link main ml-4" routerLink="all-merchant">
                                 - View all Merchants
                             </a>
-                            <a class="nav-link main ml-4" href="#">
+                            <a class="nav-link main ml-4" routerLink="addMerchant">
                                 - Add new Merchant
+                            </a>
+                            <a class="nav-link main ml-4" routerLink="invites">
+                                - View Invites
                             </a>
                         </span>
                     </li>
@@ -44,7 +47,9 @@
                                 - View all Customers
                             </a>
                             <a class="nav-link main ml-4" routerLink="minOrderValue">
-                                - Set Minimum Order <span style="margin-left: 6%;">Value</span>
+
+                                - Set Minimum Order Value
+
                         </a>
                         </span>
                     </li>
