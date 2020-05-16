@@ -20,6 +20,7 @@ export class StatisticsComponent implements OnInit {
   categoryOrders = [5, 2, 7, 8,];
   males: number = 0;
   females: number = 0;
+  others:number=0;
   customers: customer[];
 
   constructor(private adminService: AdminService) { }
@@ -30,23 +31,26 @@ export class StatisticsComponent implements OnInit {
       this.customers = data;
       for (let i = 0; i < this.customers.length; i++) {
         console.log(this.customers[i].gender)
-        if (this.customers[i].gender == 'M') {
-          this.males = this.males + 1;
+        if (this.customers[i].gender == 'Male') {
+          this.males += 1;
         }
-        else {
+        else if (this.customers[i].gender == 'Female') {
           this.females += 1;
+        }
+        else{
+          this.others+=1;
         }
       }
       this.chart = new Chart('genderChart', {
         type: 'doughnut',
         data: {
-          labels: ['Male', 'Female'],
+          labels: ['Male', 'Female','Others'],
           datasets: [
             {
               label: 'Gender wise Customer',
-              backgroundColor: ['orange', 'green'],
-              borderColor: ['orange', 'green'],
-              data: [this.males, this.females],
+              backgroundColor: ['#FF8153', '#66bb6a','#FFEA88'],
+              borderColor: ['#FF8153', '#66bb6a','#FFEA88'],
+              data: [this.males,this.females,this.others],
               fill: true,
             }
           ]

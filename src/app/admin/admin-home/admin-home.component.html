@@ -34,7 +34,7 @@
                 <div class="card-counter primary">
                     <i class="fas fa-user-friends"></i>
                     <span class="count-numbers"><a routerLink="/admin/stats" class="text-white"
-                            style="text-decoration: none;">15</a></span>
+                            style="text-decoration: none;">{{customerCount}}</a></span>
                     <span class="count-name"> Active Customers : </span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="card-counter info">
                     <i class="fa fa-users" aria-hidden="true"></i>
                     <span class="count-numbers"><a routerLink="/admin/stats" class="text-white"
-                            style="text-decoration: none;">3</a></span>
+                            style="text-decoration: none;">{{merchantCount}}</a></span>
                     <span class="count-name">Active Merchants : </span>
                 </div>
             </div>
@@ -92,29 +92,19 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Rating</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
+                    <tr *ngFor="let m of topRatedMerchants;let i=index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{m.username}}</td>
+                        <td>{{m.phoneNo}}</td>
+                        <td>{{m.alternateEmail}}</td>
+                        <td>{{m.rating}}</td>
                     </tr>
                 </tbody>
             </table>
