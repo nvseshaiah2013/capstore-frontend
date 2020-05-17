@@ -57,9 +57,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let t of trendingProducts;let i=index">
-                        <th scope="row">{{i+1}}</th>
-                        <td>{{t.productName}}</td>
-                        <td>{{t.productBrand}}</td>
+                        <td>{{i+1}}</td>
+                        <td>
+                            <a href="" (click)="getProductById(t.productId)" data-toggle="modal" data-target="#productModal">
+                                {{t.productName}}
+                            </a>
+                        </td>
+                        <td>{{t.productBrand}}</td> 
                         <td>{{t.productPrice|currency:'INR'}}</td>
                     </tr>
                 </tbody>
@@ -79,7 +83,11 @@
                 <tbody>
                     <tr *ngFor="let m of topRatedMerchants;let i=index">
                         <th scope="row">{{i+1}}</th>
-                        <td>{{m.username}}</td>
+                        <td>
+                            <a href="" (click)="getMerchantByUsername(m.username)" data-toggle="modal" data-target="#merchantModal">
+                                {{m.username}}
+                            </a>
+                        </td>
                         <td>{{m.phoneNo}}</td>
                         <td>{{m.alternateEmail}}</td>
                     </tr>
@@ -119,3 +127,63 @@
         </div>
     </div>
 </div>
+
+
+<!-- Product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{prod.productName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row container-fluid">
+                <div class="col-lg-4">
+                    <img src="/assets/images/{{prod.productId}}.jpg" height="600px" width="200px" class="img-fluid">
+                </div>
+                <div class="col-lg-8">
+                    <b>Price : </b>{{prod.productPrice|currency:'INR'}}<br>
+                    <b>Discount : </b>{{prod.discount}}%<br>
+                    <b>Rating : </b><span class="text-warning fas fa-star" *ngFor="let i of counter(prod.productRating)"></span><br>
+                    <b>Description : </b>{{prod.productInfo}}<br>
+                    <b>Views : </b>{{prod.noOfViews}}<br>
+                    <b>Stocks Available : </b>{{prod.noOfProducts}}
+                    <!-- <h5>Merchant : </h5>{{prod.merchant.username}} -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Merchant Modal -->
+<div class="modal fade" id="merchantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{merchant.username}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <b>Name : </b>{{merchant.name}}<br>
+            <b>Phone : </b>{{merchant.phoneNo}}<br>
+            <b>Alternate Phone : </b>{{merchant.alternatePhoneNo}}<br>
+            <b>EmailId : </b>{{merchant.alternateEmail}}<br>
+            <b>Rating : </b><span class="text-warning fas fa-star" *ngFor="let i of counter(merchant.rating)"></span><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

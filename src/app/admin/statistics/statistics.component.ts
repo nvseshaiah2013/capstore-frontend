@@ -17,17 +17,25 @@ export class StatisticsComponent implements OnInit {
   recentRevenues;
   recentOrdersCount;
   category = ['Clothes', 'Home', 'FootWear', 'Electronics']
-  categoryOrders = [1, 2, 7, 8,];
-  males: number = 0;
-  females: number = 0;
+  categoryOrders = [1, 6, 7, 8];
+  males: number = 1;
+  females: number = 1;
   others: number = 1;
   customers: Customer[];
   orders: Orders[];
 
   constructor(private adminService: AdminService) {
-    for (let i = 0; i < 7; i++) {
-      this.date.push(new Date().getDate() - i + "/" + new Date().getMonth() + "/" + new Date().getUTCFullYear());
-    }
+    // for (let i = 0; i < 7; i++) {
+    //   this.date.push(new Date().getDate() - i + "/" + new Date().getMonth() + "/" + new Date().getUTCFullYear());
+    // }
+    this.date.push("17/05/20");
+    this.date.push("16/05/20");
+    this.date.push("15/05/20");
+    this.date.push("14/05/20");
+    this.date.push("13/05/20");
+    this.date.push("12/05/20");
+    this.date.push("11/05/20");
+    
   }
 
   ngOnInit() {
@@ -135,7 +143,5 @@ export class StatisticsComponent implements OnInit {
         }
       })
     })
-
-
   }
 }

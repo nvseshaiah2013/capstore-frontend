@@ -103,6 +103,14 @@ export class AdminService {
     return this.http.get(this.url+"/recentOrdersCount");
   }
 
+  getProductById(prodId:number){
+    return this.http.get<Product>(this.url+"/getProduct/"+prodId);
+  }
+
+  getMerchantByUsername(username:string){
+    return this.http.get<Merchant>(this.url+"/getMerchant/"+username);
+  }
+
 }
 
 

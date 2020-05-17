@@ -19,6 +19,8 @@ export class AdminHomeComponent implements OnInit {
   recentOrders:Orders[];
   todayProductSales;
   todayRevenue;
+  prod:Product=new Product();
+  merchant:Merchant=new Merchant();
 
   constructor(private adminService:AdminService,private datepipe:DatePipe) { }
 
@@ -51,6 +53,22 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.getRecentOrders().subscribe(data=>{
       this.recentOrders=data;
     })
+  }
+
+  getProductById(prodId:number){
+    this.adminService.getProductById(prodId).subscribe(data=>{
+      this.prod=data;
+    });
+  }
+
+  getMerchantByUsername(username:string){
+    this.adminService.getMerchantByUsername(username).subscribe(data=>{
+      this.merchant=data;
+    })
+  }
+
+  counter(i:number){
+    return new Array(i);
   }
 
 }
