@@ -7,6 +7,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -20,6 +21,8 @@ import { MerchantStatisticsComponent } from './merchant-statistics/merchant-stat
 
   imports: [
     CommonModule,
-    MerchantRoutingModule]
+    MerchantRoutingModule,
+    HttpClientModule
+  ]
 })
 export class MerchantModule { }
