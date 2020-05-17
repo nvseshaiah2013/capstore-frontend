@@ -23,6 +23,5 @@ export class InviteMerchantComponent implements OnInit {
   }
   messageEvent(){
     this.messageLength = this.invitation.controls['message'].value.length;
-    console.log('ff')
   }
 }
