@@ -82,3 +82,12 @@
     transform: translateY(0px);
   }
 }
+
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+ }
+
+ a {
+  color: black;
+}
