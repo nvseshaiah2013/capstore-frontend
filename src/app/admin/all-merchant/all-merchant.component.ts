@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { InviteService } from '../services/invite.service';
 import { Merchant } from '../../models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MerchantFeedService } from '../services/merchant-feed.service';
 declare var $:any;
 
 @Component({
@@ -17,7 +18,7 @@ export class AllMerchantComponent implements OnInit {
   directMerchants:number = 0;
   indirectMerchants:number = 0;
   totalMerchants : number = 0;
-  constructor(private router:Router,private inviteService:InviteService) { }
+  constructor(private router:Router,private inviteService:InviteService,private merchantService:MerchantFeedService) { }
   ngOnInit() {
     this.inviteService.getMerchants().subscribe(merchants=>{
       this.merchants = merchants;
@@ -80,9 +81,34 @@ export class AllMerchantComponent implements OnInit {
 
   chooseAction(event:any,merchant:Merchant){
     let value = event.target.value;
+    this.inviteService.setMerchant(merchant);
     if(value == 'invite'){
-      this.inviteService.setMerchant(merchant);
       this.router.navigate(['admin','send-invite'])
     }
+    if(value == 'products'){
+      this.router.navigate(['admin','merchant-products'])
+    }
+    if (value == 'orders') {
+      this.router.navigate(['admin','merchant-orders'])
+    }
+    if (value == 'feedbacks') {
+      this.router.navigate(['admin', 'merchant-feedbacks'])
+    }
+  }
+
+  confirmMerchantActivate(){
+    this.merchantService.activateMerchant(this.merchant.username).subscribe(response=>{
+      $('#activateModal').modal('hide');
+    },err=>{
+        $('#activateModal').modal('hide');
+    })
+  }
+  confirmMerchantDeactivate() {
+    this.merchantService.deActivateMerchant(this.merchant.username).subscribe(response=>{
+      $('#deleteModal').modal('hide');
+    },err=>{
+        $('#activateModal').modal('hide');
+    })
+
   }
 }

@@ -1,6 +1,6 @@
 <div class="animated">
 
-    <span *ngIf="merchant"></span>{{ merchant | json }}
+    
     <div class="my-5">
         <div class="container-fluid">
             <div class="row border">
@@ -19,9 +19,10 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <p>
+                                <span class="lead">Rating: </span>
                                 <span class="fas fa-star text-warning ml-1" *ngFor="let i of counter(merchant.rating)"></span>
                             </p>
-                            <button class="btn btn-info btn-xl mt-5 ml-5" (click)="viewMerchant()"> View Merchant <i class="fas fa-address"></i> </button>
+                            <button class="btn btn-info btn-xl mt-2 ml-1" (click)="viewMerchant()"> View Merchant <i class="fas fa-address"></i> </button>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
             <hr>
             <div class="row">
                 <div class="offset-md-6 col-4 col-md-2">
-                    <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products </a>
+                    <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products <i class="fas fa-store-alt"></i> </a>
                 </div>
                 <div class="col-4 col-md-2">
                     <a routerLink="/admin/merchant-feedbacks" class="btn btn-outline-danger px-3">

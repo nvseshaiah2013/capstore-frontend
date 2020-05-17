@@ -1,1 +1,380 @@
-<p>merchant-orders works!</p>
+<div class="animated">
+    <div class="my-5">
+        <div class="container-fluid">
+            <div class="row border">
+                <div class="col-12 col-md-8 offset-md-2">
+                    <div class="row p-2">
+                        <div class="col-md-6 col-12">
+                            <p class="text-muted">
+                                Merchant Name {{ merchant.name }}
+                            </p>
+                            <p class="text-muted">
+                                Total Products {{ totalProducts }}
+                            </p>
+                            <p class="text-muted">
+                                Total Orders {{ totalOrders }}
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <p>
+                                <span class="lead">Rating: </span>
+                                <span class="fas fa-star text-warning ml-1"
+                                    *ngFor="let i of counter(merchant.rating)"></span>
+                            </p>
+                            <button class="btn btn-info btn-xl mt-2 ml-1" (click)="viewMerchant()"> View Merchant <i
+                                    class="fas fa-address"></i> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="offset-md-6 col-4 col-md-2">
+                    <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products <i class="fas fa-store-alt"></i></a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a routerLink="/admin/merchant-feedbacks" class="btn btn-outline-danger px-3">
+
+                        Feedbacks <i class="fas fa-comments"></i>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a routerLink="/admin/merchant-orders" class="btn btn-outline-warning px-3">
+                        Orders <i class="fas fa-people-carry"></i>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h3 class="col-12 col-md-10 offset-md-1 text-center header">
+                        Merchant Orders <i class="fas fa-people-carry"></i>
+                </h3>
+            </div>
+            <div class="col-12 col-md-10 offset-md-1" *ngIf="orders.length == 0">
+                <p class="lead text-center">Oh I See! This merchant has'nt got any orders Yet.</p>
+                <p class="text-muted text-center"> Lets hope for the best for this merchant </p>
+            </div>
+            <div *ngIf="orders.length != 0">
+
+                <div class="col-12 col-md-10 offset-md-1 left-border" *ngFor="let order of orders;">
+                    <div class="row border p-2">
+                        <div class="col-12 col-md-6">
+                            <p>
+
+                                <span class="lead">Order Id : 
+                                    
+                                </span>
+                                <span class="text-muted">{{ order.orderId }}
+                                    
+                                </span>
+                            </p>
+                            <p>
+
+                                <span class="lead">
+                                    Order Amount :
+                                </span>
+                                <span class="text-muted">
+                                    {{ order.orderAmount | currency :'INR'}}
+                                </span>
+                            </p>
+                            <p>
+
+                                <span class="lead">
+                                    Date Of Order : 
+                                </span>
+                                <span class="text-muted">
+                                    {{ order.orderDate | date:'mediumDate'}}
+                                </span>
+                            </p>
+                            <p>
+
+                                <span class="lead">
+                                    Order Status : 
+                                </span>
+                                <span class="text-muted">
+                                    {{ order.orderStatus }}
+                                </span>
+                            </p>
+                            <p>
+
+                                <span class="lead">
+                                    Last Updated : 
+                                </span>
+                                <span class="text-muted">
+                                    {{ order.statusDate | date:'fullDate'}}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="lead" *ngIf="order.transaction.coupon == null">
+                                Coupon Applied : No
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-info" (click)="viewCoupon(order.transaction.coupon)"> View Applied Coupon </button>
+                            </p>
+                            <p>
+                               <button type="button" class="btn btn-success" (click)="viewAddress(order.address)"> View Address </button>
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-primary" (click)="viewCustomer(order.customer)"> View Customer </button>
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-danger" (click)="viewProduct(order.product)"> View Product </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="merchantModal" tabindex="-1" role="dialog" aria-labelledby="merchantModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="merchantModalLabel"> Merchant Info </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="merchant">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username :
+                    </span>
+                    {{ merchant.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Name :
+                    </span>
+                    {{merchant.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Phone No :
+                    </span>
+                    {{merchant.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Gender :
+                    </span>
+                    {{merchant.gender}}
+                    <i class="fas fa-mars" *ngIf="merchant.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="merchant.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="merchant.gender == 'Other'"></i>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Third Party Merchant :
+                    </span>
+                    <span *ngIf="merchant.thirdParty"> Yeah! I am a third Party Merchant.</span>
+                    <span *ngIf="!merchant.thirdParty"> No! I am not.</span>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Rating :
+                    </span>
+                    <i class="fas fa-star text-warning" *ngFor="let i of counter(merchant.rating);">
+
+                    </i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="product">
+                <p>
+                    <span class="lead text-center font-weight-bold">{{ product.productName }} </span>
+                </p>
+                <p>
+                    <span class="lead mt-3">Brand : </span>
+                    <span class="text-muted">{{ product.productBrand }}</span>
+                </p>
+                <p>
+                    <span class="lead"> Price: </span>
+                    <span class="text-muted">{{ product.productPrice | currency :'INR'}}</span>
+                </p>
+                <p>
+                    <span class="lead">Views : </span>
+                    <span class="text-muted"> {{ product.noOfViews}} <i class="fas fa-eye"></i></span>
+                </p>
+                <p>
+                    <span class="lead">Discount : </span>
+                    <span class="text-muted"> {{ product.discount | currency :'INR'}}</span>
+                </p>
+                <p>
+                    <span class="lead">Rating: </span>
+                    <span class="fas fa-star text-warning" *ngFor="let i of counter(product.rating);"></span>
+                </p>
+                <p class="text-muted">
+                    {{ product.productInfo}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerModalLabel">Customer Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="customer">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username :
+                    </span>
+                    {{ customer.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+            
+                        Name :
+                    </span>
+                    {{customer.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+            
+                        Phone No :
+                    </span>
+                    {{customer.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+            
+                        Gender :
+                    </span>
+                    {{customer.gender}}
+                    <i class="fas fa-mars" *ngIf="customer.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="customer.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="customer.gender == 'Other'"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="couponModalLabel">Coupon Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="coupon">
+                <p>
+                    <span class="lead">Coupon Code : </span>
+                    <span class="text-muted"> {{coupon.couponCode}}</span>
+                </p>
+                <p>
+                    <span class="lead">Start Date : </span>
+                    <span class="text-muted"> {{coupon.couponStartDate | date:'mediumDate' }}</span>
+                </p>
+                <p>
+                    <span class="lead">End Date : </span>
+                    <span class="text-muted"> {{coupon.couponEndDate | date:'mediumDate'}}</span>
+                </p>
+                <p>
+                    <span class="lead">Amount : </span>
+                    <span class="text-muted">{{ coupon.couponAmount | currency :'INR'}}</span>
+                </p>
+                <p>
+                    <span class="lead"> Min Applicable Amount </span>
+                    <span class="text-muted"> {{ coupon.minOrderAmount }}</span>
+                </p>
+                <p>
+                    <span class="lead">Info : </span>
+                    <span class="text-muted">{{coupon.couponDesc}}</span>
+                </p>
+                <p>
+                    <span class="lead">Issuer : </span>
+                    <span class="text-muted">{{coupon.issuedBy}}</span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Delivery Address Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="address">
+                <p>
+                    <span class="lead">Address Id : </span>
+                    <span class="text-muted">{{ address.addressId}}</span>
+                </p>
+                <p>
+                    <span class="lead"> Line One : </span>
+                    <span class="text-muted"> {{ address.addressLineOne }}</span>
+                </p>
+                <p>
+                    <span class="lead"> Line Two </span>
+                    <span class="text-muted"> {{ address.addressLineTwo }}</span>
+                </p>
+                <p>
+                    <span class="lead"> District</span>
+                    <span class="text-muted"> {{ address.district}}</span>
+                </p>
+                <p>
+                    <span class="lead">State </span>
+                    <span class="text-muted"> {{ address.state}}</span>
+                </p>
+                <p>
+                    <span class="lead">LandMark </span>
+                    <span class="text-muted">{{address.landmark}}</span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
