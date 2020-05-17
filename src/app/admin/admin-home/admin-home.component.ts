@@ -3,6 +3,7 @@ import { AdminService } from '../services/admin.service';
 import { Merchant } from '../../models/merchant.model';
 import { Orders } from '../../models/order.model';
 import { DatePipe } from '@angular/common';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-admin-home',
@@ -13,15 +14,23 @@ export class AdminHomeComponent implements OnInit {
 
   customerCount;
   merchantCount;
+  trendingProducts:Product[];
   topRatedMerchants:Merchant[];
   recentOrders:Orders[];
-  totalOrders:Orders[];
-  todayProductSales:number=0;
-  todayRevenue:number=0;
+  todayProductSales;
+  todayRevenue;
 
   constructor(private adminService:AdminService,private datepipe:DatePipe) { }
 
   ngOnInit() {
+
+    this.adminService.todayRevenue().subscribe(data=>{
+      this.todayRevenue=data;
+    })
+
+    this.adminService.todayProductSales().subscribe(data=>{
+      this.todayProductSales=data;
+    })
 
     this.adminService.getCountOfCustomers().subscribe(data=>{
       this.customerCount=data;
@@ -30,26 +39,18 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.getCountOfMerchants().subscribe(data=>{
       this.merchantCount=data;
     })
+
+    this.adminService.getTrendingProducts().subscribe(data=>{
+      this.trendingProducts=data;
+    })
     
     this.adminService.getTopRatedMerchants().subscribe(data=>{
       this.topRatedMerchants=data;
     })
 
-    this.adminService.getAllOrders().subscribe(data=>{
-      this.totalOrders=data;
-      this.recentOrders=data; //use slice here to show 3 recent orders
-      for(let i=0;i<this.totalOrders.length;i++){
-        if(this.datepipe.transform(this.totalOrders[i].orderDate, 'dd-MM-yyyy')==this.datepipe.transform(new Date(), 'dd-MM-yyyy')){
-          this.todayProductSales+=1;
-          this.todayRevenue+=this.totalOrders[i].orderAmount;
-        }
-      }
+    this.adminService.getRecentOrders().subscribe(data=>{
+      this.recentOrders=data;
     })
-
-    // this.adminService.getTodayProductSales().subscribe(data=>{
-    //   console.log(data);
-    // });
-
   }
 
 }

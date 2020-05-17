@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category.model';
 import { Address } from 'src/app/models/address.model';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Orders } from 'src/app/models/order.model';
+import { Product } from 'src/app/models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +56,35 @@ export class AdminService {
   getAllOrders() {
     return this.http.get<Orders[]>(this.url + "/orders");
   }
+
   updateOrderStatus(orderId:number,status:string){
     return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
   }
+
+  getTrendingProducts(){
+    return this.http.get<Product[]>(this.url+"/trendingProducts");
+  }
+
+  todayRevenue() {
+    return this.http.get(this.url+"/todayRevenue");
+  }
+
+  todayProductSales() {
+    return this.http.get(this.url+"/todayProductSales");
+  }
+
+  getRecentOrders() {
+    return this.http.get<Orders[]>(this.url + "/recentOrders");
+  }
+
+  getRecentRevenues(){
+    return this.http.get(this.url+"/recentRevenues");
+  }
+
+  getRecentOrdersCount(){
+    return this.http.get(this.url+"/recentOrdersCount");
+  }
+
 }
 
 
