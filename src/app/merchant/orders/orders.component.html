@@ -22,10 +22,10 @@
                 <td>{{order.transaction.transactionMoney}}</td>
                 <td>{{order.orderStatus}}</td>
                 <td>
-                    <button class="btn btn-sm btn-outline-success">Accept</button>
+                    <button class="btn btn-sm btn-outline-success" (click)="acceptOrder(order.orderId)">Accept</button>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-outline-danger">Reject</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="rejectOrder(order.orderId)">Reject</button>
                 </td>
             </tr>
         </table>

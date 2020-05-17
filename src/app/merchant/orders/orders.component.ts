@@ -19,4 +19,12 @@ export class OrdersComponent implements OnInit {
       console.log(this.orders[0])
     }); 
   }
+
+  acceptOrder(orderId : string){
+    console.log(orderId);
+  }
+
+  rejectOrder(orderId : string){
+    console.log(orderId);
+  }
 }
