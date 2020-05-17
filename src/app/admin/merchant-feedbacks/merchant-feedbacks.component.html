@@ -1,1 +1,188 @@
-<p>merchant-feedbacks works!</p>
+<div class="animated">
+    <div class="my-5">
+        <div class="container">
+            <div class="row border">
+                <div class="col-12 col-md-8 offset-md-2">
+                    <div class="row p-2">
+                        <div class="col-md-6 col-12">
+                            <p class="text-muted">
+                                Merchant Name {{ merchant.name }}
+                            </p>
+                            <p class="text-muted">
+                                Total Products {{ totalProducts }}
+                            </p>
+                            <p class="text-muted">
+                                Total Orders {{ totalOrders }}
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <p>
+                                <span class="lead">Rating: </span>
+                                <span class="fas fa-star text-warning ml-1"
+                                    *ngFor="let i of counter(merchant.rating)"></span>
+                            </p>
+                            <button class="btn btn-info btn-xl mt-2 ml-1" (click)="viewMerchant()"> View Merchant <i
+                                    class="fas fa-address-card"></i> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="offset-md-6 col-4 col-md-2">
+                    <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products <i class="fas fa-store-alt"></i></a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a routerLink="/admin/merchant-feedbacks" class="btn btn-outline-danger px-3">
+
+                        Feedbacks <i class="fas fa-comments"></i>
+                    </a>
+                </div>
+                <div class="col-4 col-md-2">
+                    <a routerLink="/admin/merchant-orders" class="btn btn-outline-warning px-3">
+                        Orders <i class="fas fa-people-carry"></i>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 header">
+                    <h3 class="lead font-weight-bold">
+                        <i class="fas fa-comments"></i>
+                        Common Feedbacks
+                    </h3>
+                </div>
+            </div>
+            <div class="col-12 col-md-10 offset-md-1" *ngIf="feedbacks.length == 0">
+                <p class="lead text-center">Oh I See! This merchant has'nt got any feedbacks Yet.</p>
+                <p class="text-muted text-center"> May be no one has any problems with quality of this merchant. </p>
+            </div>
+            <div class="row border p-md-2" *ngFor="let feedback of feedbacks;">
+                <div class="p-md-2 col-12 col-md-5 offset-md-1">
+                    <p class="lead hover-underline">{{ feedback.feedbackSubject}}</p>
+                    <p class="text-muted text-info">{{ feedback.feedbackMessage}}</p>
+                    <p class="text-muted ml-2" *ngIf="feedback.response"> <span> User Response : --</span>{{ feedback.response}}</p>
+                </div>
+                <div class="col-12 col-md-5 text-right">
+                    <p *ngIf="!feedback.enableRead"> <button class="btn btn-success"
+                            (click)="sendFeedbackToMerchant(feedback.feedbackId)"> Send To Merchant <i
+                                class="fas fa-reply"></i></button></p>
+                    <p *ngIf="feedback.enableRead" class="text-muted text-success font-weight-bold"> Feedback Sent To Merchant </p>
+                    
+                    <p> <button class="btn btn-primary" (click)="setCustomer(feedback)"> View Customer <i
+                                class="fas fa-user-check"></i></button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerModalLabel">Customer Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="customer">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username :
+                    </span>
+                    {{ customer.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Name :
+                    </span>
+                    {{customer.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Phone No :
+                    </span>
+                    {{customer.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Gender :
+                    </span>
+                    {{customer.gender}}
+                    <i class="fas fa-mars" *ngIf="customer.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="customer.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="customer.gender == 'Other'"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="merchantModal" tabindex="-1" role="dialog" aria-labelledby="merchantModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="merchantModalLabel"> Merchant Info </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="merchant">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username :
+                    </span>
+                    {{ merchant.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Name :
+                    </span>
+                    {{merchant.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Phone No :
+                    </span>
+                    {{merchant.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Gender :
+                    </span>
+                    {{merchant.gender}}
+                    <i class="fas fa-mars" *ngIf="merchant.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="merchant.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="merchant.gender == 'Other'"></i>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Third Party Merchant :
+                    </span>
+                    <span *ngIf="merchant.thirdParty"> Yeah! I am a third Party Merchant.</span>
+                    <span *ngIf="!merchant.thirdParty"> No! I am not.</span>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Rating :
+                    </span>
+                    <i class="fas fa-star text-warning" *ngFor="let i of counter(merchant.rating);">
+
+                    </i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -33,6 +33,10 @@
                 </h3>
             </div>
         </div>
+        <div class="col-12 col-md-10 offset-md-1" *ngIf="feedbacks.length == 0">
+            <p class="lead text-center">Oh I See! This merchant has'nt got any feedbacks Yet.</p>
+            <p class="text-muted text-center"> May be no one has any problems with quality of this merchant. </p>
+        </div>
         <div class="row border p-md-2" *ngFor="let feedback of feedbacks;">
             <div class="p-md-2 col-12 col-md-5 offset-md-1">
                 <p class="lead hover-underline">{{ feedback.feedbackSubject}}</p>
