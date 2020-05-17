@@ -11,7 +11,7 @@ import { Orders } from 'src/app/models/order.model';
 })
 export class AdminService {
 
-  url: string = "http://localhost:8083/admin";
+  url: string = "http://localhost:8080/admin";
 
   constructor(private http: HttpClient) { }
 
@@ -52,13 +52,8 @@ export class AdminService {
     return this.http.get<Merchant[]>(this.url + "/topRatedMerchants");
   }
 
-<<<<<<< HEAD
   getAllOrders() {
     return this.http.get<Orders[]>(this.url + "/orders");
-=======
-  updateOrderStatus(orderId:number,status:string){
-    return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
->>>>>>> ankit
   }
 
   updateOrderStatus(orderId: number, status: string) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AdminService } from '../services/admin.service';
-import { customer } from 'src/app/models/customer.model';
+import { Customer } from 'src/app/models/customer.model';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class StatisticsComponent implements OnInit {
   males: number = 0;
   females: number = 0;
   others:number=0;
-  customers: customer[];
+  customers: Customer[];
 
   constructor(private adminService: AdminService) { }
 

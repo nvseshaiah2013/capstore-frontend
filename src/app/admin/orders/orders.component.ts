@@ -2,13 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { AdminService } from '../services/admin.service';
-<<<<<<< HEAD
-import { Orders } from '../models/order.model';
-
-=======
 import { Orders } from '../../models/order.model';
-declare var $:any;
->>>>>>> 0084305d6d32570167215c224ec25025f9780f75
+
 
 @Component({
   selector: 'app-orders',
@@ -21,7 +16,7 @@ export class OrdersComponent implements OnInit {
   submitted:boolean=false;
   orders:Orders[];
   index:number;
-  message:string;
+  message:any;
   checkCoupon:boolean=true;
   error:string="";
   checkError:boolean=false;

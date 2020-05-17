@@ -1,5 +1,5 @@
-import { Orders } from './order.model';
-import { Coupon } from './Coupon';
+import { Orders } from '../models/order.model';
+import { Coupon } from '../admin/models/Coupon';
 
 export class Transactions{
     transactionId:number;

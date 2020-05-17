@@ -1,4 +1,4 @@
-import { Orders } from './order.model';
+import { Orders } from '../../models/order.model';
 
 export class CustomerDetails{
     username:string;
