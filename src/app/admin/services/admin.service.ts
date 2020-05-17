@@ -11,7 +11,7 @@ import { Orders } from 'src/app/models/order.model';
 })
 export class AdminService {
 
-  url: string = "http://localhost:8080/admin";
+  url: string = "http://localhost:8083/admin";
 
   constructor(private http: HttpClient) { }
 

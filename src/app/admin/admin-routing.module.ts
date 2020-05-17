@@ -12,6 +12,7 @@ import { AddMerchantComponent } from './add-merchant/add-merchant.component';
 import { InviteMerchantComponent } from './invite-merchant/invite-merchant.component';
 import { InvitesComponent } from './invites/invites.component';
 import { AllMerchantComponent } from './all-merchant/all-merchant.component';
+import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
 
 
 
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'viewCustomers',component:ViewCustomersComponent},
   {path:'minOrderValue',component:MinimumOrderValueComponent},
   {path:'category',component:CategoryComponent},
+  {path:'feedbacks',component:AllFeedbacksComponent},
 
   { path :'**' , component: AdminHomeComponent }
   ]}
