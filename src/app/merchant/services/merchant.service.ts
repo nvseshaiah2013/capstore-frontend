@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Orders } from 'src/app/models/order.model';
 import { Merchant } from 'src/app/models/merchant.model';
+import { Product } from 'src/app/models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +24,7 @@ export class MerchantService {
     return this.http.get<Merchant>(this.url + "merchantInfo/" + username);
   }
 
+  getMerchantProducts(username : string){
+    return this.http.get<Product[]>(this.url + "getMerchantProducts/" + username);
+  }
 }
