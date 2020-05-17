@@ -1,6 +1,6 @@
 import {Address} from './address.model';
-import {Transactions} from './Transactions';
-import {Product} from './product.model';
+import { Transactions} from './transaction.model';
+import { Product} from './product.model';
 import { Customer } from 'src/app/models/customer.model';
 
 export class Orders{

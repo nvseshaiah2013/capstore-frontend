@@ -1,5 +1,5 @@
 import { Orders } from './order.model';
-import { Coupon } from './Coupon';
+import { Coupon } from './coupon.model';
 
 export class Transactions{
     transactionId:number;
