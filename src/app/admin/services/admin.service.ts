@@ -19,7 +19,14 @@ export class AdminService {
   getListOfCustomers() {
     return this.http.get<Customer[]>(this.url + "/customer");
   }
-  
+  gitMinOrderValueAmount()
+ {
+   return this.http.get(this.url+"/minOrderValue")
+ } 
+ setMinOrderValue(amount:number)
+ {
+  return this.http.get(this.url+"/minOrderValue/"+amount)
+ }
   getCategories()
   {
     return this.http.get<Category[]>(this.url+ "/category");
@@ -48,7 +55,10 @@ export class AdminService {
   getCountOfMerchants() {
     return this.http.get(this.url + "/countOfMerchants");
   }
-
+  addMerchant(merchantDetails)
+  {
+    return this.http.post(this.url+"/addMerchant",merchantDetails, { responseType: 'text' as 'json' })
+  }
   getTopRatedMerchants() {
     return this.http.get<Merchant[]>(this.url + "/topRatedMerchants");
   }
@@ -57,8 +67,16 @@ export class AdminService {
     return this.http.get<Orders[]>(this.url + "/orders");
   }
 
-  updateOrderStatus(orderId:number,status:string){
-    return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
+  updateOrderStatus(orderId: number, status: string) {
+    return this.http.get(this.url + "/orders/" + orderId + "/" + status);
+  }
+  checkValidEmail(email:string)
+  {
+    return this.http.get(this.url+"/checkEmail/"+email);
+  }
+  checkPhoneNo(phoneNo:string)
+  {
+    return this.http.get(this.url+"/checkPhoneNo/"+phoneNo);
   }
 
   getTrendingProducts(){

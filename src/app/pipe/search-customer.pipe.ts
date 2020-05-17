@@ -5,8 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchCustomerPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
-    return null;
+  transform(userList:any,searchText:any): any {
+
+    let newList:any;
+    if(searchText)
+    {
+      newList=userList.filter(user=>user.name.toLowerCase().startsWith(searchText.toLowerCase()));
+    }
+    else
+    {
+      newList=userList;
+    }
+    return newList;
   }
 
 }

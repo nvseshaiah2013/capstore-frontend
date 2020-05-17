@@ -29,14 +29,4 @@ export class InviteService {
   getMerchants(){
     return this.http.get<Merchant[]>('http://localhost:8083/merchants/all');
   }
-
-  getMerchantOrderCount(username:string){
-    let params = new HttpParams().set('username',username);
-    return this.http.get<number>('http://localhost:8083/admin/orderCount',{params:params});
-  }
-
-  getMerchantProductCount(username:string){
-    let params = new HttpParams().set('username',username);
-    return this.http.get<number>('http://localhost:8083/admin/productCount',{params:params});
-  }
 }

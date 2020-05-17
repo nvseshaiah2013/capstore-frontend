@@ -7,7 +7,7 @@
         <i class="fas fa-address-card" style="margin-top: 1%;" (click)="toggleViewCard()">Card View</i>
     </div>
     <!-- <ng-container *ngIf="(customers | searchCustomer:searchText) as result"> : Search Pipe not working properly, Plz check it -->
-        <ng-container *ngIf="(customers) as result">
+    <ng-container *ngIf="(customers) as result">
         <!-- Start of card view -->
         <div class="container mt-5" *ngIf="this.view">
             <div class="card-group">
@@ -79,10 +79,10 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                         </div>
-                        <div class="modal-content">
+                        <div class="modal-content" *ngFor="let address of addresses">
                             <div class="container mt-5">
                                 <div class="card-group">
-                                    <div class="col-6 rowCard" *ngFor="let address of addresses">
+                                    <div class="col-6 rowCard">
                                         <div class="card card-body " style="background-color: rgba(84, 17, 240, 0.281);border:5px outset white; border-radius: 10px;">
 
                                             <div class="card-body">
@@ -99,9 +99,13 @@
 
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
+                            <h2 *ngIf="addresses.length==0">
+                                Customer have not added address yet..!!!!
+                            </h2>
                         </div>
                     </div>
                 </div>

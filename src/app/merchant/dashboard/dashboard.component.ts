@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MerchantService } from '../services/merchant.service';
+import { Merchant } from 'src/app/models/merchant.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,14 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   todaysDate = new Date();
+  merchant : Merchant;
 
-  constructor() {
+  constructor(private merchantService : MerchantService) {
     setInterval(() => {
       this.todaysDate = new Date();
     }, 1000);
   }
 
+ 
+
   ngOnInit() {
+    this.merchantService.getMerchantInfo('harsha98').subscribe(data => {
+      this.merchant = data;
+    });
   }
 
 }

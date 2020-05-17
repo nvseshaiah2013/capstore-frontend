@@ -3,7 +3,6 @@ import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { Orders } from '../../models/order.model';
-declare var $:any;
 
 @Component({
   selector: 'app-orders',
@@ -16,7 +15,7 @@ export class OrdersComponent implements OnInit {
   submitted:boolean=false;
   orders:Orders[];
   index:number;
-  message:string;
+  message:any;
   checkCoupon:boolean=true;
   error:string="";
   checkError:boolean=false;

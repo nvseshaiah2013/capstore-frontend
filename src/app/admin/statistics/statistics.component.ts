@@ -19,7 +19,7 @@ export class StatisticsComponent implements OnInit {
   category = ['Clothes', 'Home', 'FootWear', 'Electronics']
   categoryOrders = [1, 2, 7, 8,];
   males: number = 0;
-  females: number = 2;
+  females: number = 0;
   others: number = 1;
   customers: Customer[];
   orders: Orders[];
