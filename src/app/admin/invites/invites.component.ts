@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InviteService } from '../services/invite.service';
-import { Invitation } from '../models/invitation.model';
+import { Invitation } from '../../models/invitation.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Merchant } from '../models/merchant.model';
+import { Merchant } from '../../models/merchant.model';
 
 @Component({
   selector: 'app-invites',
@@ -27,5 +27,9 @@ export class InvitesComponent implements OnInit {
   }
   setMerchant(merchant){
     this.merchant = merchant;
+  }
+
+  counter(i:number){
+    return new Array(i);
   }
 }

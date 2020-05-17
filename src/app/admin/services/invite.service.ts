@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Merchant } from '../models/merchant.model';
-import { HttpClient } from '@angular/common/http';
-import { Invitation } from '../models/invitation.model';
+import { Merchant } from '../../models/merchant.model';
+import { HttpClient,HttpParams } from '@angular/common/http';
+import { Invitation } from '../../models/invitation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +20,13 @@ export class InviteService {
   }
 
   getInvites(){
-    return this.http.get<Invitation[]>('http://localhost:8080/admin/invites');
+    return this.http.get<Invitation[]>('http://localhost:8083/admin/invites');
   }
 
   sendInvite(invitation:Invitation){
-    return this.http.post('http://localhost:8080/admin/invite',invitation);
+    return this.http.post('http://localhost:8083/admin/invite',invitation);
   }
   getMerchants(){
-    return this.http.get<Merchant[]>('http://localhost:8080/merchants/all');
+    return this.http.get<Merchant[]>('http://localhost:8083/merchants/all');
   }
-
 }
