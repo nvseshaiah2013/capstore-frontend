@@ -14,7 +14,7 @@ export class OrdersComponent implements OnInit {
   orders : Orders[];
 
   ngOnInit() {
-    this.merchantService.getMerchantOrders("vamsi586").subscribe(data => {
+    this.merchantService.getMerchantOrders("harsha98").subscribe(data => {
       this.orders = data;
       console.log(this.orders[0])
     }); 

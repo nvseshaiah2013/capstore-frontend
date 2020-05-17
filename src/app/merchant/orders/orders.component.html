@@ -13,8 +13,8 @@
                 <th scope="col">Order Status</th>
                 <th scope="col" colspan="2" style="text-align: center;">Status</th>
             </tr>
-            <tr *ngFor="let order of orders">
-                <th>1</th>
+            <tr *ngFor="let order of orders; let i = index">
+                <th>{{i + 1}}</th>
                 <td>{{order.orderId}}</td>
                 <td>{{order.customer.name}}</td>
                 <td>{{order.product.productName}}</td>
