@@ -22,9 +22,13 @@ export class OrdersComponent implements OnInit {
 
   acceptOrder(orderId : string){
     console.log(orderId);
+    this.merchantService.acceptMerchantOrder(orderId, 'Accepted').subscribe();
+    window.location.href = '/merchant/orders';
   }
 
   rejectOrder(orderId : string){
     console.log(orderId);
+    this.merchantService.acceptMerchantOrder(orderId, 'Cancelled').subscribe();
+    window.location.href = '/merchant/orders';
   }
 }

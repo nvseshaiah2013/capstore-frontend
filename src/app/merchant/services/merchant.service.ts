@@ -9,8 +9,12 @@ export class MerchantService {
 
   url: string = "http://localhost:8083/";
   constructor(private http: HttpClient) { }
-  
+
   getMerchantOrders(username : string){
     return this.http.get<Orders[]>(this.url + "merchantOrders/" + username);
+  }
+
+  acceptMerchantOrder(orderId : string, status : string){
+    return this.http.get<Orders>(this.url + "acceptMerchantOrder/" + orderId + "/" + status);
   }
 }
