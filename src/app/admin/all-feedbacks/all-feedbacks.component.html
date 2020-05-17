@@ -1,1 +1,160 @@
-<p>all-feedbacks works!</p>
+<div class="animated">
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="card-counter success">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <span class="count-numbers">{{totalFeedbacks}}</span>
+                    <span class="count-name">All Feedbacks</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="card-counter info">
+                    <i class="fas fa-envelope-open"></i>
+                    <span class="count-numbers">{{readFeedbacks}}</span>
+                    <span class="count-name">Feedback Read</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="card-counter danger">
+                    <i class="fas fa-envelope"></i>
+                    <span class="count-numbers">{{unreadFeedbacks}}</span>
+                    <span class="count-name">Feedbacks UnRead</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-5">
+        <div class="row">
+            <div class="col-12 header">
+                <h3 class="lead font-weight-bold">
+                    <i class="fas fa-comments"></i>
+                    Common Feedbacks
+                </h3>
+            </div>
+        </div>
+        <div class="row border p-md-2" *ngFor="let feedback of feedbacks;">
+            <div class="p-md-2 col-12 col-md-5 offset-md-1">
+                <p class="lead hover-underline">{{ feedback.feedbackSubject}}</p>
+                <p class="text-muted text-info">{{ feedback.feedbackMessage}}</p>
+                <p class="text-muted ml-2" *ngIf="feedback.response"> <span> User Response : --</span>{{ feedback.response}}</p>
+            </div>
+            <div class="col-12 col-md-5 text-right">
+                <p *ngIf="!feedback.enableRead"> <button class="btn btn-success" (click)="sendFeedbackToMerchant(feedback.feedbackId)"> Send To Merchant <i class="fas fa-reply"></i></button></p>
+                <p *ngIf="feedback.enableRead" class="text-muted text-success font-weight-bold"> Feedback Sent To Merchant </p>
+                <p> <button class="btn btn-info" (click)="setMerchant(feedback)"> View Merchant  <i class="fas fa-business-time"></i></button></p>
+                <p> <button class="btn btn-primary" (click)="setCustomer(feedback)"> View Customer  <i class="fas fa-user-check"></i></button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerModalLabel">Customer Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="customer">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username : 
+                    </span>
+                    {{ customer.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+
+                        Name : 
+                    </span>
+                    {{customer.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                    
+                        Phone No : 
+                    </span>
+                    {{customer.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                    
+                        Gender : 
+                    </span>
+                    {{customer.gender}} 
+                    <i class="fas fa-mars" *ngIf="customer.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="customer.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="customer.gender == 'Other'"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="merchantModal" tabindex="-1" role="dialog" aria-labelledby="merchantModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="merchantModalLabel"> Merchant Info </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="merchant">
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Username :
+                    </span>
+                    {{ merchant.username }}
+                    <i class="fas fa-user"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                
+                        Name :
+                    </span>
+                    {{merchant.name}} <i class="fas fa-user-tag"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                
+                        Phone No :
+                    </span>
+                    {{merchant.phoneNo}} <i class="fas fa-mobile-alt"></i></p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                
+                        Gender :
+                    </span>
+                    {{merchant.gender}}
+                    <i class="fas fa-mars" *ngIf="merchant.gender == 'Male'"></i>
+                    <i class="fas fa-venus" *ngIf="merchant.gender == 'Female'"></i>
+                    <i class="fas fa-transgender" *ngIf="merchant.gender == 'Other'"></i>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Third Party Merchant : 
+                    </span>
+                    <span *ngIf="merchant.thirdParty"> Yeah! I am a third Party Merchant.</span>
+                    <span *ngIf="!merchant.thirdParty"> No! I am not.</span>
+                </p>
+                <p class="text-muted">
+                    <span class="font-weight-bold">
+                        Rating : 
+                    </span>
+                    <i class="fas fa-star text-warning" *ngFor="let i of counter(merchant.rating);">
+
+                    </i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
