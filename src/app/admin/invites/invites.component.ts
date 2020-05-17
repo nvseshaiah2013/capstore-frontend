@@ -28,4 +28,8 @@ export class InvitesComponent implements OnInit {
   setMerchant(merchant){
     this.merchant = merchant;
   }
+
+  counter(i:number){
+    return new Array(i);
+  }
 }
