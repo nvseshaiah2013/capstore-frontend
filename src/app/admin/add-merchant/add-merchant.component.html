@@ -1,15 +1,13 @@
-<div class="animated">
+<h2 class="mt-5">Add Third Party Merchant</h2>
+<form [formGroup]="addForm">
+    <div class="animated row" style="margin-bottom:5%">
+        <div class="col-md-5" style="margin-top: 2%;">
 
-    
-    <h2 class="mt-5">Add Third Party Merchant</h2>
-<div class="container row mb-5" style="margin-top: 2%;">
-    <div class="col-md-6">
-        <form [formGroup]="addForm">
             <!-- Start of name input field -->
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
-                    <span><img src="https://img.icons8.com/ios-filled/50/000000/name.png" /></span>&nbsp;&nbsp;
-                    <input type="text" formControlName="name" placeholder="Full Name">
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/name.png" width=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="name" placeholder="Full Name" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.name.errors">
@@ -24,10 +22,11 @@
             <!-- End of name input field -->
 
             <!-- Start of username input field -->
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
-                    <span><img src="https://img.icons8.com/ios-filled/50/000000/username.png" /></span>&nbsp;&nbsp;
-                    <input type="email" formControlName="username" placeholder="Username">
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/username.png"
+                            width=40 /></span>&nbsp;&nbsp;
+                    <input type="email" formControlName="username" placeholder="Username" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.username.errors">
@@ -43,11 +42,12 @@
                 </div>
             </div>
             <!-- End of username input field -->
-            
+
             <!-- Start of alternate email input field -->
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
-                    <span><img src="https://img.icons8.com/ios-filled/50/000000/email-open.png" /></span>&nbsp;&nbsp;
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/email-open.png"
+                            width=40 /></span>&nbsp;&nbsp;
                     <input type="email" formControlName="alternateEmail" placeholder="Alternate email-id" style="width:265px;">
                     <div class="input-group-append">&nbsp;&nbsp;
 
@@ -71,11 +71,11 @@
 
             <!-- Start of phone number input field -->
 
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
                     <span style="font-weight: 700;font-size: x-large;"><img
-                            src="https://img.icons8.com/ios-filled/50/000000/phone.png">+91</span>&nbsp;&nbsp;
-                            <input type="text" formControlName="phoneNo" placeholder="Phone Number">
+                            src="https://img.icons8.com/ios-filled/50/000000/phone.png" width=40>+91</span>&nbsp;&nbsp;
+                    <input type="text" formControlName="phoneNo" placeholder="Phone Number" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.phoneNo.errors">
@@ -93,12 +93,12 @@
             <!-- End of phone number input field -->
 
             <!-- Start of alternate phone number input field -->
-            
-            <div class="col-md-11">
+
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
                     <span style="font-weight: 700;font-size: x-large;"><img
-                        src="https://img.icons8.com/ios-filled/50/000000/phone.png">+91</span>&nbsp;&nbsp;
-                    <input type="text" formControlName="alternatePhoneNo" placeholder="Alternate Phone Number">
+                            src="https://img.icons8.com/ios-filled/50/000000/phone.png" width=40>+91</span>&nbsp;&nbsp;
+                    <input type="text" formControlName="alternatePhoneNo" placeholder="Alternate Phone Number" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.alternatePhoneNo.errors">
@@ -114,33 +114,35 @@
                 </div>
             </div>
             <!-- End of alternate phone number input field -->
-            
+
             <!-- Start of gender input field -->
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
-                    <span><img src="https://img.icons8.com/ios-filled/50/000000/gender.png" /></span>&nbsp;&nbsp;
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/gender.png"
+                            width=40 /></span>&nbsp;&nbsp;
 
                     <div style="margin-top:10px">
                         <input type="radio" value="Male" formControlName="gender"> Male
                         <input type="radio" value="Female" formControlName="gender"> Female
                         <input type="radio" value="Other" formControlName="gender"> Other </div>
-                    </div>
+                </div>
             </div>
             <!-- Validation Messages -->
             <div *ngIf="submitted && addForm.controls.gender.errors">
                 <div class="text-danger" *ngIf="addForm.controls.gender.errors.required">
-                    Gender is required ..!
+                    &nbsp;&nbsp;&nbsp;Gender is required ..!
                 </div>
-                
+
             </div>
             <!-- End of gender input field -->
 
             <!-- Start of password input field -->
 
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
-                    <span><img src="https://img.icons8.com/ios-filled/50/000000/password.png" /></span>&nbsp;&nbsp;
-                    <input type="password" formControlName="password" placeholder="Password">
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/password.png"
+                            width=40 /></span>&nbsp;&nbsp;
+                    <input type="password" formControlName="password" placeholder="Password" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.password.errors">
@@ -154,12 +156,97 @@
             </div>
             <!-- End of password input field -->
 
+        </div>
+        <div class="col-md-5 offset-md-1" style="margin-top:1%">
+            <!-- Start of Address Line One input field -->
+            <div class="col-md-12">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="https://img.icons8.com/material-two-tone/100/000000/address--v1.png"
+                            width=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="addressLineOne" placeholder="Address Line One" style="width:265px;">
+                </div>
+                <!-- Validation Messages -->
+                <div *ngIf="submitted && addForm.controls.addressLineOne.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.addressLineOne.errors.required">
+                        Address Line One is required ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of Address Line One input field -->
+
+            <!-- Start of Address Line Two input field -->
+            <div class="col-md-12">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="https://img.icons8.com/material-two-tone/100/000000/address--v1.png"
+                            width=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="addressLineTwo" placeholder="Address Line Two" style="width:265px;">
+                </div>
+                <!-- Validation Messages -->
+                <div *ngIf="submitted && addForm.controls.addressLineTwo.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.addressLineTwo.errors.required">
+                        Address Line Two is required ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of Address Line Two input field -->
+
+            <!-- Start of District input field -->
+            <div class="col-md-12">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="../../../assets/district_icon.png" width=70 height=50 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="district" placeholder="District Name" style="width:265px;">
+                </div>
+                <!-- Validation Messages -->
+                <div *ngIf="submitted && addForm.controls.district.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.district.errors.required">
+                        District Name is required ..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.district.errors.pattern">
+                        District Name must start with a capital letter and should not contain any digit. ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of District input field -->
+
+            <!-- Start of Landmark input field -->
+            <div class="col-md-12">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="../../../assets/landmark_icon.png" width=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="landmark" placeholder="Landmark" style="width:265px;">
+                </div>
+                <!-- Validation Messages -->
+                <div *ngIf="submitted && addForm.controls.landmark.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.landmark.errors.required">
+                        Landmark is required ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of Lanmark input field -->
+
+            <!-- Start of State input field -->
+            <div class="col-md-12">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="../../../assets/state_icon.PNG" width=70 height=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="state" placeholder="State" style="width:265px;">
+                </div>
+                <!-- Validation Messages -->
+                <div *ngIf="submitted && addForm.controls.state.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.state.errors.required">
+                        State Name is required ..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.state.errors.pattern">
+                        State Name must start with a capital letter and should not contain any digit. ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of State input field -->
+
             <!-- Start of Security question field -->
 
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
                     <span style="margin-left: 2%;">Choose Security Question</span>
-                    <select formControlName="securityQ">
+                    <select formControlName="securityQuestion">
 
                         <option *ngFor="let question of securityQuestion" [ngValue]="question">
                             {{ question }}
@@ -168,8 +255,8 @@
                     <hr>
                 </div>
                 <!-- Validation Messages -->
-                <div *ngIf="submitted && addForm.controls.securityQ.errors">
-                    <div class="text-danger" *ngIf="addForm.controls.securityQ.errors.required">
+                <div *ngIf="submitted && addForm.controls.securityQuestion.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.securityQuestion.errors.required">
                         Security Question is required ..!
                     </div>
 
@@ -179,11 +266,11 @@
             <!-- End of Security question field -->
 
             <!-- Start of Security answer field -->
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="input-group mb-3 input-field">
                     <span><img src="https://img.icons8.com/windows/64/000000/stack-exchange-answer.png"
-                        width=50 /></span>&nbsp;&nbsp;
-                    <input type="text" formControlName="securityAnswer" placeholder="Security Answer">
+                            width=40 /></span>&nbsp;&nbsp;
+                    <input type="text" formControlName="securityAnswer" placeholder="Security Answer" style="width:265px;">
                 </div>
                 <!-- Validation Messages -->
                 <div *ngIf="submitted && addForm.controls.securityAnswer.errors">
@@ -193,18 +280,14 @@
 
                 </div>
             </div>
-            
+
             <!-- End of Security answer field -->
+
             <div>
                 <button class="signupButton" (click)="addMerchant()">Add Merchant</button> &nbsp; &nbsp;
-                
-            </div>
-        </form>
 
-        
+            </div>
+        </div>
+
     </div>
-    <div class="col-md-1">
-        <img src="../../../assets/merchant.png" class="image">
-    </div>
-</div>
-</div>
+</form>

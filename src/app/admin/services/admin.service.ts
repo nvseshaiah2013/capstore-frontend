@@ -11,14 +11,21 @@ import { Orders } from 'src/app/models/order.model';
 })
 export class AdminService {
 
-  url: string = "http://localhost:8080/admin";
+  url: string = "http://localhost:8083/admin";
 
   constructor(private http: HttpClient) { }
 
   getListOfCustomers() {
     return this.http.get<Customer[]>(this.url + "/customer");
   }
-  
+  gitMinOrderValueAmount()
+ {
+   return this.http.get(this.url+"/minOrderValue")
+ } 
+ setMinOrderValue(amount:number)
+ {
+  return this.http.get(this.url+"/minOrderValue/"+amount)
+ }
   getCategories()
   {
     return this.http.get<Category[]>(this.url+ "/category");
@@ -47,7 +54,10 @@ export class AdminService {
   getCountOfMerchants() {
     return this.http.get(this.url + "/countOfMerchants");
   }
-
+  addMerchant(merchantDetails)
+  {
+    return this.http.post(this.url+"/addMerchant",merchantDetails, { responseType: 'text' as 'json' })
+  }
   getTopRatedMerchants() {
     return this.http.get<Merchant[]>(this.url + "/topRatedMerchants");
   }
@@ -58,6 +68,14 @@ export class AdminService {
 
   updateOrderStatus(orderId: number, status: string) {
     return this.http.get(this.url + "/orders/" + orderId + "/" + status);
+  }
+  checkValidEmail(email:string)
+  {
+    return this.http.get(this.url+"/checkEmail/"+email);
+  }
+  checkPhoneNo(phoneNo:string)
+  {
+    return this.http.get(this.url+"/checkPhoneNo/"+phoneNo);
   }
 }
 

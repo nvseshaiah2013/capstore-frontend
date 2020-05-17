@@ -1,7 +1,6 @@
-
 <div class="container">
 
-    <h2 style="margin-top: 5%;">Current Minimum Order Value {{money}}</h2>
+    <h2 style="margin-top: 5%;">Current Minimum Order Value {{money | currency:'INR'}}</h2>
     <h3 style="margin-top: 5%;margin-left: 5%;">Set Minimum Order Value Amount</h3>
     <form [formGroup]="minOrderAmountForm">
         <div class="col-md-12 offset-md-2">
@@ -19,4 +18,3 @@
         </div>
     </form>
 </div>
-
