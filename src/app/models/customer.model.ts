@@ -5,4 +5,5 @@ export class Customer{
     alternatePhoneNo:string;
     alternateEmail:string;
     gender:string;
+    balance:number;
 }

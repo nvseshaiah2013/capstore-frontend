@@ -55,9 +55,14 @@ export class AdminService {
   getAllOrders() {
     return this.http.get<Orders[]>(this.url + "/orders");
   }
+<<<<<<< HEAD
 
   updateOrderStatus(orderId: number, status: string) {
     return this.http.get(this.url + "/orders/" + orderId + "/" + status);
+=======
+  updateOrderStatus(orderId:number,status:string){
+    return this.http.get<string>(this.url+"/orders/"+orderId+"/"+status);
+>>>>>>> 79c935aaa1b191ca88a8ec3db3de50d00b4b4aba
   }
 }
 
