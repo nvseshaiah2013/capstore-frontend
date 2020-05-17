@@ -165,7 +165,7 @@
                 {{ merchant.name }} 's Account!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger"> De-Activate <i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-danger" (click)="confirmMerchantDeactivate()"> De-Activate <i class="fas fa-trash-alt"></i></button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close <i class="fas fa-times-circle"></i></button>
             </div>
         </div>
@@ -190,7 +190,7 @@
                 {{ merchant.name }} 's Account!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger"> Activate <i class="fas fa-snowboarding"></i></button>
+                <button type="button" class="btn btn-danger" (click)="confirmMerchantActivate()"> Activate <i class="fas fa-snowboarding"></i></button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close <i
                         class="fas fa-times-circle"></i></button>
             </div>
