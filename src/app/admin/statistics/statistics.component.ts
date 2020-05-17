@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AdminService } from '../services/admin.service';
 import { Customer } from 'src/app/models/customer.model';
-
+import { Orders } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-statistics',
@@ -13,97 +13,129 @@ export class StatisticsComponent implements OnInit {
 
   chart = [];
 
-  date = ["Day1", "Day2", "Day3", "Day4", "Day5", "Day6", "Day7"];
-  totalRevenue = [4000, 2000, 3000, 7000, 2500, 4250, 6000];
-  noOfOrders = [4, 6, 10, 7, 12, 3, 8];
-  category = ["Category1", "Category2", "Category3", "Category4"];
-  categoryOrders = [5, 2, 7, 8,];
+  date = [];
+  recentRevenues;
+  recentOrdersCount;
+  category = ['Clothes', 'Home', 'FootWear', 'Electronics']
+  categoryOrders = [1, 2, 7, 8,];
   males: number = 0;
   females: number = 0;
-  others:number=0;
+  others: number = 1;
   customers: Customer[];
+  orders: Orders[];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService) {
+    for (let i = 0; i < 7; i++) {
+      this.date.push(new Date().getDate() - i + "/" + new Date().getMonth() + "/" + new Date().getUTCFullYear());
+    }
+  }
 
   ngOnInit() {
 
-    this.adminService.getListOfCustomers().subscribe(data => {
-      this.customers = data;
-      for (let i = 0; i < this.customers.length; i++) {
-        console.log(this.customers[i].gender)
-        if (this.customers[i].gender == 'Male') {
-          this.males += 1;
+    this.adminService.getAllOrders().subscribe(data => {
+      this.orders = data;
+      for (let i = 0; i < this.orders.length; i++) {
+        if (this.orders[i].product.subCategory.category.name == "Clothes") {
+          this.categoryOrders[0] += 1
         }
-        else if (this.customers[i].gender == 'Female') {
-          this.females += 1;
+        if (this.orders[i].product.subCategory.category.name == "Home") {
+          this.categoryOrders[1] += 1
         }
-        else{
-          this.others+=1;
+        if (this.orders[i].product.subCategory.category.name == "FootWear") {
+          this.categoryOrders[2] += 1
+        }
+        if (this.orders[i].product.subCategory.category.name == "Electronics") {
+          this.categoryOrders[2] += 1
         }
       }
-      this.chart = new Chart('genderChart', {
-        type: 'doughnut',
+
+      this.chart = new Chart('categoryChart', {
+        type: 'pie',
         data: {
-          labels: ['Male', 'Female','Others'],
+          labels: this.category,
           datasets: [
             {
-              label: 'Gender wise Customer',
-              backgroundColor: ['#FF8153', '#66bb6a','#FFEA88'],
-              borderColor: ['#FF8153', '#66bb6a','#FFEA88'],
-              data: [this.males,this.females,this.others],
+              label: 'Category Wise Orders',
+              backgroundColor: ['#878BB6', '#4ACAB4', '#FF8153', '#FFEA88'],
+              borderColor: ['#878BB6', '#4ACAB4', '#FF8153', '#FFEA88'],
+              data: this.categoryOrders,
               fill: true,
             }
           ]
         }
       })
     })
-    this.chart = new Chart('revenueChart', {
-      type: 'line',
-      data: {
-        labels: this.date,
-        datasets: [
-          {
-            label: 'Total Revenue (in INR) - Last 7 Days',
-            backgroundColor: '#66bb6a',
-            borderColor: '#66bb6a',
-            data: this.totalRevenue,
-            fill: false,
-          }
-        ]
+
+    this.adminService.getListOfCustomers().subscribe(data => {
+      this.customers = data;
+      for (let i = 0; i < this.customers.length; i++) {
+        if (this.customers[i].gender == 'Male') {
+          this.males += 1;
+        }
+        else if (this.customers[i].gender == 'Female') {
+          this.females += 1;
+        }
+        else {
+          this.others += 1;
+        }
       }
+      this.chart = new Chart('genderChart', {
+        type: 'doughnut',
+        data: {
+          labels: ['Male', 'Female', 'Others'],
+          datasets: [
+            {
+              label: 'Gender wise Customer',
+              backgroundColor: ['#FF8153', '#66bb6a', '#FFEA88'],
+              borderColor: ['#FF8153', '#66bb6a', '#FFEA88'],
+              data: [this.males, this.females, this.others],
+              fill: true,
+            }
+          ]
+        }
+      })
     })
 
-    this.chart = new Chart('ordersChart', {
-      type: 'bar',
-      data: {
-        labels: this.date,
-        datasets: [
-          {
-            label: 'No of Orders - Last 7 Days',
-            backgroundColor: '#007bff',
-            borderColor: 'green',
-            data: this.noOfOrders,
-            fill: false,
-          }
-        ]
-      }
+    this.adminService.getRecentRevenues().subscribe(data => {
+      this.recentRevenues = data;
+
+      this.chart = new Chart('revenueChart', {
+        type: 'line',
+        data: {
+          labels: this.date,
+          datasets: [
+            {
+              label: 'Total Revenue (in INR) - Last 7 Days',
+              backgroundColor: '#66bb6a',
+              borderColor: '#66bb6a',
+              data: this.recentRevenues,
+              fill: false,
+            }
+          ]
+        }
+      })
     })
 
-    this.chart = new Chart('categoryChart', {
-      type: 'pie',
-      data: {
-        labels: this.category,
-        datasets: [
-          {
-            label: 'Category Wise Orders',
-            backgroundColor: ['#878BB6', '#4ACAB4', '#FF8153', '#FFEA88'],
-            borderColor: ['#878BB6', '#4ACAB4', '#FF8153', '#FFEA88'],
-            data: this.categoryOrders,
-            fill: true,
-          }
-        ]
-      }
+    this.adminService.getRecentOrdersCount().subscribe(data => {
+      this.recentOrdersCount = data;
+
+      this.chart = new Chart('ordersChart', {
+        type: 'bar',
+        data: {
+          labels: this.date,
+          datasets: [
+            {
+              label: 'No of Orders - Last 7 Days',
+              backgroundColor: '#007bff',
+              borderColor: 'green',
+              data: this.recentOrdersCount,
+              fill: false,
+            }
+          ]
+        }
+      })
     })
 
-}
+
+  }
 }

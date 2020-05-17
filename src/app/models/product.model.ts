@@ -1,4 +1,5 @@
 import { Merchant } from './merchant.model';
+import { SubCategory } from './subCategory.model';
 
 export class Product{
     productId:number;
@@ -14,4 +15,5 @@ export class Product{
     productActivated:boolean;
     isFeatured:boolean;
     merchant:Merchant;
+    subCategory:SubCategory;
 }
