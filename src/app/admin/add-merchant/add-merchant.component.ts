@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-add-merchant',
   templateUrl: './add-merchant.component.html',
   styleUrls: ['./add-merchant.component.css']
 })
-export class AddMerchantComponent implements OnInit {
+export class AddMerchantComponent implements OnInit,AfterContentInit {
   addForm: FormGroup
   submitted: boolean = false;
   username: string
@@ -33,7 +34,7 @@ export class AddMerchantComponent implements OnInit {
     "What is your spouse or partner's mother's maiden name? "
   ]
 
-  constructor(private formBuilder: FormBuilder, private adminService: AdminService,private route:Router) {
+  constructor(private formBuilder: FormBuilder, private adminService: AdminService,private route:Router,private loaderService:LoaderService) {
     this.addForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern("^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}$")]],
       username: ['', [Validators.required, Validators.email]],
@@ -56,6 +57,10 @@ export class AddMerchantComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  
+  ngAfterContentInit(){
+    this.loaderService.hide();
   }
   addMerchant() {
     this.submitted = true;

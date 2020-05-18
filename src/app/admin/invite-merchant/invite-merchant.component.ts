@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Invitation } from 'src/app/models/invitation.model';
+import { ToastService } from '../services/toast.service';
 declare var $:any;
 
 @Component({
@@ -23,7 +24,8 @@ export class InviteMerchantComponent implements OnInit {
   totalOrders: number = 0;
   constructor(private builder:FormBuilder,private inviteService:InviteService,
     private merchantService:MerchantFeedService,
-    private router:Router,private location:Location) { }
+    private router:Router,private location:Location
+    ,private toastService:ToastService) { }
 
   ngOnInit() {
     this.invitation = this.builder.group({

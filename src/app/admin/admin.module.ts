@@ -22,6 +22,9 @@ import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
 import { HttpClientModule} from '@angular/common/http';
 import { InvitesComponent } from './invites/invites.component';
 import { SearchPipe } from './pipe/search.pipe';
+import { LoadingComponent } from './loading/loading.component';
+import { LoaderService } from './services/loader.service';
+import { ToastService } from './services/toast.service';
 
 
 @NgModule({
@@ -41,7 +44,8 @@ import { SearchPipe } from './pipe/search.pipe';
     AllFeedbacksComponent,
     AddMerchantComponent,
     InvitesComponent,
-    SearchPipe
+    SearchPipe,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +54,10 @@ import { SearchPipe } from './pipe/search.pipe';
     ReactiveFormsModule,
     HttpClientModule
 
+  ]
+  ,
+  providers:[
+    LoaderService
   ]
 })
 export class AdminModule { }

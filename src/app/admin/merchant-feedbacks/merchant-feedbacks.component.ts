@@ -7,6 +7,7 @@ import { Merchant } from 'src/app/models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonFeedback } from 'src/app/models/common-feedback.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoaderService } from '../services/loader.service';
 declare var $: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class MerchantFeedbacksComponent implements OnInit {
   customer:Customer;
   constructor(private inviteService: InviteService,
     private merchantService: MerchantFeedService,
-    private router: Router, private location: Location) { }
+    private router: Router, private location: Location,private loaderService:LoaderService) { }
 
   ngOnInit() {
 
@@ -31,6 +32,7 @@ export class MerchantFeedbacksComponent implements OnInit {
     if (!this.merchant) {
       this.location.back();
     }
+    this.loaderService.show();
     this.merchantService.getOrderCount(this.merchant).subscribe(orderCount => {
       this.totalOrders = orderCount;
     }, (err: HttpErrorResponse) => {
@@ -50,8 +52,9 @@ export class MerchantFeedbacksComponent implements OnInit {
 
     this.merchantService.getMerchantFeedbacks(this.merchant.username).subscribe(feedbacks=>{
       this.feedbacks = feedbacks;
+      this.loaderService.hide();
     },(err:HttpErrorResponse)=>{
-
+      this.loaderService.hide();
     })
   }
 

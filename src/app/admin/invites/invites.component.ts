@@ -4,6 +4,7 @@ import { Invitation } from '../../models/invitation.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Merchant } from '../../models/merchant.model';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-invites',
@@ -14,13 +15,16 @@ export class InvitesComponent implements OnInit {
 
   invitations:Invitation[] = [];
   merchant:Merchant;
-  constructor(private inviteService:InviteService,private router:Router) { }
+  constructor(private inviteService:InviteService,private router:Router,private loadingService:LoaderService) { }
 
   ngOnInit() {
+    this.loadingService.show();
     this.inviteService.getInvites().subscribe(invites=>{
       this.invitations = invites;
+      this.loadingService.hide();
     },
     (err:HttpErrorResponse)=>{
+      this.loadingService.hide();
       if(err.status == 0)
         this.router.navigate(['error']);
     })

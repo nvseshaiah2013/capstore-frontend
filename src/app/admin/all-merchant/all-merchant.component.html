@@ -27,17 +27,11 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-12 col-md-6 offset-md-6 text-right">
-
-
-
-                <select class="form-control" id="sort" (change)="sortBy($event)">
-                    <option value="" disabled>Sort By:</option>
-                    <option value="orders">No. Of Orders</option>
-                    <option value="products">No. Of Products</option>
-                    <option value="rating">Rating</option>
-                </select>
-
+            <div class="col-12 col-md-3">
+                <input type="text" class="form-control" placeholder="Search Merchant">
+            </div>
+            <div class="col-12 col-md-3 offset-md-6 text-right">
+                <button class="btn btn-outline-info" (click)="sortByRating()"> Sort By Rating <i class="fas fa-star text-warning"></i> </button>
             </div>
         </div>
         <hr>
@@ -69,6 +63,7 @@
                 <p class="mt-3">
                     <button type="button" class="btn btn-info mr-5" (click)="setContact(merchant)"> Contact Details <i class="fas fa-address-card"></i></button>
                     <span class="text-muted">Rating: </span><span class="text-warning fas fa-star" *ngFor="let i of counter(merchant.rating)"></span>
+                    <span class="text-muted" *ngIf="merchant.rating == 0"> Unrated</span>
                 </p>
                 <p class="mt-1">
                     <button type="button" class="btn btn-outline-danger" (click)="deleteMerchant(merchant)" *ngIf="!merchant.deleted"> Deactivate <i class="fas fa-trash-alt"></i></button>
@@ -177,7 +172,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="activateModalLabel"> Deactivate Merchant </h5>
+                <h5 class="modal-title" id="activateModalLabel"> Activate Merchant </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

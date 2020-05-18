@@ -4,6 +4,7 @@ import { InviteService } from '../services/invite.service';
 import { Merchant } from '../../models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MerchantFeedService } from '../services/merchant-feed.service';
+import { LoaderService } from '../services/loader.service';
 declare var $:any;
 
 @Component({
@@ -18,15 +19,18 @@ export class AllMerchantComponent implements OnInit {
   directMerchants:number = 0;
   indirectMerchants:number = 0;
   totalMerchants : number = 0;
-  constructor(private router:Router,private inviteService:InviteService,private merchantService:MerchantFeedService) { }
+  constructor(private router:Router,private inviteService:InviteService,private merchantService:MerchantFeedService,private loaderService:LoaderService) { }
   ngOnInit() {
+    this.loaderService.show();
     this.inviteService.getMerchants().subscribe(merchants=>{
       this.merchants = merchants;
       this.countMerchants();
+      this.loaderService.hide();
     },(err:HttpErrorResponse)=>{
       if(err.status == 0){
         this.router.navigate(['error']);
       }
+      this.loaderService.hide();
     })
   }
 
@@ -54,16 +58,12 @@ export class AllMerchantComponent implements OnInit {
     return new Array(i);
   }
 
-  sortBy(parameter:any){
-    let value = parameter.target.value;
-    if(value == 'rating')
-    {
+  sortByRating(){    
       this.merchants.sort((a:Merchant,b:Merchant)=>{
         if(a.rating >= b.rating )
           return -1;
         else return 1;
-      });
-    }
+      });    
   }
   deleteMerchant(merchant:Merchant){
     this.merchant = merchant;

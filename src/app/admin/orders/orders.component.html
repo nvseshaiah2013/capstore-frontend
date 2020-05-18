@@ -44,7 +44,7 @@
       <form [formGroup]="editForm" (ngSubmit)="updateStatus()">
         <div class="modal-body text-center">
           <select name="status" formControlName="status" class="form-control">
-            <option value="">Select Status</option>
+            <option value="" disabled>Select Status</option>
             <option value="Shipped">Shipped</option>
             <option value="Out For Delivery">Out For Delivery</option>
             <option value="Delivered">Delivered</option>
@@ -58,7 +58,8 @@
               <small>Please select the field..</small>
             </div>
           </div>
-          <small *ngIf="checkError" style="color: red;">{{error}}{{message}}</small>
+          <small *ngIf="checkError" style="color: red;">{{error}}</small>
+          <small *ngIf="!checkError" style="color: green;">{{message}}</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
@@ -88,7 +89,7 @@
               <th>Merchant Name</th>
               <th>Product Name</th>
             </tr>
-            <tr>
+            <tr *ngIf="index">
               <td>{{orders[index].customer.name}}</td>
               <td>{{orders[index].product.merchant.username}}</td>
               <td>{{orders[index].product.productName}}</td>

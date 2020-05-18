@@ -10,6 +10,7 @@ import { Product } from 'src/app/models/product.model';
 import { Address } from 'src/app/models/address.model';
 import { Coupon } from 'src/app/models/coupon.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoaderService } from '../services/loader.service';
 declare var $: any;
 
 @Component({
@@ -29,19 +30,23 @@ export class MerchantOrdersComponent implements OnInit {
   customer:Customer;
   constructor(private inviteService: InviteService,
     private merchantService: MerchantFeedService,
-    private router: Router, private location: Location) { }
+    private router: Router, private location: Location,
+    private loaderService:LoaderService) { }
 
   ngOnInit() {
     this.merchant = this.inviteService.getMerchant();
     if (!this.merchant) {
       this.location.back();
     }
+    this.loaderService.show();
     this.merchantService.getOrderCount(this.merchant).subscribe(orderCount => {
       this.totalOrders = orderCount;
+      this.loaderService.hide();
     }, (err: HttpErrorResponse) => {
       if (err.status == 0) {
         this.router.navigate(['error']);
       }
+      this.loaderService.hide();
 
     });
 

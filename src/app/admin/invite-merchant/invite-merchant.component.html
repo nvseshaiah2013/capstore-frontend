@@ -21,6 +21,7 @@
                             <p>
                                 <span class="lead">Rating: </span>
                                 <span class="fas fa-star text-warning ml-1" *ngFor="let i of counter(merchant.rating)"></span>
+                                <span *ngIf="merchant.rating == 0"> Unrated </span>
                             </p>
                             <button class="btn btn-info btn-xl mt-2 ml-1" (click)="viewMerchant()"> View Merchant <i class="fas fa-address"></i> </button>
                         </div>

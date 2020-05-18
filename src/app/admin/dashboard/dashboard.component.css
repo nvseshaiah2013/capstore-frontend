@@ -102,3 +102,17 @@ body {
   .main:hover{
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 4px 10px 0 rgba(0, 0, 0, 0.1);
   }
+
+  
+.toasta{
+    right:10vw;
+    top:20vh;
+    width: 30vw;
+    height: auto;
+    z-index: 1000;
+    display: block;
+    position: fixed;
+    background-color: rgba(248, 121, 121, 0.445);
+    border-radius: 6px;
+    border-top: 3px solid red;
+}
