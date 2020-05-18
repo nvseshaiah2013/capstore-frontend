@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
+import { ResourceLoader } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +21,7 @@ export class CategoryComponent implements OnInit {
   categories:any
   categoryId:number
   subCategories:any
-  constructor(private formBuilder:FormBuilder,private adminService:AdminService) {
+  constructor(private formBuilder:FormBuilder,private adminService:AdminService,private route:Router) {
    
     this.adminService.getCategories().subscribe(data=>
       {
@@ -36,7 +38,8 @@ export class CategoryComponent implements OnInit {
     })
 
     this.updateCategoryForm=this.formBuilder.group({
-      name:['',Validators.required]
+      name:['',Validators.required],
+      id:['']
     })
   }
   addCategory()
@@ -49,17 +52,22 @@ export class CategoryComponent implements OnInit {
         this.categories=data
       })
   }
-  editButton(category:any)
+  editButton(category:any,categoryId:number)
   {
+    this.categoryId=categoryId
     this.updatedCategoryName=category
-    this.updateCategoryForm.setValue({"name":category})
+    this.updateCategoryForm.setValue({"name":category,"id":categoryId})
   }
   updateCategory()
   {
     this.submitted2=true;
     if(this.updateCategoryForm.invalid  || this.updateCategoryForm.controls.name.value==this.updatedCategoryName)
     return;
-    console.log(this.updateCategoryForm.value)
+    this.adminService.updateCategoryName(this.updateCategoryForm.value).subscribe(data=>
+      {
+      
+      })
+      
   }
   changeCategoryName(categoryName:string)
   {
@@ -83,7 +91,7 @@ export class CategoryComponent implements OnInit {
         this.subCategories=data;
       })
       this.submitted3=false;
-      this.addSubCategoryForm.reset
+      this.addSubCategoryForm.reset()
       
   }
   

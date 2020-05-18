@@ -21,7 +21,7 @@ import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
 
 import { HttpClientModule} from '@angular/common/http';
 import { InvitesComponent } from './invites/invites.component';
-import { SearchCustomerPipe } from './pipe/search-customer.pipe';
+import { SearchPipe } from './pipe/search.pipe';
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { SearchCustomerPipe } from './pipe/search-customer.pipe';
     AllFeedbacksComponent,
     AddMerchantComponent,
     InvitesComponent,
-    SearchCustomerPipe
+    SearchPipe
   ],
   imports: [
     CommonModule,

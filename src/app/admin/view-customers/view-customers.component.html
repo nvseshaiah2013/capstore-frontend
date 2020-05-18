@@ -6,8 +6,8 @@
         <i class="fas fa-list offset-md-1" style="margin-top: 1%;" (click)="toggleViewList()">&nbsp;List View</i>&nbsp;&nbsp;
         <i class="fas fa-address-card" style="margin-top: 1%;" (click)="toggleViewCard()">Card View</i>
     </div>
-    <!-- <ng-container *ngIf="(customers | searchCustomer:searchText) as result"> : Search Pipe not working properly, Plz check it -->
-    <ng-container *ngIf="(customers) as result">
+    <ng-container *ngIf="(customers | search:searchText) as result">
+        <!-- <ng-container *ngIf="(customers) as result"> -->
         <!-- Start of card view -->
         <div class="container mt-5" *ngIf="this.view">
             <div class="card-group">
@@ -88,7 +88,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <h6 style="margin-left: 5%;"> Address Id: {{address.addressId}}</h6>
-                                                    <button class="btn btn-outline-danger" style="margin-left: 20%;" (click)=deleteAddress()>Delete</button>&nbsp;&nbsp;
+                                                    <button class="btn btn-outline-danger" style="margin-left: 20%;" (click)=deleteAddress(address.addressId)>Delete</button>&nbsp;&nbsp;
                                                 </div>
                                                 <h6 class=" cardData textSize" style="margin-top: 10px; ">Address Line One: {{address.addressLineOne}}</h6>
                                                 <h6 class=" cardData textSize">Address Line Two: {{address.addressLineTwo}}</h6>
