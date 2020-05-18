@@ -6,6 +6,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 import { StatisticsComponent } from '../admin/statistics/statistics.component';
 import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
+import { InviteMerchantComponent } from '../admin/invite-merchant/invite-merchant.component';
+import { InvitesComponent } from './invites/invites.component';
 
 
 const routes: Routes = [
@@ -19,6 +21,7 @@ const routes: Routes = [
     {path:'inventory', component:InventoryComponent},
     {path:'orders', component:OrdersComponent},
     {path:'statistics', component:MerchantStatisticsComponent},
+    {path:'invites',component:InvitesComponent},
     {path:'**', component:MerchantHomeComponent}
   ]}
 ];

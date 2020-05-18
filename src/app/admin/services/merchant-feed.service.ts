@@ -54,6 +54,12 @@ export class MerchantFeedService {
   }
 
   activateProduct(username:string ,id:number){
-    // let params = new HttpParams().set('username',username).set(,id);
+    let params = new HttpParams().set('username',username).set('id',id.toString());
+    return this.http.post(this.baseUrl + 'activateProduct',{},{params:params});
+
+  }
+  deActivateProduct(username:string,id:number ){
+    let params = new HttpParams().set('username',username).set('id',id.toString());
+    return this.http.post(this.baseUrl + 'inActivateProduct',{},{params:params});
   }
 }

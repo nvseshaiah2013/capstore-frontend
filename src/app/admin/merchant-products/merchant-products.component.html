@@ -70,8 +70,8 @@
                         <button type="button" class="btn btn-info" (click)="viewProduct(product)"> View Details </button>
                     </p>
                     <p class="text-center">
-                        <button *ngIf="product.productActivated" class="btn btn-danger"> Mark As Unavailable </button>
-                        <button *ngIf="!product.productActivated" class="btn btn-success">Mark As Available </button>
+                        <button *ngIf="product.productActivated" class="btn btn-danger" (click)="deActivateProduct(product)"> Mark As Unavailable </button>
+                        <button *ngIf="!product.productActivated" class="btn btn-success" (click)="activateProduct(product)">Mark As Available </button>
                     </p>
 
                 </div>

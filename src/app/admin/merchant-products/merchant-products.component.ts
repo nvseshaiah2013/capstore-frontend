@@ -67,4 +67,30 @@ export class MerchantProductsComponent implements OnInit {
     this.product = product;
     $('#productModal').modal('show');
   }
+  activateProduct(product:Product){
+    let username = product.merchant.username;
+    let id = product.productId;
+    this.merchantService.activateProduct(username,id).subscribe(data=>{
+      console.log(data);
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 0){
+        this.router.navigate(['error']);
+      }
+      console.log(err);
+    })
+  }
+
+  deActivateProduct(product: Product) {
+    let username = product.merchant.username;
+    let id = product.productId;
+    this.merchantService.deActivateProduct(username, id).subscribe(data => {
+      console.log(data);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 0) {
+        this.router.navigate(['error']);
+      }
+      console.log(err);
+    })
+  }
+
 }

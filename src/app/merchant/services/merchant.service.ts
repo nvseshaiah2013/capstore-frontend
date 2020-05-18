@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Orders } from 'src/app/models/order.model';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Product } from 'src/app/models/product.model';
+import { Invitation } from 'src/app/models/invitation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,10 @@ export class MerchantService {
 
   getMerchantProducts(username : string){
     return this.http.get<Product[]>(this.url + "getMerchantProducts/" + username);
+  }
+
+  getMerchantInvites(username : string ) {
+    let params = new HttpParams().set('username',username);
+    return this.http.get<Invitation[]>(this.url + 'merchant/invites',{params:params});
   }
 }
