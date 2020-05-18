@@ -33,4 +33,13 @@ export class MerchantService {
     let params = new HttpParams().set('username',username);
     return this.http.get<Invitation[]>(this.url + 'merchant/invites',{params:params});
   }
+  activateProduct(username:string ,id:number){
+    let params = new HttpParams().set('username',username).set('id',id.toString());
+    return this.http.post(this.url + 'activateProduct',{},{params:params});
+
+  }
+  deActivateProduct(username:string,id:number ){
+    let params = new HttpParams().set('username',username).set('id',id.toString());
+    return this.http.post(this.url + 'inActivateProduct',{},{params:params});
+  }
 }
