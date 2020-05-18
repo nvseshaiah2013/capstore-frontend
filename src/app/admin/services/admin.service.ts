@@ -43,6 +43,10 @@ export class AdminService {
   {
     return this.http.post(this.url+"/subCategory/"+categoryId,category, { responseType: 'text' as 'json' })
   }
+  updateCategoryName(category:any)
+  {
+    return this.http.put(this.url+"/category",category, { responseType: 'text' as 'json' })
+  }
   getAddressByUsername(username:string)
   {
     return this.http.get<Address[]>(this.url+"/address/"+username);

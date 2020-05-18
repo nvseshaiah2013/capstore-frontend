@@ -29,7 +29,7 @@
                 <tr *ngFor="let category of categories">
                     <td>{{category.id}}</td>
                     <td>{{category.name}}</td>
-                    <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" (click)=editButton(category.name) data-target="#exampleModal">Edit</button>
+                    <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" (click)=editButton(category.name,category.id) data-target="#exampleModal">Edit</button>
                     </td>
                     <td><button type="button" class="btn btn-primary" data-toggle="modal" (click)=changeCategoryName(category.name) data-target="#exampleModalCenter" (click)="getSubCategory(category.id)">
                         View Sub Category
@@ -50,11 +50,14 @@
                     </div>
                     <div class="modal-body">
                         <form [formGroup]="updateCategoryForm">
-                            <div class="inputField">
-                                <span><img src="./../../../assets/categoryIcon.png"  width=50 /></span>
-                                <input type="text" class="categoryInput" formControlName="name" placeholder="Enter Category">
-                            </div>
+                            <div class="row">
+                                <div><input type="number" class="idInput" formControlName="id"></div>
+                                <div class="inputField">
+                                    <span><img src="./../../../assets/categoryIcon.png"  width=50 /></span>
+                                    <input type="text" class="categoryInput" formControlName="name" placeholder="Enter Category">
+                                </div>
 
+                            </div>
                             <div *ngIf="submitted2 && updateCategoryForm.controls.name.errors">
                                 <div class="text-danger" *ngIf="updateCategoryForm.controls.name.errors.required" style="margin-left: 5%;">
                                     <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Category ..!</h4>
@@ -64,7 +67,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary" (click)=updateCategory()>Update</button>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" (click)=updateCategory() data-target="#exampleModal">Update</button>
+
                     </div>
                 </div>
             </div>
