@@ -21,6 +21,7 @@ export class AdminHomeComponent implements OnInit {
   todayRevenue;
   prod:Product=new Product();
   merchant:Merchant=new Merchant();
+  errorMssg:string;
 
   constructor(private adminService:AdminService,private datepipe:DatePipe) { }
 
