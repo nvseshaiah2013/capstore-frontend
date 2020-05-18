@@ -8,14 +8,15 @@
                 <div class="card-counter success">
                     <i class="fas fa-money-bill-wave"></i>
                     <span class="count-numbers"><a class="text-white"
-                        style="text-decoration: none;">{{todayRevenue|currency:'INR'}}</a></span>
+                            style="text-decoration: none;">{{todayRevenue|currency:'INR'}}</a></span>
                     <span class="count-name">Today's Revenue : </span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-6">
                 <div class="card-counter danger">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="count-numbers"><a class="text-white" style="text-decoration: none;">{{todaySoldProducts}}</a></span>
+                    <span class="count-numbers"><a class="text-white"
+                            style="text-decoration: none;">{{todaySoldProducts}}</a></span>
                     <span class="count-name">Total Sold Products : </span>
                 </div>
             </div>
@@ -23,7 +24,8 @@
             <div class="col-lg-3 col-md-3 col-6">
                 <div class="card-counter primary">
                     <i class="fas fa-user-friends"></i>
-                    <span class="count-numbers"><a class="text-white" style="text-decoration: none;">{{activeCustomers}}</a></span>
+                    <span class="count-numbers"><a class="text-white"
+                            style="text-decoration: none;">{{activeCustomers}}</a></span>
                     <span class="count-name"> Active Customers : </span>
                 </div>
             </div>
@@ -31,7 +33,8 @@
             <div class="col-lg-3 col-md-3 col-6">
                 <div class="card-counter info">
                     <i class="fa fa-times" aria-hidden="true"></i>
-                    <span class="count-numbers"><a class="text-white" style="text-decoration: none;">{{cancelledOrders}}</a></span>
+                    <span class="count-numbers"><a class="text-white"
+                            style="text-decoration: none;">{{cancelledOrders}}</a></span>
                     <span class="count-name">Cancelled Orders : </span>
                 </div>
             </div>
@@ -53,9 +56,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of trendingProducts">
+                    <tr *ngFor="let product of trendingProducts; let i = index">
                         <th>{{product.productId}}</th>
-                        <td>{{product.productName}}</td>
+                        <td>
+                            <a href="" (click)="setProduct(product)" data-toggle="modal" data-target="#productInfoModal">{{product.productName}}</a>
+                        </td>
                         <td>{{product.productBrand}}</td>
                         <td>{{product.productPrice}}</td>
                     </tr>
@@ -64,3 +69,35 @@
         </div>
     </div>
 </div>
+
+<!-- Product Modal -->
+<div class="modal fade" id="productInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{prod.productName}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="row container-fluid">
+                    <div class="col-lg-4">
+                        <img src="/assets/images/{{prod.productId}}.jpg" height="600px" width="200px" class="img-fluid">
+                    </div>
+                    <div class="col-lg-8">
+                        <b>Price : </b>{{prod.productPrice|currency:'INR'}}<br>
+                        <b>Discount : </b>{{prod.discount}}%<br>
+                        <b>Rating : </b><span class="text-warning fas fa-star" *ngFor="let i of counter(prod.productRating)"></span><br>
+                        <b>Description : </b>{{prod.productInfo}}<br>
+                        <b>Views : </b>{{prod.noOfViews}}<br>
+                        <b>Stocks Available : </b>{{prod.noOfProducts}}
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

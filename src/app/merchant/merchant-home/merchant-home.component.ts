@@ -16,7 +16,8 @@ export class MerchantHomeComponent implements OnInit {
   usernameList = new Set<string>();
   todayRevenue : number = 0;
   trendingProducts : Product[];
-  
+  prod = new Product();
+
   constructor(private merchantService : MerchantService) { }
   
   
@@ -56,4 +57,12 @@ export class MerchantHomeComponent implements OnInit {
     });
   }
 
+  setProduct(product : Product){
+    this.prod = product;
+    console.log(this.prod);
+  }
+
+  counter(i:number){
+    return new Array(i);
+  }
 }
