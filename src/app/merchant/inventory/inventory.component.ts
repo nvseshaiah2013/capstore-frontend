@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MerchantService } from '../services/merchant.service';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-inventory',
@@ -7,31 +9,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryComponent implements OnInit {
 
-  view:boolean=true;
-  pp=[];
-  cc=[];
-  customers:any;
-  constructor() { }
+  products:Product[];
+  product:Product;
+  
+  constructor(private merchantService:MerchantService) { }
 
   ngOnInit() {
-    this.cc.push(1);
-    this.pp.push(1);
-    this.pp.push(1);
-    this.pp.push(2);
-    this.pp.push(3);
-    this.pp.push(4);
-    this.pp.push(2);
-    this.pp.push(3);
-    this.pp.push(4);
+
+    this.merchantService.getMerchantProducts('harsha98').subscribe(data=>
+      {
+        this.products=data;
+      }, err=>{
+        console.log(err);
+      })
+    
   }
 
-  deleteProduct()
-  {
-    console.log("Product Name");
+  counter(i:number){
+    return new Array(i);
   }
-  viewDetails()
+
+  activateProduct(product:Product)
   {
-    console.log("Product");
+    let username = product.merchant.username;
+    let id = product.productId;
+    this.merchantService.activateProduct(username,id).subscribe(data=>{
+      console.log(data);
+    },err=>{
+      console.log(err);
+    })
+  }
+  inActivateProduct(product:Product){
+    let username = product.merchant.username;
+    let id = product.productId;
+    this.merchantService.deActivateProduct(username, id).subscribe(data => {
+      console.log(data);
+    }, err=>{
+      console.log(err);
+    })
+  }
+  viewDetails(p:Product)
+  {
+    this.product=p;
   }
 
   

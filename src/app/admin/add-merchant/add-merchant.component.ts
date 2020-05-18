@@ -97,15 +97,18 @@ export class AddMerchantComponent implements OnInit {
     })
 
     this.adminService.checkValidEmail(this.alternateEmail).subscribe(data => {
-      this.phoneNoFlag = false;
-      this.alternatePhoneNoFlag = false
-      this.usernameFlag = false;
-      this.alternateEmailFlag = false;
+      if(  this.phoneNoFlag ==false && this.alternatePhoneNoFlag == false && this.usernameFlag == false&& this.alternateEmailFlag == false)
+      {
       this.adminService.addMerchant(this.addForm.value).subscribe(data=>
         {
           alert("Merchant Added")
           this.route.navigate(['/admin/all-merchant'])
         })
+        this.phoneNoFlag = false;
+      this.alternatePhoneNoFlag = false
+      this.usernameFlag = false;
+      this.alternateEmailFlag = false;
+        }
     }, (err: HttpErrorResponse) => {
       this.alternateEmailFlag = true;
       this.alternateEmailErrorMessage = err.error.message

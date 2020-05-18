@@ -15,7 +15,7 @@ export class OrdersComponent implements OnInit {
   submitted:boolean=false;
   orders:Orders[];
   index:number;
-  message:any;
+  message:string="";
   checkCoupon:boolean=true;
   error:string="";
   checkError:boolean=false;

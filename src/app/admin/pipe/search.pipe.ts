@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'searchCustomer'
+  name: 'search'
 })
-export class SearchCustomerPipe implements PipeTransform {
+export class SearchPipe implements PipeTransform {
 
   transform(userList:any,searchText:any): any {
 

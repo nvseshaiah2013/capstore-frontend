@@ -1,36 +1,38 @@
 <div class="container-fluid" style="margin-bottom: 5%;">
 
     <!-- <ng-container *ngIf="(customers | search:searchText) as result"> -->
-    <!-- Start of card view -->
-    <div class="container mt-5" *ngIf="this.view">
+    <!-- Start of card view below use *ngIf -->
+    <div class="container mt-5" >
 
         <div class="card-group">
             <!-- <div class="col-4 rowCard" *ngFor="let customer of result;let i =index"> -->
-            <div class="col-4 rowCard" *ngFor="let i of pp">
+            <div class="col-4 rowCard" *ngFor="let product of products">
                 <div class="card card-body "
                     style="background-color: rgba(108, 89, 146, 0.205);border:5px outset white; border-radius: 10px;">
-                    <img class="card-img-top" src="assets\images\1006.jpg" alt="Card image cap">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <img class="card-img-top embed-responsive-item"  src="assets\images\{{product.productImage}}" alt="Card image cap">
+                    </div>
                     <div class="card-body">
 
-                        <h5 class=" cardData textSize" style="margin-top: 10px; ">Kedar Fab Anarkali</h5>
+                        <h5 class=" cardData textSize" style="margin-top: 10px; ">{{product.productName}}</h5>
 
                         <ul class="list-group list-group-flush">
+                            
                             <li class="list-group-item">Rating :
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
+                                <span class="text-warning fas fa-star" *ngFor="let i of counter(product.productRating)"></span>
+                            
+                                
                             </li>
-                            <li class="list-group-item">No. Of Views : 10.2k</li>
+                        
+                            <li class="list-group-item">No. Of Views : {{product.noOfViews}}</li>
                         </ul>
                         &nbsp;&nbsp;&nbsp;
                         <div class="row">
-                            &nbsp;&nbsp;&nbsp;<button class="btn btn-danger"
-                                (click)=deleteProduct()>Delete</button>&nbsp;&nbsp;
-                            <button class="btn btn-warning" (click)=updateProduct()>Update</button>&nbsp;&nbsp;
+                            <button class="btn btn-info"
+                                (click)=activateProduct(product)>Activate</button>&nbsp;&nbsp;
+                            <button class="btn btn-danger" (click)=inActivateProduct(product)>Deactivate</button>&nbsp;&nbsp;
                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                data-target=".bd-example-modal-lg" (click)="viewDetails()">Details</button>
+                                data-target=".bd-example-modal-lg" (click)="viewDetails(product)">Details</button>
                         </div>
                     </div>
                 </div>
@@ -45,7 +47,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Kedar Hub Anarkali</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{product.productName}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -53,21 +55,22 @@
                     <div class="modal-content">
                         <div class="container mt-5">
                             <div class="card">
+                                <button class="btn btn-warning float-right">Update</button>
                                 <!-- <div class="col-4 rowCard" *ngFor="let customer of result;let i =index"> -->
-                                <div class="col-6 rowCard" *ngFor="let i of cc">
+                                <div class="rowCard">
                                     <div class="card card-body "
-                                        style="background-color: rgba(84, 17, 240, 0.281);border:5px outset white; border-radius: 10px;">
+                                        style="background-color: rgba(136, 119, 177, 0.459);border:5px outset white; border-radius: 10px;">
 
                                         <div class="card-body">
                                             <div class="row">
-                                                <h6 style="margin-left: 5%;"> Product Name: </h6>
+                                                <h5 > Product Id: {{product.productId}} </h5>
                                             </div>
-                                            <h6 class=" cardData textSize" style="margin-top: 10px; ">Product Category:
+                                            <h6 class=" cardData textSize">Product Price:{{product.productPrice | currency :'INR'}}
                                                 </h6>
-                                            <h6 class=" cardData textSize">In Stock: 
+                                            <h6 class=" cardData textSize">Brand : {{product.productBrand}} 
                                             </h6>
-                                            <h6 class="cardData textSize">Price:</h6>
-                                            <h6 class=" cardData textSize">Brand:</h6>
+                                            <h6 class="cardData textSize">No of Product : {{product.noOfProducts}}</h6>
+                                            <h6 class=" cardData textSize">Info : {{product.productInfo}}</h6>
                                         </div>
                                     </div>
                                 </div>

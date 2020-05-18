@@ -13,6 +13,9 @@ import { InviteMerchantComponent } from './invite-merchant/invite-merchant.compo
 import { InvitesComponent } from './invites/invites.component';
 import { AllMerchantComponent } from './all-merchant/all-merchant.component';
 import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
+import { MerchantFeedbacksComponent } from './merchant-feedbacks/merchant-feedbacks.component';
+import { MerchantOrdersComponent } from './merchant-orders/merchant-orders.component';
+import { MerchantProductsComponent } from './merchant-products/merchant-products.component';
 
 
 
@@ -41,6 +44,9 @@ const routes: Routes = [
   {path:'minOrderValue',component:MinimumOrderValueComponent},
   {path:'category',component:CategoryComponent},
   {path:'feedbacks',component:AllFeedbacksComponent},
+  {path:'merchant-feedbacks',component:MerchantFeedbacksComponent},
+  {path:'merchant-orders',component:MerchantOrdersComponent},
+  {path:'merchant-products',component:MerchantProductsComponent},
 
   { path :'**' , component: AdminHomeComponent }
   ]}

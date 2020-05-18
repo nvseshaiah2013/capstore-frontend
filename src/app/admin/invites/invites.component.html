@@ -46,7 +46,7 @@
                     <span aria-hidden="true"> <i class="fas fa-times"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="merchant">
                 <p class="lead">Name: {{merchant.name}}</p>
                 <p class="lead">Phone No: {{ merchant.phoneNo }} </p>
                 <p class="lead">Alt. Phone No. {{merchant.alternatePhoneNo}}</p>

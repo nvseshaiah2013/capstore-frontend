@@ -1,14 +1,5 @@
-<!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
-                    </div>
-                </div>
-            </div> -->
 <div class="animated">
-    <h3 class="text-center mt-3">Dashboard</h3>
+    <h3 class="text-center mt-3"><i class="fas fa-home"></i>&nbsp; Dashboard</h3>
     <hr>
     <section class="pt-1">
         <div class="row container-fluid pt-3">
@@ -55,7 +46,7 @@
     <div class="row container-fluid mt-3">
         <div class="col-lg-6 mt-2">
             <h5 class="text-center pt-3"><i class="fas fa-chart-line"></i> &nbsp;Most Trending Products</h5>
-            <table class="table table-striped table-hover border mt-3">
+            <table class="table table-responsive table-striped table-hover border mt-3">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -65,23 +56,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
+                    <tr *ngFor="let t of trendingProducts;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>
+                            <a href="" (click)="getProductById(t.productId)" data-toggle="modal" data-target="#productModal">
+                                {{t.productName}}
+                            </a>
+                        </td>
+                        <td>{{t.productBrand}}</td> 
+                        <td>{{t.productPrice|currency:'INR'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -95,16 +78,18 @@
                         <th scope="col">Username</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Rating</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let m of topRatedMerchants;let i=index">
                         <th scope="row">{{i+1}}</th>
-                        <td>{{m.username}}</td>
+                        <td>
+                            <a href="" (click)="getMerchantByUsername(m.username)" data-toggle="modal" data-target="#merchantModal">
+                                {{m.username}}
+                            </a>
+                        </td>
                         <td>{{m.phoneNo}}</td>
                         <td>{{m.alternateEmail}}</td>
-                        <td>{{m.rating}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -133,8 +118,8 @@
                         <td>{{r.customer.username}}</td>
                         <td>{{r.product.productName}}</td>
                         <td>{{r.product.merchant.username}}</td>
-                        <td>{{r.orderDate}}</td>
-                        <td>{{r.orderAmount}}</td>
+                        <td>{{r.orderDate|date:'medium'}}</td>
+                        <td>{{r.orderAmount|currency:'INR'}}</td>
                         <td>{{r.orderStatus}}</td>
                     </tr>
                 </tbody>
@@ -142,3 +127,61 @@
         </div>
     </div>
 </div>
+
+
+<!-- Product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{prod.productName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row container-fluid">
+                <div class="col-lg-4">
+                    <img src="/assets/images/{{prod.productId}}.jpg" height="600px" width="200px" class="img-fluid">
+                </div>
+                <div class="col-lg-8">
+                    <b>Price : </b>{{prod.productPrice|currency:'INR'}}<br>
+                    <b>Discount : </b>{{prod.discount}}%<br>
+                    <b>Rating : </b><span class="text-warning fas fa-star" *ngFor="let i of counter(prod.productRating)"></span><br>
+                    <b>Description : </b>{{prod.productInfo}}<br>
+                    <b>Views : </b>{{prod.noOfViews}}<br>
+                    <b>Stocks Available : </b>{{prod.noOfProducts}}
+                    <!-- <h5>Merchant : </h5>{{prod.merchant.username}} -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Merchant Modal -->
+<div class="modal fade" id="merchantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{merchant.username}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <b>Name : </b>{{merchant.name}}<br>
+            <b>Phone : </b>{{merchant.phoneNo}}<br>
+            <b>Alternate Phone : </b>{{merchant.alternatePhoneNo}}<br>
+            <b>EmailId : </b>{{merchant.alternateEmail}}<br>
+            <b>Rating : </b><span class="text-warning fas fa-star" *ngFor="let i of counter(merchant.rating)"></span><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -60,8 +60,7 @@ export class InviteMerchantComponent implements OnInit {
     invite.merchant = this.merchant;
     console.log(invite);
     this.inviteService.sendInvite(invite).subscribe(data=>{
-      console.log('Sent');
-      console.log(data);
+      this.router.navigate(['admin','invites']);
     },err=>{
       console.log(err);
     });

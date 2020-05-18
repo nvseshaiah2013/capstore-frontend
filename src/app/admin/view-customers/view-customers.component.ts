@@ -12,6 +12,7 @@ export class ViewCustomersComponent implements OnInit {
   searchText: string;
   view: boolean = true;
   addresses: Address[];
+  username:string
   name: string;
   customers: any;
   constructor(private service: AdminService) {
@@ -33,13 +34,14 @@ export class ViewCustomersComponent implements OnInit {
   }
 
   viewAddress(username: string, name: string) {
+    this.username=username
     this.name = name
     this.service.getAddressByUsername(username).subscribe(data => {
       console.log(data)
       this.addresses = data
     })
   }
-  deleteAddress() {
-    console.log("delete address")
+  deleteAddress(addressId:number) {
+    console.log(addressId+" "+this.username)
   }
 }

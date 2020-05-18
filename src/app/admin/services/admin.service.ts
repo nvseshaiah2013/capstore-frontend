@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category.model';
 import { Address } from 'src/app/models/address.model';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Orders } from 'src/app/models/order.model';
+import { Product } from 'src/app/models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,10 @@ export class AdminService {
   {
     return this.http.post(this.url+"/subCategory/"+categoryId,category, { responseType: 'text' as 'json' })
   }
+  updateCategoryName(category:any)
+  {
+    return this.http.put(this.url+"/category",category, { responseType: 'text' as 'json' })
+  }
   getAddressByUsername(username:string)
   {
     return this.http.get<Address[]>(this.url+"/address/"+username);
@@ -67,7 +72,7 @@ export class AdminService {
   }
 
   updateOrderStatus(orderId: number, status: string) {
-    return this.http.get(this.url + "/orders/" + orderId + "/" + status);
+    return this.http.get<string>(this.url + "/orders/" + orderId + "/" + status);
   }
   checkValidEmail(email:string)
   {
@@ -77,6 +82,39 @@ export class AdminService {
   {
     return this.http.get(this.url+"/checkPhoneNo/"+phoneNo);
   }
+
+  getTrendingProducts(){
+    return this.http.get<Product[]>(this.url+"/trendingProducts");
+  }
+
+  todayRevenue() {
+    return this.http.get(this.url+"/todayRevenue");
+  }
+
+  todayProductSales() {
+    return this.http.get(this.url+"/todayProductSales");
+  }
+
+  getRecentOrders() {
+    return this.http.get<Orders[]>(this.url + "/recentOrders");
+  }
+
+  getRecentRevenues(){
+    return this.http.get(this.url+"/recentRevenues");
+  }
+
+  getRecentOrdersCount(){
+    return this.http.get(this.url+"/recentOrdersCount");
+  }
+
+  getProductById(prodId:number){
+    return this.http.get<Product>(this.url+"/getProduct/"+prodId);
+  }
+
+  getMerchantByUsername(username:string){
+    return this.http.get<Merchant>(this.url+"/getMerchant/"+username);
+  }
+
 }
 
 

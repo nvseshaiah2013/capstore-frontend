@@ -8,6 +8,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InvitesComponent } from './invites/invites.component';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     InventoryComponent, 
     OrdersComponent, 
     MerchantHomeComponent, 
-    MerchantStatisticsComponent],
+    MerchantStatisticsComponent, InvitesComponent],
 
   imports: [
     CommonModule,
