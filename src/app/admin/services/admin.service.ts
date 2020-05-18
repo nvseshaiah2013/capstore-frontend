@@ -43,6 +43,10 @@ export class AdminService {
   {
     return this.http.post(this.url+"/subCategory/"+categoryId,category, { responseType: 'text' as 'json' })
   }
+  updateCategoryName(category:any)
+  {
+    return this.http.put(this.url+"/category",category, { responseType: 'text' as 'json' })
+  }
   getAddressByUsername(username:string)
   {
     return this.http.get<Address[]>(this.url+"/address/"+username);
@@ -68,7 +72,7 @@ export class AdminService {
   }
 
   updateOrderStatus(orderId: number, status: string) {
-    return this.http.get(this.url + "/orders/" + orderId + "/" + status);
+    return this.http.get<string>(this.url + "/orders/" + orderId + "/" + status);
   }
   checkValidEmail(email:string)
   {
