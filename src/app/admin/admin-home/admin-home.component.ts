@@ -4,6 +4,8 @@ import { Merchant } from '../../models/merchant.model';
 import { Orders } from '../../models/order.model';
 import { DatePipe } from '@angular/common';
 import { Product } from 'src/app/models/product.model';
+import { LoaderService } from '../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-home',
@@ -23,11 +25,13 @@ export class AdminHomeComponent implements OnInit {
   merchant:Merchant=new Merchant();
   errorMssg:string;
 
-  constructor(private adminService:AdminService,private datepipe:DatePipe) { }
+  constructor(private adminService:AdminService,private datepipe:DatePipe,
+    private loaderService:LoaderService) { }
 
   ngOnInit() {
 
-    this.adminService.todayRevenue().subscribe(data=>{
+    // this.loaderService.show();
+    this.adminService.todayRevenue().pipe().subscribe(data=>{
       this.todayRevenue=data;
     })
 
@@ -53,6 +57,9 @@ export class AdminHomeComponent implements OnInit {
 
     this.adminService.getRecentOrders().subscribe(data=>{
       this.recentOrders=data;
+      this.loaderService.hide();
+    },(err:HttpErrorResponse)=>{
+      this.loaderService.hide();
     })
   }
 

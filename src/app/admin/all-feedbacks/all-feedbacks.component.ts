@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoaderService } from '../services/loader.service';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ declare var $: any;
 })
 export class AllFeedbacksComponent implements OnInit {
 
-  constructor(private feedbackService:MerchantFeedService,private router:Router) { }
+  constructor(private feedbackService:MerchantFeedService,private router:Router,private loaderService:LoaderService) { }
   readFeedbacks:number = 0;
   totalFeedbacks :number = 0;
   unreadFeedbacks: number = 0;
@@ -22,15 +23,18 @@ export class AllFeedbacksComponent implements OnInit {
   merchant:Merchant;
   customer:Customer;
   ngOnInit() {
+    this.loaderService.show();
     this.feedbackService.getCommonFeedbacks().subscribe(feedbacks=>{
       this.feedbacks = feedbacks;
       this.totalFeedbacks = this.feedbacks.length;
       this.countReadFeedbacks();
+      this.loaderService.hide();
     },(err:HttpErrorResponse)=>{
       if(err.status == 0)
       {
         this.router.navigate(['error']);
       }
+      this.loaderService.hide();
     })
   }
 

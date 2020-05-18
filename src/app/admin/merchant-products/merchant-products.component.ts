@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { Merchant } from 'src/app/models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Product } from 'src/app/models/product.model';
+import { LoaderService } from '../services/loader.service';
+import { ToastService } from '../services/toast.service';
 declare var $: any;
 
 @Component({
@@ -22,13 +24,16 @@ export class MerchantProductsComponent implements OnInit {
   product:Product;
   constructor(private inviteService: InviteService,
     private merchantService: MerchantFeedService,
-    private router: Router, private location: Location) { }
+    private router: Router, private location: Location,
+    private loaderService:LoaderService,
+    private toastService:ToastService) { }
 
   ngOnInit() {
     this.merchant = this.inviteService.getMerchant();
     if (!this.merchant) {
       this.location.back();
     }
+    this.loaderService.show();
     this.merchantService.getOrderCount(this.merchant).subscribe(orderCount => {
       this.totalOrders = orderCount;
     }, (err: HttpErrorResponse) => {
@@ -48,8 +53,9 @@ export class MerchantProductsComponent implements OnInit {
 
     this.merchantService.getMerchantProducts(this.merchant.username).subscribe(products=>{
       this.products = products;
+      this.loaderService.hide();
     },(err:HttpErrorResponse)=>{
-      
+        this.loaderService.hide();
     })
   }
 
@@ -71,12 +77,15 @@ export class MerchantProductsComponent implements OnInit {
     let username = product.merchant.username;
     let id = product.productId;
     this.merchantService.activateProduct(username,id).subscribe(data=>{
+      this.toastService.setSuccess(data);
       console.log(data);
+      this.toastService.showSuccess();
     },(err:HttpErrorResponse)=>{
       if(err.status == 0){
         this.router.navigate(['error']);
       }
-      console.log(err);
+        this.toastService.setError(err);
+        this.toastService.showFail();
     })
   }
 

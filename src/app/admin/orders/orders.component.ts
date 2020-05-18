@@ -3,13 +3,17 @@ import { Router ,NavigationEnd} from '@angular/router';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { Orders } from '../../models/order.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { LoaderService } from '../services/loader.service';
+declare var $:any;
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit,OnDestroy {
 
   editForm:FormGroup;
   submitted:boolean=false;
@@ -19,22 +23,35 @@ export class OrdersComponent implements OnInit {
   checkCoupon:boolean=true;
   error:string="";
   checkError:boolean=false;
-
-  constructor(private formBuilder:FormBuilder,private router:Router,private service:AdminService) { 
+  private routeSubscription:Subscription;
+  constructor(private formBuilder:FormBuilder,private router:Router,private service:AdminService,private loaderService:LoaderService) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    }
+    this.routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    });
   }
 
   ngOnInit() {
+    this.loaderService.show();
     this.editForm=this.formBuilder.group({
       status:['',Validators.required]
     });
 
     this.service.getAllOrders().subscribe(data=>{
       this.orders=data;
+      this.loaderService.hide();
     },err=>{
-      console.log(err.stack);
+      this.loaderService.hide();
     });
   }
 
+  ngOnDestroy(){
+    this.routeSubscription.unsubscribe();
+  }
   getIndex(index:number){
     this.index=index;
   }
@@ -51,11 +68,15 @@ export class OrdersComponent implements OnInit {
 
     this.service.updateOrderStatus(orderId,status).subscribe(data=>{
       this.checkError=false;
-      this.message=data;
-    },err=>{
-      this.error=err.error;
-      this.checkError=true;
+      this.message=data.message;
+        $('#exampleModalCenter').modal('hide');
+        this.router.navigate(['admin', 'orders']);      
+    },(err:HttpErrorResponse)=>{
+      this.error=err.error.message;
+        setTimeout(() => { $('#exampleModalCenter').modal('hide'); }, 2000);
+        this.checkError=true;
     });
-    window.location.reload();
+    
+   
   }
 }

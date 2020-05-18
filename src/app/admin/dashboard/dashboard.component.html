@@ -1,3 +1,30 @@
+<div class="toasta" *ngIf="showToastFail">
+    <div class="modal-header">
+        <p class="lead text-danger font-weight-bold" *ngIf="error"> Error - {{error.header}}</p>
+        <button (click)="failToggle()" class="btn btn-transparent">
+            <i class="fas fa-times-circle" class="text-danger"></i>
+        </button>
+    </div>
+    <div class="modal-body text-danger font-weight-bold" *ngIf="error">
+        <p class="blockquote">{{error.message}}</p>
+    </div>
+</div>
+<div class="toasta" *ngIf="showToastSuccess">
+    <div class="modal-header">
+        <p class="lead text-success font-weight-bold" *ngIf="success"> Success - {{success.header}}</p>
+        <button (click)="successToggle()" class="btn btn-transparent">
+            <i class="fas fa-times-circle" class="text-success"></i>
+        </button>
+    </div>
+    <div class="modal-body text-success font-weight-bold" *ngIf="success">
+        <p class="blockquote">{{success.message}}</p>
+    </div>
+</div>
+<div>
+
+
+
+
 <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow" style="background-color: #76618b;">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/admin" style="background-color: #524361;">
         <i class="fas fa-shopping-cart"></i> &nbsp;Capstore Admin
@@ -114,4 +141,8 @@
             <router-outlet></router-outlet>
         </main>
     </div>
+</div>
+
+<div *ngIf="showLoad">
+    <app-loading></app-loading>
 </div>
