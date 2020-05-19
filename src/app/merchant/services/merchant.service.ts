@@ -10,7 +10,7 @@ import { Invitation } from 'src/app/models/invitation.model';
 })
 export class MerchantService {
 
-  url: string = "http://localhost:8083/";
+  url: string = "http://localhost:8083/merchant/";
   constructor(private http: HttpClient) { }
 
   getMerchantOrders(username : string){
@@ -31,7 +31,7 @@ export class MerchantService {
 
   getMerchantInvites(username : string ) {
     let params = new HttpParams().set('username',username);
-    return this.http.get<Invitation[]>(this.url + 'merchant/invites',{params:params});
+    return this.http.get<Invitation[]>(this.url + 'invites',{params:params});
   }
   activateProduct(username:string ,id:number){
     let params = new HttpParams().set('username',username).set('id',id.toString());

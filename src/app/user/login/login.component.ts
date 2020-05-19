@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     resp.subscribe(data => {
       localStorage.token = data;
       let role = jwt_decode(data)['jti'];
-      console.log(role);
+      // console.log(role);
       if(role == 'ROLE_CUSTOMER'){
         this.router.navigate(['customer','home']);
       }
@@ -57,12 +57,12 @@ export class LoginComponent implements OnInit {
     let resp = this.service.welcome(token);
     resp.subscribe(data => {
       this.response = data;
-      alert(this.response);
+      // alert(this.response);
       localStorage.token = token;
       var decoded = jwt_decode(token);
-      console.log(decoded);
+      // console.log(decoded);
       var role = decoded['jti'];
-      console.log(role);
+      // console.log(role);
       if (role == 'ROLE_CUSTOMER') {
         console.log('navigate to customer');
       }
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     if (this.loginForm.invalid)
       return;
-    console.log(this.loginForm.value)
+    // console.log(this.loginForm.value)
     let username = this.loginForm.controls.username.value;
     let password = this.loginForm.controls.password.value;
     this.authRequest = {

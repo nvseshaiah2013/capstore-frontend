@@ -66,7 +66,7 @@ export class AllFeedbacksComponent implements OnInit,OnDestroy {
         this.loaderService.hide();
         this.toastService.setSuccess(data);
         this.toastService.showSuccess();
-        this.router.navigate(['admin','all-feedbacks']);
+        this.router.navigate(['admin','feedbacks']);
     }, (err:HttpErrorResponse)=>{
       if(err.status == 0){
         this.router.navigate(['error'])

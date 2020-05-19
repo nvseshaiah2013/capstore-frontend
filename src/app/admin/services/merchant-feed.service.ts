@@ -11,7 +11,7 @@ import { Orders } from 'src/app/models/order.model';
 export class MerchantFeedService {
 
   private baseUrl = 'http://localhost:8083/admin/';
-  private baseUrl2 = 'http://localhost:8083/merchant/';
+  // private baseUrl2 = 'http://localhost:8083/merchant/';
   constructor(private http:HttpClient) { }
 
 
@@ -32,12 +32,12 @@ export class MerchantFeedService {
 
   activateMerchant(username:string){
     let params = new HttpParams().set('username',username);
-    return this.http.post(this.baseUrl2 + 'activate',{},{params:params});
+    return this.http.post(this.baseUrl + 'merchant/activate',{},{params:params});
   }
   
   deActivateMerchant(username:string) {
     let params = new HttpParams().set('username',username);
-    return this.http.post(this.baseUrl2 + 'deactivate',{},{params:params});
+    return this.http.post(this.baseUrl + 'merchant/deactivate',{},{params:params});
   }
 
   getMerchantOrders(username:string){

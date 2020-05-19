@@ -27,6 +27,6 @@ export class InviteService {
     return this.http.post('http://localhost:8083/admin/invite',invitation);
   }
   getMerchants(){
-    return this.http.get<Merchant[]>('http://localhost:8083/merchants/all');
+    return this.http.get<Merchant[]>('http://localhost:8083/admin/merchants/all');
   }
 }
