@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InviteService } from '../services/invite.service';
 import { Invitation } from '../../models/invitation.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,14 +11,14 @@ import { LoaderService } from '../services/loader.service';
   templateUrl: './invites.component.html',
   styleUrls: ['./invites.component.css']
 })
-export class InvitesComponent implements OnInit {
+export class InvitesComponent implements OnInit,OnDestroy {
 
   invitations:Invitation[] = [];
   merchant:Merchant;
   constructor(private inviteService:InviteService,private router:Router,private loadingService:LoaderService) { }
 
   ngOnInit() {
-    this.loadingService.show();
+    // this.loadingService.show();
     this.inviteService.getInvites().subscribe(invites=>{
       this.invitations = invites;
       this.loadingService.hide();
@@ -35,5 +35,8 @@ export class InvitesComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+  ngOnDestroy(){
+    this.loadingService.show();
   }
 }

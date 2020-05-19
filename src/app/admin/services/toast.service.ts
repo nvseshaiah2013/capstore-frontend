@@ -21,7 +21,7 @@ export class ToastService {
   }
 
   showSuccess() {
-    this.failToast.next(<boolean>true);
+    this.successToast.next(<boolean>true);
   }
 
   showFail(){
@@ -49,7 +49,6 @@ export class ToastService {
   }
 
   setSuccess(success) {
-    console.log(success);
-    this.success = success;
+     this.success = success;
   }
 }

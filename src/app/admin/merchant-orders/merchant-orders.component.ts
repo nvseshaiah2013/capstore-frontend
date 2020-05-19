@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InviteService } from '../services/invite.service';
 import { MerchantFeedService } from '../services/merchant-feed.service';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ declare var $: any;
   templateUrl: './merchant-orders.component.html',
   styleUrls: ['./merchant-orders.component.css']
 })
-export class MerchantOrdersComponent implements OnInit {
+export class MerchantOrdersComponent implements OnInit,OnDestroy {
 
   merchant:Merchant;
   totalOrders:number = 0;
@@ -37,8 +37,9 @@ export class MerchantOrdersComponent implements OnInit {
     this.merchant = this.inviteService.getMerchant();
     if (!this.merchant) {
       this.location.back();
+      return;
     }
-    this.loaderService.show();
+    // this.loaderService.show();
     this.merchantService.getOrderCount(this.merchant).subscribe(orderCount => {
       this.totalOrders = orderCount;
       this.loaderService.hide();
@@ -92,5 +93,8 @@ export class MerchantOrdersComponent implements OnInit {
   viewProduct(product:Product){
     this.product = product;
     $('#productModal').modal('show');
+  }
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 }

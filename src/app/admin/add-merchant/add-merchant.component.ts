@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit,OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { LoaderService } from '../services/loader.service';
   templateUrl: './add-merchant.component.html',
   styleUrls: ['./add-merchant.component.css']
 })
-export class AddMerchantComponent implements OnInit,AfterContentInit {
+export class AddMerchantComponent implements OnInit,AfterContentInit,OnDestroy {
   addForm: FormGroup
   submitted: boolean = false;
   username: string
@@ -52,7 +52,7 @@ export class AddMerchantComponent implements OnInit,AfterContentInit {
       landmark: ['', Validators.required],
 
     })
-
+    this.loaderService.hide();
 
   }
 
@@ -60,7 +60,7 @@ export class AddMerchantComponent implements OnInit,AfterContentInit {
   }
   
   ngAfterContentInit(){
-    this.loaderService.hide();
+    // this.loaderService.hide();
   }
   addMerchant() {
     this.submitted = true;
@@ -120,4 +120,7 @@ export class AddMerchantComponent implements OnInit,AfterContentInit {
     })
   }
 
+  ngOnDestroy(){
+    this.loaderService.show();
+  }
 }

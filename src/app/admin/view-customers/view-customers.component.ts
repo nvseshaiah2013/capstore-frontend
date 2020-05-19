@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Address } from 'src/app/models/address.model';
+import { LoaderService } from '../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-customers',
@@ -15,15 +18,21 @@ export class ViewCustomersComponent implements OnInit {
   username:string
   name: string;
   customers: any;
-  constructor(private service: AdminService) {
-    this.service.getListOfCustomers().subscribe(data => {
-      this.customers = data
-    })
+  constructor(private service: AdminService,private loaderService:LoaderService,private router:Router) {
+    
 
   }
 
   ngOnInit() {
-
+    this.service.getListOfCustomers().subscribe(data => {
+      this.customers = data
+      this.loaderService.hide();
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 0){
+        this.router.navigate(['error']);
+      }
+      this.loaderService.hide();
+    })
 
   }
   toggleViewList() {
@@ -43,5 +52,8 @@ export class ViewCustomersComponent implements OnInit {
   }
   deleteAddress(addressId:number) {
     console.log(addressId+" "+this.username)
+  }
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 }

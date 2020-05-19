@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { InviteService } from '../services/invite.service';
 import { Merchant } from '../../models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MerchantFeedService } from '../services/merchant-feed.service';
 import { LoaderService } from '../services/loader.service';
+import { Subscription } from 'rxjs';
+import { ToastService } from '../services/toast.service';
 declare var $:any;
 
 @Component({
@@ -12,16 +14,27 @@ declare var $:any;
   templateUrl: './all-merchant.component.html',
   styleUrls: ['./all-merchant.component.css']
 })
-export class AllMerchantComponent implements OnInit {
+export class AllMerchantComponent implements OnInit,OnDestroy {
 
   merchants:Merchant[] = [];
   merchant:Merchant;
   directMerchants:number = 0;
   indirectMerchants:number = 0;
   totalMerchants : number = 0;
-  constructor(private router:Router,private inviteService:InviteService,private merchantService:MerchantFeedService,private loaderService:LoaderService) { }
+  private routeSubscription:Subscription;
+  constructor(private router:Router,private inviteService:InviteService,private merchantService:MerchantFeedService,
+    private loaderService:LoaderService,private toastService:ToastService) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    }
+    this.routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    });
+  }
   ngOnInit() {
-    this.loaderService.show();
+    // this.loaderService.show();
     this.inviteService.getMerchants().subscribe(merchants=>{
       this.merchants = merchants;
       this.countMerchants();
@@ -97,18 +110,44 @@ export class AllMerchantComponent implements OnInit {
   }
 
   confirmMerchantActivate(){
+    $('#activateModal').modal('hide');
+    this.loaderService.show();
     this.merchantService.activateMerchant(this.merchant.username).subscribe(response=>{
-      $('#activateModal').modal('hide');
-    },err=>{
-        $('#activateModal').modal('hide');
+      this.loaderService.hide();
+      this.toastService.setSuccess(response);
+      this.toastService.showSuccess();
+      this.router.navigate(['admin', 'all-merchant']);
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 0){
+        this.router.navigate(['error'])
+      }
+      
+        this.loaderService.hide();
+        this.toastService.setError(err.error);
+        this.toastService.showFail();
     })
   }
   confirmMerchantDeactivate() {
+    $('#deleteModal').modal('hide');
+    this.loaderService.show();
     this.merchantService.deActivateMerchant(this.merchant.username).subscribe(response=>{
-      $('#deleteModal').modal('hide');
-    },err=>{
-        $('#activateModal').modal('hide');
+      this.loaderService.hide();
+      this.toastService.setSuccess(response);
+      this.toastService.showSuccess();
+      this.router.navigate(['admin','all-merchant']);
+    },(err:HttpErrorResponse)=>{
+        if (err.status == 0) {
+          this.router.navigate(['error'])
+        }
+       this.loaderService.hide();
+       this.toastService.setError(err.error);
+       this.toastService.showFail();
     })
 
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
+    this.routeSubscription.unsubscribe();
   }
 }

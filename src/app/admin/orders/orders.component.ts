@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-    this.loaderService.show();
+    // this.loaderService.show();
     this.editForm=this.formBuilder.group({
       status:['',Validators.required]
     });
@@ -51,6 +51,7 @@ export class OrdersComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(){
     this.routeSubscription.unsubscribe();
+    this.loaderService.show();
   }
   getIndex(index:number){
     this.index=index;
@@ -79,4 +80,5 @@ export class OrdersComponent implements OnInit,OnDestroy {
     
    
   }
+ 
 }

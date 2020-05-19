@@ -105,8 +105,8 @@ body {
 
   
 .toasta{
-    right:10vw;
-    top:20vh;
+    right:4vw;
+    top:12vh;
     width: 30vw;
     height: auto;
     z-index: 1000;
@@ -115,4 +115,17 @@ body {
     background-color: rgba(248, 121, 121, 0.445);
     border-radius: 6px;
     border-top: 3px solid red;
+}
+
+.toastb{
+  right:4vw;
+    top:12vh;
+    width: 30vw;
+    height: auto;
+    z-index: 1000;
+    display: block;
+    position: fixed;
+    background-color: rgba(193, 248, 121, 0.445);
+    border-radius: 6px;
+    border-top: 3px solid green;
 }

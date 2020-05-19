@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InviteService } from '../services/invite.service';
 import { MerchantFeedService } from '../services/merchant-feed.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { Merchant } from 'src/app/models/merchant.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Product } from 'src/app/models/product.model';
 import { LoaderService } from '../services/loader.service';
 import { ToastService } from '../services/toast.service';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -15,23 +16,34 @@ declare var $: any;
   templateUrl: './merchant-products.component.html',
   styleUrls: ['./merchant-products.component.css']
 })
-export class MerchantProductsComponent implements OnInit {
+export class MerchantProductsComponent implements OnInit,OnDestroy {
 
   merchant:Merchant;
   totalOrders:number = 0;
   totalProducts:number = 0;
   products:Product[] = [];
   product:Product;
+  private routeSubscription:Subscription;
   constructor(private inviteService: InviteService,
     private merchantService: MerchantFeedService,
     private router: Router, private location: Location,
     private loaderService:LoaderService,
-    private toastService:ToastService) { }
+    private toastService:ToastService) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    }
+    this.routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    });
+    }
 
   ngOnInit() {
     this.merchant = this.inviteService.getMerchant();
     if (!this.merchant) {
       this.location.back();
+      return;
     }
     this.loaderService.show();
     this.merchantService.getOrderCount(this.merchant).subscribe(orderCount => {
@@ -76,14 +88,17 @@ export class MerchantProductsComponent implements OnInit {
   activateProduct(product:Product){
     let username = product.merchant.username;
     let id = product.productId;
+    this.loaderService.show();
     this.merchantService.activateProduct(username,id).subscribe(data=>{
+      this.loaderService.hide();
       this.toastService.setSuccess(data);
-      console.log(data);
       this.toastService.showSuccess();
+      this.router.navigate(['admin','merchant-products']);
     },(err:HttpErrorResponse)=>{
       if(err.status == 0){
         this.router.navigate(['error']);
       }
+      this.loaderService.hide();
         this.toastService.setError(err);
         this.toastService.showFail();
     })
@@ -92,14 +107,25 @@ export class MerchantProductsComponent implements OnInit {
   deActivateProduct(product: Product) {
     let username = product.merchant.username;
     let id = product.productId;
+    this.loaderService.show();
     this.merchantService.deActivateProduct(username, id).subscribe(data => {
-      console.log(data);
+      this.loaderService.hide();
+        this.toastService.setSuccess(data);
+        this.toastService.showSuccess();
+        this.router.navigate(['admin','merchant-products']);
     }, (err: HttpErrorResponse) => {
       if (err.status == 0) {
         this.router.navigate(['error']);
       }
-      console.log(err);
+      this.loaderService.hide();
+      this.toastService.setError(err.error);
+      this.toastService.showFail();
     })
+  }
+
+  ngOnDestroy(){
+    this.routeSubscription.unsubscribe();
+    this.loaderService.show();
   }
 
 }

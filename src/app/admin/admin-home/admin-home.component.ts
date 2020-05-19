@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Merchant } from '../../models/merchant.model';
 import { Orders } from '../../models/order.model';
@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.css']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit,OnDestroy {
 
   customerCount;
   merchantCount;
@@ -77,6 +77,10 @@ export class AdminHomeComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 
 }

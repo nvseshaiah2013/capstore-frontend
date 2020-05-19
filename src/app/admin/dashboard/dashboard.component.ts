@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
    failToast:Subscription;
    showToastFail:boolean = false;
    showToastSuccess:boolean = false;
-   showLoad:boolean = false;
+   showLoad:boolean = true;
    error:any;
    success:any;
   constructor(private loaderService:LoaderService,private toastService:ToastService) {
@@ -32,14 +32,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.showToastSuccess = status;
       if(this.showToastSuccess){
         this.success = this.toastService.getSuccess();
-        console.log(this.success);
       }
     })
     this.failToast = this.toastService.getFailState().subscribe(status=>{
       this.showToastFail = status;
       if (this.showToastFail) {
         this.error = this.toastService.getError();
-        console.log(this.error);
       }
     })
   }
