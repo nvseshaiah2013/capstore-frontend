@@ -48,7 +48,7 @@ export class CategoryComponent implements OnInit,OnDestroy {
 
     this.updateCategoryForm=this.formBuilder.group({
       name:['',Validators.required],
-      id:['']
+      id:[{value:'',disabled:true}]
     })
   }
   addCategory()
@@ -72,7 +72,7 @@ export class CategoryComponent implements OnInit,OnDestroy {
     this.submitted2=true;
     if(this.updateCategoryForm.invalid  || this.updateCategoryForm.controls.name.value==this.updatedCategoryName)
     return;
-    this.adminService.updateCategoryName(this.updateCategoryForm.value).subscribe(data=>
+    this.adminService.updateCategoryName(this.updateCategoryForm.getRawValue()).subscribe(data=>
       {
       
       })

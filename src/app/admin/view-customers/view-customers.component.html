@@ -88,7 +88,8 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <h6 style="margin-left: 5%;"> Address Id: {{address.addressId}}</h6>
-                                                    <button class="btn btn-outline-danger" style="margin-left: 20%;" (click)=deleteAddress(address.addressId)>Delete</button>&nbsp;&nbsp;
+
+                                                    <button type="button" class="btn btn-outline-danger" style="margin-left: 20%;" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="deleteAddress(address.addressId)">Delete</button>&nbsp;&nbsp;
                                                 </div>
                                                 <h6 class=" cardData textSize" style="margin-top: 10px; ">Address Line One: {{address.addressLineOne}}</h6>
                                                 <h6 class=" cardData textSize">Address Line Two: {{address.addressLineTwo}}</h6>
