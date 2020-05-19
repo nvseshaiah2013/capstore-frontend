@@ -30,7 +30,9 @@
                     (click)="setMerchant(invitation.merchant)">
                     View Merchant
                 </button>
-                <p class="mt-2"><span class="text-muted">Merchant Rating: </span> <span class="fa fa-star text-warning" *ngFor="let i of counter(invitation.merchant.rating)"></span></p>
+                <p class="mt-2"><span class="text-muted">Merchant Rating: </span> <span class="fa fa-star text-warning" *ngFor="let i of counter(invitation.merchant.rating)"></span>
+                    <span class="text-muted" *ngIf="invitation.merchant.rating == 0"> Unrated </span>
+                </p>
             </div>
         </div>
     </div>

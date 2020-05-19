@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-add-merchant',
   templateUrl: './add-merchant.component.html',
   styleUrls: ['./add-merchant.component.css']
 })
-export class AddMerchantComponent implements OnInit {
+export class AddMerchantComponent implements OnInit, AfterContentInit, OnDestroy {
   addForm: FormGroup
   submitted: boolean = false;
   username: string
@@ -33,7 +34,7 @@ export class AddMerchantComponent implements OnInit {
     "What is your spouse or partner's mother's maiden name? "
   ]
 
-  constructor(private formBuilder: FormBuilder, private adminService: AdminService,private route:Router) {
+  constructor(private formBuilder: FormBuilder, private adminService: AdminService, private route: Router, private loaderService: LoaderService) {
     this.addForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern("^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}$")]],
       username: ['', [Validators.required, Validators.email]],
@@ -51,11 +52,15 @@ export class AddMerchantComponent implements OnInit {
       landmark: ['', Validators.required],
 
     })
-
+    this.loaderService.hide();
 
   }
 
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
+    // this.loaderService.hide();
   }
   addMerchant() {
     this.submitted = true;
@@ -68,51 +73,46 @@ export class AddMerchantComponent implements OnInit {
 
     this.adminService.checkPhoneNo(this.phoneNo).subscribe(data => {
       this.phoneNoFlag = false;
-      this.alternatePhoneNoFlag = false
-      this.usernameFlag = false;
-      this.alternateEmailFlag = false;
+
     }, (err: HttpErrorResponse) => {
       this.phoneNoFlag = true;
       this.phoneNoErrorMessage = err.error.message
     })
 
-    this.adminService.checkPhoneNo(this.alternatePhoneNo).subscribe(data => {
-      this.phoneNoFlag = false;
-      this.alternatePhoneNoFlag = false
-      this.usernameFlag = false;
-      this.alternateEmailFlag = false;
-    }, (err: HttpErrorResponse) => {
-      this.alternatePhoneNoFlag = true;
-      this.alternatePhoneNoErrorMessage = err.error.message
-    })
+
 
     this.adminService.checkValidEmail(this.username).subscribe(data => {
-      this.phoneNoFlag = false;
-      this.alternatePhoneNoFlag = false
+
       this.usernameFlag = false;
-      this.alternateEmailFlag = false;
+
     }, (err: HttpErrorResponse) => {
       this.usernameFlag = true;
       this.usernameErrorMessage = err.error.message
     })
 
     this.adminService.checkValidEmail(this.alternateEmail).subscribe(data => {
-      if(  this.phoneNoFlag ==false && this.alternatePhoneNoFlag == false && this.usernameFlag == false&& this.alternateEmailFlag == false)
-      {
-      this.adminService.addMerchant(this.addForm.value).subscribe(data=>
-        {
-          alert("Merchant Added")
-          this.route.navigate(['/admin/all-merchant'])
-        })
-        this.phoneNoFlag = false;
-      this.alternatePhoneNoFlag = false
-      this.usernameFlag = false;
       this.alternateEmailFlag = false;
-        }
+
     }, (err: HttpErrorResponse) => {
       this.alternateEmailFlag = true;
       this.alternateEmailErrorMessage = err.error.message
     })
+
+    this.adminService.checkPhoneNo(this.alternatePhoneNo).subscribe(data => {
+      this.alternatePhoneNoFlag = false
+      if (this.phoneNoFlag == false && this.alternatePhoneNoFlag == false && this.usernameFlag == false && this.alternateEmailFlag == false) {
+        this.adminService.addMerchant(this.addForm.value).subscribe(data => {
+          alert("Merchant Added")
+          this.route.navigate(['/admin/all-merchant'])
+        })
+      }
+    }, (err: HttpErrorResponse) => {
+      this.alternatePhoneNoFlag = true;
+      this.alternatePhoneNoErrorMessage = err.error.message
+    })
   }
 
+  ngOnDestroy() {
+    this.loaderService.show();
+  }
 }

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MerchantFeedService } from '../services/merchant-feed.service';
 import { CommonFeedback } from '../../models/common-feedback.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoaderService } from '../services/loader.service';
+import { ToastService } from '../services/toast.service';
+import { Subscription } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -12,25 +15,39 @@ declare var $: any;
   templateUrl: './all-feedbacks.component.html',
   styleUrls: ['./all-feedbacks.component.css']
 })
-export class AllFeedbacksComponent implements OnInit {
+export class AllFeedbacksComponent implements OnInit,OnDestroy {
 
-  constructor(private feedbackService:MerchantFeedService,private router:Router) { }
+  constructor(private feedbackService:MerchantFeedService,private router:Router,private loaderService:LoaderService,private toastService:ToastService) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    }
+    this.routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+      }
+    });
+  }
+
   readFeedbacks:number = 0;
   totalFeedbacks :number = 0;
   unreadFeedbacks: number = 0;
   feedbacks:CommonFeedback[] = [];
   merchant:Merchant;
   customer:Customer;
+  private routeSubscription:Subscription;
   ngOnInit() {
+    // this.loaderService.show();
     this.feedbackService.getCommonFeedbacks().subscribe(feedbacks=>{
       this.feedbacks = feedbacks;
       this.totalFeedbacks = this.feedbacks.length;
       this.countReadFeedbacks();
+      this.loaderService.hide();
     },(err:HttpErrorResponse)=>{
       if(err.status == 0)
       {
         this.router.navigate(['error']);
       }
+      this.loaderService.hide();
     })
   }
 
@@ -44,12 +61,20 @@ export class AllFeedbacksComponent implements OnInit {
   }
 
   sendFeedbackToMerchant(id:number){
+    this.loaderService.show();
     this.feedbackService.redirectFeedback(id).subscribe(data=>{
-      console.log(data);
+        this.loaderService.hide();
+        this.toastService.setSuccess(data);
+        this.toastService.showSuccess();
+        this.router.navigate(['admin','all-feedbacks']);
     }, (err:HttpErrorResponse)=>{
       if(err.status == 0){
         this.router.navigate(['error'])
       }
+      this.loaderService.hide();
+      this.toastService.setError(err.error);
+      this.toastService.showFail();
+      
     }
     );
   }
@@ -68,6 +93,11 @@ export class AllFeedbacksComponent implements OnInit {
 
   counter(i: number) {
     return new Array(i);
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
+    this.routeSubscription.unsubscribe();
   }
 
 }

@@ -6,6 +6,7 @@ import { Address } from 'src/app/models/address.model';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Orders } from 'src/app/models/order.model';
 import { Product } from 'src/app/models/product.model';
+import { CouponDetails } from '../models/CouponDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,7 @@ export class AdminService {
   }
 
   updateOrderStatus(orderId: number, status: string) {
-    return this.http.get<string>(this.url + "/orders/" + orderId + "/" + status);
+    return this.http.get<any>(this.url + "/orders/" + orderId + "/" + status);
   }
   checkValidEmail(email:string)
   {
@@ -113,6 +114,38 @@ export class AdminService {
 
   getMerchantByUsername(username:string){
     return this.http.get<Merchant>(this.url+"/getMerchant/"+username);
+  }
+  deleteAddress(username:string,addressId:number)
+  {
+    return this.http.delete(this.url+"/address/"+addressId+"/"+username)
+  }
+
+  checkCouponCode(code: any) {
+    return this.http.get(this.url + "/checkCouponCode?couponCode=" + code);
+  }
+
+  checkStartDate(startDate: any) {
+    return this.http.get(this.url + "/checkstartdate?start=" + startDate);
+  }
+
+  checkEndDate(startDate: any, endDate: any) {
+    return this.http.get(this.url + "/checkenddate?start=" + startDate + "&end=" + endDate);
+  }
+
+  createCoupon(Coupon: any) {
+    return this.http.post(this.url + "/addCoupon", Coupon, { responseType: 'text' as 'json' });
+  }
+
+  getCouponList() {
+    return this.http.get<CouponDetails[]>(this.url + "/listOfCoupons");
+  }
+
+  updateCoupon(couponCode: any, start: any, end: any) {
+    return this.http.post(this.url + "/updateCoupon?coupon=" + couponCode + "&start=" + start + "&end=" + end, { responseType: 'text' as 'json' });
+  }
+
+  deletCoupon(coupon: any) {
+    return this.http.post(this.url + "/deleteCoupon?couponName=" + coupon, { responseType: 'text' as 'json' });
   }
 
 }

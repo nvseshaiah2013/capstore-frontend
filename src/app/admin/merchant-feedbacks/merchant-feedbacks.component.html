@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row border">
                 <div class="col-12 col-md-8 offset-md-2">
-                    <div class="row p-2">
+                    <div class="row p-2" *ngIf="merchant">
                         <div class="col-md-6 col-12">
                             <p class="text-muted">
                                 Merchant Name {{ merchant.name }}
@@ -20,6 +20,7 @@
                                 <span class="lead">Rating: </span>
                                 <span class="fas fa-star text-warning ml-1"
                                     *ngFor="let i of counter(merchant.rating)"></span>
+                                <span *ngIf="merchant.rating == 0"> Unrated </span>
                             </p>
                             <button class="btn btn-info btn-xl mt-2 ml-1" (click)="viewMerchant()"> View Merchant <i
                                     class="fas fa-address-card"></i> </button>

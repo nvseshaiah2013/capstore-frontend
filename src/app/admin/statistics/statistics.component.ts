@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 import { AdminService } from '../services/admin.service';
 import { Customer } from 'src/app/models/customer.model';
 import { Orders } from 'src/app/models/order.model';
+import { LoaderService } from '../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit,OnDestroy {
 
   chart = [];
 
@@ -24,7 +27,7 @@ export class StatisticsComponent implements OnInit {
   customers: Customer[];
   orders: Orders[];
 
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService,private loaderService:LoaderService,private router:Router) {
     // for (let i = 0; i < 7; i++) {
     //   this.date.push(new Date().getDate() - i + "/" + new Date().getMonth() + "/" + new Date().getUTCFullYear());
     // }
@@ -72,6 +75,12 @@ export class StatisticsComponent implements OnInit {
           ]
         }
       })
+      this.loaderService.hide();
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 0){
+        this.router.navigate(['error']);
+      }
+      this.loaderService.hide();
     })
 
     this.adminService.getListOfCustomers().subscribe(data => {
@@ -143,5 +152,9 @@ export class StatisticsComponent implements OnInit {
         }
       })
     })
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 }

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { ResourceLoader } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit,OnDestroy {
   submitted:boolean=false;
   submitted2:boolean=false;
   submitted3:boolean=false
@@ -21,11 +23,18 @@ export class CategoryComponent implements OnInit {
   categories:any
   categoryId:number
   subCategories:any
-  constructor(private formBuilder:FormBuilder,private adminService:AdminService,private route:Router) {
+  constructor(private formBuilder:FormBuilder,private adminService:AdminService,private route:Router
+    ,private loaderService:LoaderService) {
    
     this.adminService.getCategories().subscribe(data=>
       {
         this.categories=data
+        this.loaderService.hide();
+      },(err:HttpErrorResponse)=>{
+        if(err.status == 0){
+          this.route.navigate(['error']);
+        }
+        this.loaderService.hide();
       })
    }
 
@@ -39,7 +48,7 @@ export class CategoryComponent implements OnInit {
 
     this.updateCategoryForm=this.formBuilder.group({
       name:['',Validators.required],
-      id:['']
+      id:[{value:'',disabled:true}]
     })
   }
   addCategory()
@@ -63,7 +72,7 @@ export class CategoryComponent implements OnInit {
     this.submitted2=true;
     if(this.updateCategoryForm.invalid  || this.updateCategoryForm.controls.name.value==this.updatedCategoryName)
     return;
-    this.adminService.updateCategoryName(this.updateCategoryForm.value).subscribe(data=>
+    this.adminService.updateCategoryName(this.updateCategoryForm.getRawValue()).subscribe(data=>
       {
       
       })
@@ -93,6 +102,10 @@ export class CategoryComponent implements OnInit {
       this.submitted3=false;
       this.addSubCategoryForm.reset()
       
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
   }
   
 }

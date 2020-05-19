@@ -16,6 +16,8 @@ import { AllFeedbacksComponent } from './all-feedbacks/all-feedbacks.component';
 import { MerchantFeedbacksComponent } from './merchant-feedbacks/merchant-feedbacks.component';
 import { MerchantOrdersComponent } from './merchant-orders/merchant-orders.component';
 import { MerchantProductsComponent } from './merchant-products/merchant-products.component';
+import { AddCouponsComponent } from './coupons/add-coupons/add-coupons.component';
+import { ListCouponComponent } from './coupons/list-coupon/list-coupon.component';
 
 
 
@@ -47,6 +49,9 @@ const routes: Routes = [
   {path:'merchant-feedbacks',component:MerchantFeedbacksComponent},
   {path:'merchant-orders',component:MerchantOrdersComponent},
   {path:'merchant-products',component:MerchantProductsComponent},
+
+    { path: 'adminAddcoupons', component: AddCouponsComponent },
+    { path: 'adminListcoupon', component: ListCouponComponent },
 
   { path :'**' , component: AdminHomeComponent }
   ]}

@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Merchant } from '../../models/merchant.model';
 import { Orders } from '../../models/order.model';
 import { DatePipe } from '@angular/common';
 import { Product } from 'src/app/models/product.model';
+import { LoaderService } from '../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.css']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit,OnDestroy {
 
   customerCount;
   merchantCount;
@@ -21,12 +23,15 @@ export class AdminHomeComponent implements OnInit {
   todayRevenue;
   prod:Product=new Product();
   merchant:Merchant=new Merchant();
+  errorMssg:string;
 
-  constructor(private adminService:AdminService,private datepipe:DatePipe) { }
+  constructor(private adminService:AdminService,private datepipe:DatePipe,
+    private loaderService:LoaderService) { }
 
   ngOnInit() {
 
-    this.adminService.todayRevenue().subscribe(data=>{
+    // this.loaderService.show();
+    this.adminService.todayRevenue().pipe().subscribe(data=>{
       this.todayRevenue=data;
     })
 
@@ -52,6 +57,9 @@ export class AdminHomeComponent implements OnInit {
 
     this.adminService.getRecentOrders().subscribe(data=>{
       this.recentOrders=data;
+      this.loaderService.hide();
+    },(err:HttpErrorResponse)=>{
+      this.loaderService.hide();
     })
   }
 
@@ -69,6 +77,10 @@ export class AdminHomeComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 
 }

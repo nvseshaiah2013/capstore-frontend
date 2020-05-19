@@ -8,6 +8,8 @@ import { StatisticsComponent } from '../admin/statistics/statistics.component';
 import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
 import { InviteMerchantComponent } from '../admin/invite-merchant/invite-merchant.component';
 import { InvitesComponent } from './invites/invites.component';
+import { AddProductComponent } from './merchant-product/add-product/add-product.component';
+import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
 
 
 const routes: Routes = [
@@ -22,7 +24,9 @@ const routes: Routes = [
     {path:'orders', component:OrdersComponent},
     {path:'statistics', component:MerchantStatisticsComponent},
     {path:'invites',component:InvitesComponent},
-    {path:'**', component:MerchantHomeComponent}
+    {path:'**', component:MerchantHomeComponent},
+    { path: 'addProduct', component: AddProductComponent },
+    { path: 'updateStock/:id', component: UpdateProductComponent },
   ]}
 ];
 
