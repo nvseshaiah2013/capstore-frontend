@@ -25,6 +25,9 @@ import { SearchPipe } from './pipe/search.pipe';
 import { LoadingComponent } from './loading/loading.component';
 import { LoaderService } from './services/loader.service';
 import { ToastService } from './services/toast.service';
+import { AddCouponsComponent } from './coupons/add-coupons/add-coupons.component';
+import { FilterCouponPipe } from './pipe/filter-coupon.pipe';
+import { ListCouponComponent } from './coupons/list-coupon/list-coupon.component';
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { ToastService } from './services/toast.service';
     AddMerchantComponent,
     InvitesComponent,
     SearchPipe,
-    LoadingComponent
+    LoadingComponent,
+    AddCouponsComponent,
+    FilterCouponPipe,
+    ListCouponComponent
   ],
   imports: [
     CommonModule,

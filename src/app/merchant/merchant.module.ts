@@ -9,6 +9,8 @@ import { MerchantHomeComponent } from './merchant-home/merchant-home.component';
 import { MerchantStatisticsComponent } from './merchant-statistics/merchant-statistics.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InvitesComponent } from './invites/invites.component';
+import { AddProductComponent } from './merchant-product/add-product/add-product.component';
+import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { InvitesComponent } from './invites/invites.component';
     InventoryComponent, 
     OrdersComponent, 
     MerchantHomeComponent, 
+    AddProductComponent,
+    UpdateProductComponent,
     MerchantStatisticsComponent, InvitesComponent],
 
   imports: [

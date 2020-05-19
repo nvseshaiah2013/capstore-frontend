@@ -1,0 +1,81 @@
+<div class="container" style="margin-top: 3%;">
+    <h3 style="margin-bottom:1%"> Update Product Stock<span> <img src="./../../../assets/updatestock.png"  width=50 /></span></h3>
+    <hr>
+     <form [formGroup]="addProductForm">
+        <div class = "row">
+        <div>
+        <div class="inputField" >
+            <span><img src="./../../../assets/productName.png"  width=50 /></span>
+            <input type="text" disabled class="categoryInput" formControlName="productName" placeholder="Product Name"> 
+        </div>
+
+        <div class="inputField">
+            <span><img src="./../../../assets/productPrice.png"  width=50 /></span>
+            <input type="number" class="categoryInput" formControlName="productPrice" placeholder="Product price"> 
+        </div>
+        <div *ngIf="submitted && addProductForm.controls.productPrice.errors">
+            <div class="text-danger" *ngIf="addProductForm.controls.productPrice.errors.required" style="margin-left: 5%;">
+                <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter productPrice..!</h6>
+            </div>
+            <div class="text-danger" *ngIf="addProductForm.controls.productPrice.errors.min" style="margin-left: 5%;">
+                <h6 style="margin-left: 5%;margin-top: 1%;">minimum price should be greater then 0...</h6>
+            </div>
+        </div>
+
+        <div class="inputField">
+            <span><img src="./../../../assets/productbrand.png"  width=50 /></span>
+            <input type="text" disabled class="categoryInput" formControlName="productBrand" placeholder="Product brand"> 
+        </div>
+
+        
+        
+
+        <div class="inputField">
+            <span><img src="./../../../assets/category.png"  width=50 /></span>
+            <input type="text" disabled class="categoryInput" formControlName="subCategory" placeholder="Enter Subcategory"> 
+        </div>
+
+
+        <div class="inputField">
+            <span><img src="./../../../assets/numberOfProduct.png"  width=50 /></span>
+            <input type="number" class="categoryInput" formControlName="noOfProducts" placeholder="Number of product"> 
+        </div>
+        <div *ngIf="submitted && addProductForm.controls.noOfProducts.errors">
+            <div class="text-danger" *ngIf="addProductForm.controls.noOfProducts.errors.required" style="margin-left: 5%;">
+                <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the number ..!</h6>
+            </div>
+            <div class="text-danger" *ngIf="addProductForm.controls.noOfProducts.errors.min" style="margin-left: 5%;">
+                <h6 style="margin-left: 5%;margin-top: 1%;">product count should be greater then zero...!</h6>
+            </div>
+        </div>
+        
+        <div class="inputField">
+            <span><img src="./../../../assets/info.png"  width=50 /></span>
+            <textarea cols = "30" class="categoryInput" formControlName="productInfo" placeholder="product Info"></textarea> 
+        </div>
+        <div *ngIf="submitted && addProductForm.controls.productInfo.errors">
+            <div class="text-danger" *ngIf="addProductForm.controls.productInfo.errors.required" style="margin-left: 5%;">
+                <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the product discription..!</h6>
+            </div>
+        </div>
+        </div>
+        <div style="margin-left: 15%;">
+             <div class="inputField">
+                <span><img src="./../../../assets/uploadImage.png"  width=50 /></span>
+                <select id="productImage" disabled formControlName="productImage" class="categoryInput">
+                    <option value="">Select Image...</option>
+                    <option *ngFor='let listImage of AllImage' [value]="listImage">{{listImage}}</option>
+                </select>
+            </div>
+
+            <button disabled type="button" class="btn btn-warning" style="margin-left:70%;" (click)="proceed4()">check Image</button>
+            <div style="margin-left: 20%;margin-top: 5%;">
+                <img src="./../../../assets/productImage/{{image}}"  width=200 />
+            </div>
+        </div>
+    
+</div>
+</form>
+<br><br>
+<button class="btn btn-success" style="width:15%;margin-left: 30%;" (click)="updateproduct()">update Product</button>
+</div>

@@ -42,4 +42,20 @@ export class MerchantService {
     let params = new HttpParams().set('username',username).set('id',id.toString());
     return this.http.post(this.url + 'inActivateProduct',{},{params:params});
   }
+
+  addProduct(product) {
+    return this.http.post(this.url + "/product/addProduct", product, { responseType: 'text' as 'json' });
+  }
+
+  getAllCategory() {
+    return this.http.get<any[]>(this.url + "/product/getCategory");
+  }
+
+  getProductbyId(id) {
+    return this.http.get<any>(this.url + "/product/getProduct?prodId=" + id);
+  }
+
+  getProductUpdate(proId, prodCount, prodPrice, prodinfo) {
+    return this.http.post(this.url + "/product/updateproduct?" + "prodId=" + proId + "&prodCount=" + prodCount + "&ProdPrice=" + prodPrice + "&Prodinfo=" + prodinfo, { responseType: 'text' as 'json' });
+  }
 }
