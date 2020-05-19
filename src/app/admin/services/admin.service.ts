@@ -114,7 +114,10 @@ export class AdminService {
   getMerchantByUsername(username:string){
     return this.http.get<Merchant>(this.url+"/getMerchant/"+username);
   }
-
+  deleteAddress(username:string,addressId:number)
+  {
+    return this.http.delete(this.url+"/address/"+addressId+"/"+username)
+  }
 }
 
 

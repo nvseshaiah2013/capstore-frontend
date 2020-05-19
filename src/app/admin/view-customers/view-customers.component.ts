@@ -46,12 +46,15 @@ export class ViewCustomersComponent implements OnInit {
     this.username=username
     this.name = name
     this.service.getAddressByUsername(username).subscribe(data => {
-      console.log(data)
+      
       this.addresses = data
     })
   }
   deleteAddress(addressId:number) {
-    console.log(addressId+" "+this.username)
+    this.service.deleteAddress(this.username,addressId).subscribe(data=>
+      {
+        alert('Address Deleted')
+      });
   }
   ngOnDestroy(){
     this.loaderService.show();
