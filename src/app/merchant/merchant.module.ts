@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InvitesComponent } from './invites/invites.component';
 import { AddProductComponent } from './merchant-product/add-product/add-product.component';
 import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,8 +29,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CommonModule,
     MerchantRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
+    ReactiveFormsModule
   ]
 })
 export class MerchantModule { }
