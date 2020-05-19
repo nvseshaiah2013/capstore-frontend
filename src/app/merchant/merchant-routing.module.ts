@@ -10,6 +10,8 @@ import { InviteMerchantComponent } from '../admin/invite-merchant/invite-merchan
 import { InvitesComponent } from './invites/invites.component';
 import { AddProductComponent } from './merchant-product/add-product/add-product.component';
 import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
+import { ListCouponComponent } from './list-coupon/list-coupon.component';
+import { AddCouponComponent } from './add-coupon/add-coupon.component';
 
 
 const routes: Routes = [
@@ -24,9 +26,12 @@ const routes: Routes = [
     {path:'orders', component:OrdersComponent},
     {path:'statistics', component:MerchantStatisticsComponent},
     {path:'invites',component:InvitesComponent},
-    {path:'**', component:MerchantHomeComponent},
+    
     { path: 'addProduct', component: AddProductComponent },
     { path: 'updateStock/:id', component: UpdateProductComponent },
+    {path:'listcoupon',component:ListCouponComponent},
+    {path:'addcoupon',component:AddCouponComponent},
+    {path:'**', component:MerchantHomeComponent}
   ]}
 ];
 
