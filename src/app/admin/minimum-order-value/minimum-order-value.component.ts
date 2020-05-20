@@ -15,6 +15,10 @@ export class MinimumOrderValueComponent implements OnInit,OnDestroy {
 
   money
   submitted:boolean=false
+  amount:number;
+  
+  amountFlag:boolean=false;
+  amountErrorMessage:string;
   minOrderAmountForm:FormGroup
   constructor(private formBuilder:FormBuilder,private adminService:AdminService
     ,private loaderService:LoaderService,private router:Router) { }
@@ -26,24 +30,34 @@ export class MinimumOrderValueComponent implements OnInit,OnDestroy {
     this.adminService.gitMinOrderValueAmount().subscribe(data=>
       {
         this.money=data
+        
         this.loaderService.hide();
       })
   }
   updateAmount()
-  {this.submitted=true;
+  {
+    this.submitted=true;
     if(this.minOrderAmountForm.invalid)
     return
-    this.loaderService.show();
-    this.adminService.setMinOrderValue(this.minOrderAmountForm.controls.amount.value).subscribe(data=>
+    
+    this.amount=this.minOrderAmountForm.controls.amount.value
+    this.adminService.setMinOrderValue(this.amount).subscribe(data=>
       {
         this.money=data
-        this.loaderService.hide();
+        
+    this.loaderService.show();    
+    this.loaderService.hide();
+    this.amountFlag=false;
       },(err:HttpErrorResponse)=>{
+        this.amountFlag=true
+        this.amountErrorMessage=err.error.message
         if(err.status == 0){
           this.router.navigate(['error']);
           this.loaderService.hide();
         }
       })
+      
+      
   }
 
   ngOnDestroy(){

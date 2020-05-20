@@ -16,6 +16,10 @@ export class CategoryComponent implements OnInit,OnDestroy {
   submitted2:boolean=false;
   submitted3:boolean=false
   addCategoryForm:FormGroup
+  categoryErrorFlag:boolean=false;
+  categoryErrorMessage
+  subCategoryErrorFlag:boolean=false;
+  subCategoryErrorMessage:string;
   addSubCategoryForm:FormGroup
   updateCategoryForm:FormGroup
   updatedCategoryName:string
@@ -56,11 +60,24 @@ export class CategoryComponent implements OnInit,OnDestroy {
     this.submitted=true;
     if(this.addCategoryForm.invalid)
     return;
-    this.adminService.addCategory(this.addCategoryForm.value).subscribe(data=>
-      {
-        this.categories=data
-      })
-  }
+   
+   this.adminService.checkCategoryExists(this.addCategoryForm.controls.name.value).subscribe(data=>
+    {
+      this.adminService.addCategory(this.addCategoryForm.value).subscribe(data=>
+        {
+          alert('Category added')
+          
+          this.addCategoryForm.reset()
+          this.categoryErrorFlag=false;
+          this.submitted=false;
+        })
+    },(err:HttpErrorResponse)=>
+    {
+      this.categoryErrorFlag=true;
+      this.categoryErrorMessage=err.error.message
+    })
+   
+}
   editButton(category:any,categoryId:number)
   {
     this.categoryId=categoryId
@@ -95,15 +112,27 @@ export class CategoryComponent implements OnInit,OnDestroy {
     this.submitted3=true;
     if(this.addSubCategoryForm.invalid)
     return;
-    this.adminService.addSubCategory(this.addSubCategoryForm.value,this.categoryId).subscribe(data=>
+
+    this.adminService.checkCategoryExists(this.addSubCategoryForm.controls.name.value).subscribe(data=>
       {
-        this.subCategories=data;
+        this.adminService.addSubCategory(this.addSubCategoryForm.value,this.categoryId).subscribe(data=>
+          {
+            alert('added subcategory')
+            this.subCategoryErrorFlag=false;
+            this.submitted3=false;
+            this.addSubCategoryForm.reset()
+          })
+      },(err:HttpErrorResponse)=>
+      {
+        this.subCategoryErrorFlag=true;
+        this.subCategoryErrorMessage=err.error.message
       })
-      this.submitted3=false;
-      this.addSubCategoryForm.reset()
+
+   
+      
       
   }
-
+  
   ngOnDestroy(){
     this.loaderService.show();
   }

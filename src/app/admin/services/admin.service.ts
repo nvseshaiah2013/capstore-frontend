@@ -24,6 +24,10 @@ export class AdminService {
  {
    return this.http.get(this.url+"/minOrderValue")
  } 
+ checkCategoryExists(categoryName:string)
+ {
+  return this.http.get(this.url+"/checkCategoryExist/"+categoryName)
+ }
  setMinOrderValue(amount:number)
  {
   return this.http.get(this.url+"/minOrderValue/"+amount)
