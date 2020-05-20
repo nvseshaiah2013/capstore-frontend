@@ -1,3 +1,5 @@
+import { User } from './user.model';
+
 export class CouponDetails{
     couponCode:string;
     couponEndDate:any;
@@ -7,4 +9,5 @@ export class CouponDetails{
     couponDesc:string;
     active:string;
     issuedBy:string;
+    users:User;
 }

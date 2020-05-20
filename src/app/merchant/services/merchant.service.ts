@@ -12,80 +12,76 @@ import { CouponDetails } from 'src/app/models/CouponDetails';
 export class MerchantService {
 
   url: string = "http://localhost:8083/merchant/";
-  url1: string = "http://localhost:8083/admin";
   constructor(private http: HttpClient) { }
 
-  getMerchantOrders(username : string){
-    return this.http.get<Orders[]>(this.url + "merchantOrders/" + username);
+  getMerchantOrders(){
+    return this.http.get<Orders[]>(this.url + "merchantOrders/");
   }
 
   acceptMerchantOrder(orderId : string, status : string){
     return this.http.get<Orders>(this.url + "acceptMerchantOrder/" + orderId + "/" + status);
   }
 
-  getMerchantInfo(username : String){
-    return this.http.get<Merchant>(this.url + "merchantInfo/" + username);
+  getMerchantInfo(){
+    return this.http.get<Merchant>(this.url + "merchantInfo/");
   }
 
-  getMerchantProducts(username : string){
-    return this.http.get<Product[]>(this.url + "getMerchantProducts/" + username);
+  getMerchantProducts(){
+    return this.http.get<Product[]>(this.url + "getMerchantProducts/");
   }
 
-  getMerchantInvites(username : string ) {
-    let params = new HttpParams().set('username',username);
-    return this.http.get<Invitation[]>(this.url + 'invites',{params:params});
+  getMerchantInvites() {
+    return this.http.get<Invitation[]>(this.url + 'invites');
   }
-  activateProduct(username:string ,id:number){
-    let params = new HttpParams().set('username',username).set('id',id.toString());
-    return this.http.post(this.url + 'activateProduct',{},{params:params});
+  activateProduct(id:number){
+    return this.http.post(this.url + `activateProduct/${id}`,{});
 
   }
-  deActivateProduct(username:string,id:number ){
-    let params = new HttpParams().set('username',username).set('id',id.toString());
-    return this.http.post(this.url + 'inActivateProduct',{},{params:params});
+  deActivateProduct(id:number ){
+    return this.http.post(this.url + 'inActivateProduct/'+id,{});
   }
 
   addProduct(product) {
-    return this.http.post(this.url + "/product/addProduct", product, { responseType: 'text' as 'json' });
+    return this.http.post(this.url + "product/addProduct", product, { responseType: 'text' as 'json' });
   }
 
   getAllCategory() {
-    return this.http.get<any[]>(this.url + "/product/getCategory");
+    return this.http.get<any[]>(this.url + "product/getCategory");
   }
 
   getProductbyId(id) {
-    return this.http.get<any>(this.url + "/product/getProduct?prodId=" + id);
+    return this.http.get<any>(this.url + "product/getProduct?prodId=" + id);
   }
 
   getProductUpdate(proId, prodCount, prodPrice, prodinfo) {
-    return this.http.post(this.url + "/product/updateproduct?" + "prodId=" + proId + "&prodCount=" + prodCount + "&ProdPrice=" + prodPrice + "&Prodinfo=" + prodinfo, { responseType: 'text' as 'json' });
+    return this.http.post(this.url + "product/updateproduct?" + "prodId=" + proId + "&prodCount=" + prodCount + "&ProdPrice=" + prodPrice + "&Prodinfo=" + prodinfo, { responseType: 'text' as 'json' });
   }
 
   checkCouponCode(code: any) {
-    return this.http.get(this.url1 + "/checkCouponCode?couponCode=" + code);
+    return this.http.get(this.url + "checkCouponCode?couponCode=" + code);
   }
 
   checkStartDate(startDate: any) {
-    return this.http.get(this.url1 + "/checkstartdate?start=" + startDate);
+    return this.http.get(this.url + "checkstartdate?start=" + startDate);
   }
 
   checkEndDate(startDate: any, endDate: any) {
-    return this.http.get(this.url1 + "/checkenddate?start=" + startDate + "&end=" + endDate);
+    return this.http.get(this.url + "checkenddate?start=" + startDate + "&end=" + endDate);
   }
 
   createCoupon(Coupon: any) {
-    return this.http.post(this.url1 + "/addCoupon", Coupon, { responseType: 'text' as 'json' });
+    return this.http.post(this.url + "addCoupon", Coupon, { responseType: 'text' as 'json' });
   }
 
   getCouponList() {
-    return this.http.get<CouponDetails[]>(this.url1 + "/listOfCoupons");
+    return this.http.get<CouponDetails[]>(this.url + "listOfCoupons");
   }
 
   updateCoupon(couponCode: any, start: any, end: any) {
-    return this.http.post(this.url1 + "/updateCoupon?coupon=" + couponCode + "&start=" + start + "&end=" + end, { responseType: 'text' as 'json' });
+    return this.http.post(this.url + "updateCoupon?coupon=" + couponCode + "&start=" + start + "&end=" + end, { responseType: 'text' as 'json' });
   }
 
   deleteCoupon(coupon: any) {
-    return this.http.post(this.url1 + "/deleteCoupon?couponName=" + coupon, { responseType: 'text' as 'json' });
+    return this.http.post(this.url + "deleteCoupon?couponName=" + coupon, { responseType: 'text' as 'json' });
   }
 }

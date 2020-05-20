@@ -1,29 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MerchantService } from '../services/merchant.service';
 import { Customer } from 'src/app/models/customer.model';
 import { Orders } from 'src/app/models/order.model';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'app-merchant-statistics',
   templateUrl: './merchant-statistics.component.html',
   styleUrls: ['./merchant-statistics.component.css']
 })
-export class MerchantStatisticsComponent implements OnInit {
+export class MerchantStatisticsComponent implements OnInit, OnDestroy {
 
   chart = [];
   date = [];
   recentRevenues;
   recentOrdersCount;
   category = ['Clothes', 'Home', 'FootWear', 'Electronics']
-  categoryOrders = [1, 6, 7, 8];
+  categoryOrders = [1, 1, 1, 1];
   males: number = 1;
   females: number = 1;
   others: number = 1;
   customers: Customer[] = new Array();
   orders: Orders[];
 
-  constructor(private merchantService : MerchantService) { 
+  constructor(private merchantService : MerchantService, private loaderService:LoadingSpinnerService) { 
     this.date.push("17/05/20");
     this.date.push("16/05/20");
     this.date.push("15/05/20");
@@ -34,7 +35,7 @@ export class MerchantStatisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.orders = data;
       for (let i = 0; i < this.orders.length; i++) {
         if (this.orders[i].product.subCategory.category.name == "Clothes") {
@@ -69,7 +70,7 @@ export class MerchantStatisticsComponent implements OnInit {
     })
 
 
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       data.forEach(order => this.customers.push(order.customer));
       for (let i = 0; i < this.customers.length; i++) {
         if (this.customers[i].gender == 'Male') {
@@ -99,7 +100,7 @@ export class MerchantStatisticsComponent implements OnInit {
       })
     })
 
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.recentRevenues = data.map(order => order.transaction.transactionMoney);;
 
       this.chart = new Chart('revenueChart', {
@@ -117,9 +118,16 @@ export class MerchantStatisticsComponent implements OnInit {
           ]
         }
       })
+      this.loaderService.hide();
+    }, err => {
+      this.loaderService.hide();
     })
 
-    
+  }
+
+  
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 
 }

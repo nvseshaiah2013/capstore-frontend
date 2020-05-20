@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MerchantService } from '../services/merchant.service';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-merchant-home',
   templateUrl: './merchant-home.component.html',
   styleUrls: ['./merchant-home.component.css']
 })
-export class MerchantHomeComponent implements OnInit {
+export class MerchantHomeComponent implements OnInit,OnDestroy {
 
   todaySoldProducts : number;
   activeCustomers : number;
@@ -18,11 +20,11 @@ export class MerchantHomeComponent implements OnInit {
   trendingProducts : Product[];
   prod = new Product();
 
-  constructor(private merchantService : MerchantService) { }
+  constructor(private merchantService : MerchantService,  private loaderService:LoadingSpinnerService) { }
   
   
   ngOnInit() {
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.todaySoldProducts = data.length;
       data.forEach(element => {
         this.usernameList.add(element.customer.username);
@@ -40,7 +42,7 @@ export class MerchantHomeComponent implements OnInit {
       
     });
 
-    this.merchantService.getMerchantProducts('harsha98').subscribe(data => {
+    this.merchantService.getMerchantProducts().subscribe(data => {
       this.trendingProducts = data;
       this.trendingProducts = this.trendingProducts.sort((a , b) => {
         if(a.noOfViews >= b.noOfViews){
@@ -50,10 +52,13 @@ export class MerchantHomeComponent implements OnInit {
           return 1;
         }
       });
-      //console.log(this.trendingProducts);
+      console.log(this.trendingProducts);
       if(this.trendingProducts.length >= 5){
         this.trendingProducts = this.trendingProducts.slice(0,5);
       }
+      this.loaderService.hide();
+    }, (err:HttpErrorResponse)=>{
+      this.loaderService.hide();
     });
   }
 
@@ -64,5 +69,8 @@ export class MerchantHomeComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 }

@@ -15,6 +15,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddCouponComponent } from './add-coupon/add-coupon.component';
 import { ListCouponComponent } from './list-coupon/list-coupon.component';
 import { FilterCouponPipe } from './pipes/filter-coupon.pipe';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { LoadingSpinnerService } from './services/loading-spinner.service';
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import { FilterCouponPipe } from './pipes/filter-coupon.pipe';
     MerchantHomeComponent, 
     AddProductComponent,
     UpdateProductComponent,
-    MerchantStatisticsComponent, InvitesComponent, AddCouponComponent, ListCouponComponent, FilterCouponPipe],
+    MerchantStatisticsComponent, InvitesComponent, AddCouponComponent, ListCouponComponent, FilterCouponPipe, LoadingSpinnerComponent],
 
   imports: [
     CommonModule,
@@ -34,6 +36,9 @@ import { FilterCouponPipe } from './pipes/filter-coupon.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    LoadingSpinnerService
   ]
 })
 export class MerchantModule { }

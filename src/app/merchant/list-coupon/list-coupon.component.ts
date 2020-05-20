@@ -4,6 +4,7 @@ import { CouponDetails } from 'src/app/models/CouponDetails';
 import { MerchantService } from '../services/merchant.service';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/admin/services/loader.service';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'app-list-coupon',
@@ -18,13 +19,12 @@ export class ListCouponComponent implements OnInit,OnDestroy{
   invalidEndDate:boolean = false;
   couponDetail: CouponDetails[];
   constructor(private service: MerchantService, private formBuilder:FormBuilder, public datepipe: DatePipe
-    ) { 
+    ,private loaderService:LoadingSpinnerService) { 
       this.service.getCouponList().subscribe((data)=>{
            this.couponDetail = data;
-          
       },
       (err)=>{
-        alert(err.error);
+        console.log(err.error.message);
       })
   }
 
@@ -37,6 +37,7 @@ export class ListCouponComponent implements OnInit,OnDestroy{
       couponStartDate: ['', Validators.required],
       couponEndDate: ['', Validators.required]
     })
+    this.loaderService.hide();
   }
 
   updateDetails(coupon:CouponDetails){
@@ -61,8 +62,7 @@ export class ListCouponComponent implements OnInit,OnDestroy{
     let Startdate = this.datepipe.transform(time, 'yyyy-MM-dd HH:mm:ss');
     let EndDate = this.datepipe.transform(time2, 'yyyy-MM-dd HH:mm:ss');
     let count = 0;
-    // this.addForm.controls.couponStartDate.setValue(Startdate);
-    // this.addForm.controls.couponEndDate.setValue(EndDate);
+    
     this.service.checkStartDate(Startdate).subscribe((data)=>{
       count++;
        this.invalidStartDate = false;
@@ -111,13 +111,10 @@ export class ListCouponComponent implements OnInit,OnDestroy{
       this.invalidEndDate = true;
       alert("End Date must be after than Start date..." );
     })
-   
-    
   }
   deleteCouponCode(couponCode){
     if(confirm("Are you sure you want to delete " + couponCode)){
       this.service.deleteCoupon(couponCode).subscribe((data)=>{
-           console.log(data); 
            window.location.reload();
       },
       (err)=>{
@@ -127,7 +124,6 @@ export class ListCouponComponent implements OnInit,OnDestroy{
     }
   }
   ngOnDestroy(){
-    
+    this.loaderService.show();
   }
-
 }

@@ -4,6 +4,7 @@ import { CouponDetails } from 'src/app/models/CouponDetails';
 import { MerchantService } from '../services/merchant.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'app-add-coupon',
@@ -16,7 +17,7 @@ export class AddCouponComponent implements OnInit,OnDestroy {
   value: number = 1;
   addCouponForm:FormGroup;
   coupon:CouponDetails;
-  constructor(private formBuilder:FormBuilder, private service:MerchantService, public datepipe: DatePipe, private router: Router) {
+  constructor(private formBuilder:FormBuilder, private service:MerchantService, public datepipe: DatePipe, private router: Router,private loaderService:LoadingSpinnerService) {
       //this.loaderService.hide();
      }
   invalidStartDate:boolean = false;
@@ -40,21 +41,18 @@ export class AddCouponComponent implements OnInit,OnDestroy {
       couponStartDate: ['', Validators.required],
       couponEndDate: ['', Validators.required]
     })
+    this.loaderService.hide();
   }
   
   proceed2(){
     this.submitted = true;
-    // alert(this.addCouponForm.controls.couponCode.value);
     if(this.addCouponForm.controls.couponCode.invalid || this.addCouponForm.controls.couponDesc.invalid){
       return;
     }
     
-    // this.coupon.couponCode = this.addCouponForm.controls.couponCode.value;
-    // this.coupon.couponDesc = this.addCouponForm.controls.couponDesc.value;
     this.couponName = this.addCouponForm.controls.couponCode.value;
     this.CouponDesc = this.addCouponForm.controls.couponDesc.value;
     this.service.checkCouponCode(this.addCouponForm.controls.couponCode.value).subscribe((data)=>{
-     
       this.submitted = false;
       this.value = 2;
     },
@@ -76,9 +74,6 @@ export class AddCouponComponent implements OnInit,OnDestroy {
     }
     this.CouponAmount = this.addCouponForm.controls.couponAmount.value;
     this.MinOrderAmount = this.addCouponForm.controls.minOrderAmount.value;
-    
-    // this.coupon.couponAmount = this.addCouponForm.controls.couponAmount.value;
-    // this.coupon.minOrderAmount = this.addCouponForm.controls.minOrderAmount.value;
     this.submitted = false;
     this.value = 3;
   }
@@ -88,16 +83,17 @@ export class AddCouponComponent implements OnInit,OnDestroy {
     if(this.addCouponForm.controls.couponStartDate.invalid || this.addCouponForm.controls.couponEndDate.invalid){
       return;
     }
-    
-    // this.coupon.couponStartDate = this.addCouponForm.controls.couponStartDate.value;
-    // this.coupon.couponEndDate = this.addCouponForm.controls.couponEndDate.value;
+  
     let time = (this.addCouponForm.controls.couponStartDate.value);
     let time2 = (this.addCouponForm.controls.couponEndDate.value);
+    
     this.Startdate = this.datepipe.transform(time, 'yyyy-MM-dd HH:mm:ss');
     this.EndDate = this.datepipe.transform(time2, 'yyyy-MM-dd HH:mm:ss');
+    
     this.CouponStartDate = this.Startdate;
     this.CouponEndDate = this.EndDate;
     let count = 0;
+    
     this.service.checkStartDate(this.Startdate).subscribe((data)=>{
       this.invalidStartDate = false;
       count++;
@@ -123,8 +119,6 @@ export class AddCouponComponent implements OnInit,OnDestroy {
       this.invalidEndDate = true;
       alert(err.error.message);
     })
-     
-   
   }
 
   addCoupon(){
@@ -135,14 +129,10 @@ export class AddCouponComponent implements OnInit,OnDestroy {
          window.location.reload();
     },
     (err)=>{
-       alert(err.error);
+       console.log(err.error);
     })
-   
-
   }
-  
   ngOnDestroy(){
-    
+    this.loaderService.show();
   }
-
 }
