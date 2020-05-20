@@ -84,4 +84,14 @@ export class MerchantService {
   deleteCoupon(coupon: any) {
     return this.http.post(this.url + "deleteCoupon?couponName=" + coupon, { responseType: 'text' as 'json' });
   }
+
+  acceptInvite(id:number){
+    let params = new HttpParams().set('id',id.toString())
+    return this.http.post(this.url + 'acceptInvite',{},{params:params});
+  }
+
+  rejectInvite(id:number){
+    let params = new HttpParams().set('id',id.toString())
+    return this.http.post(this.url + 'rejectInvite',{},{params:params});
+  }
 }

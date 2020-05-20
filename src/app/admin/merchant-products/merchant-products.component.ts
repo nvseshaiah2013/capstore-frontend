@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class MerchantProductsComponent implements OnInit,OnDestroy {
 
+  searchText:string;
   merchant:Merchant;
   totalOrders:number = 0;
   totalProducts:number = 0;

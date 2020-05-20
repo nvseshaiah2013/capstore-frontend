@@ -30,7 +30,8 @@
             </div>
             <hr>
             <div class="row">
-                <div class="offset-md-6 col-4 col-md-2">
+                <input type="text" [(ngModel)]="searchText" class="form-control col-md-3" placeholder="Enter Order Id"/>
+                <div class="offset-md-3 col-4 col-md-2">
                     <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products <i class="fas fa-store-alt"></i></a>
                 </div>
                 <div class="col-4 col-md-2">
@@ -55,77 +56,84 @@
                 <p class="lead text-center">Oh I See! This merchant has'nt got any orders Yet.</p>
                 <p class="text-muted text-center"> Lets hope for the best for this merchant </p>
             </div>
-            <div *ngIf="orders.length != 0">
+            <div *ngIf="(orders | searchOrder:searchText ) as result">
 
-                <div class="col-12 col-md-10 offset-md-1 left-border" *ngFor="let order of orders;">
-                    <div class="row border p-2">
-                        <div class="col-12 col-md-6">
-                            <p>
-
-                                <span class="lead">Order Id : 
-                                    
-                                </span>
-                                <span class="text-muted">{{ order.orderId }}
-                                    
-                                </span>
-                            </p>
-                            <p>
-
-                                <span class="lead">
-                                    Order Amount :
-                                </span>
-                                <span class="text-muted">
-                                    {{ order.orderAmount | currency :'INR'}}
-                                </span>
-                            </p>
-                            <p>
-
-                                <span class="lead">
-                                    Date Of Order : 
-                                </span>
-                                <span class="text-muted">
-                                    {{ order.orderDate | date:'mediumDate'}}
-                                </span>
-                            </p>
-                            <p>
-
-                                <span class="lead">
-                                    Order Status : 
-                                </span>
-                                <span class="text-muted">
-                                    {{ order.orderStatus }}
-                                </span>
-                            </p>
-                            <p>
-
-                                <span class="lead">
-                                    Last Updated : 
-                                </span>
-                                <span class="text-muted">
-                                    {{ order.statusDate | date:'fullDate'}}
-                                </span>
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <p class="lead" *ngIf="order.transaction.coupon == null">
-                                Coupon Applied : No
-                            </p>
-                            <p>
-                                <button type="button" class="btn btn-info" (click)="viewCoupon(order.transaction.coupon)"> View Applied Coupon </button>
-                            </p>
-                            <p>
-                               <button type="button" class="btn btn-success" (click)="viewAddress(order.address)"> View Address </button>
-                            </p>
-                            <p>
-                                <button type="button" class="btn btn-primary" (click)="viewCustomer(order.customer)"> View Customer </button>
-                            </p>
-                            <p>
-                                <button type="button" class="btn btn-danger" (click)="viewProduct(order.product)"> View Product </button>
-                            </p>
+                <div class="col-12 col-md-10 offset-md-1" *ngIf="result.length == 0">
+                    <p class="lead text-center">Oh I See! This {{ searchText }} id is not a valid order Id.</p>
+                    <p class="text-muted text-center"> Please Check Again ! </p>
+                </div>
+                <div>
+    
+                    <div class="col-12 col-md-10 offset-md-1 left-border" *ngFor="let order of result;">
+                        <div class="row border p-2">
+                            <div class="col-12 col-md-6">
+                                <p>
+    
+                                    <span class="lead">Order Id : 
+                                        
+                                    </span>
+                                    <span class="text-muted">{{ order.orderId }}
+                                        
+                                    </span>
+                                </p>
+                                <p>
+    
+                                    <span class="lead">
+                                        Order Amount :
+                                    </span>
+                                    <span class="text-muted">
+                                        {{ order.orderAmount | currency :'INR'}}
+                                    </span>
+                                </p>
+                                <p>
+    
+                                    <span class="lead">
+                                        Date Of Order : 
+                                    </span>
+                                    <span class="text-muted">
+                                        {{ order.orderDate | date:'mediumDate'}}
+                                    </span>
+                                </p>
+                                <p>
+    
+                                    <span class="lead">
+                                        Order Status : 
+                                    </span>
+                                    <span class="text-muted">
+                                        {{ order.orderStatus }}
+                                    </span>
+                                </p>
+                                <p>
+    
+                                    <span class="lead">
+                                        Last Updated : 
+                                    </span>
+                                    <span class="text-muted">
+                                        {{ order.statusDate | date:'fullDate'}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <p class="lead" *ngIf="order.transaction.coupon == null">
+                                    Coupon Applied : No
+                                </p>
+                                <p>
+                                    <button type="button" class="btn btn-info" (click)="viewCoupon(order.transaction.coupon)"> View Applied Coupon </button>
+                                </p>
+                                <p>
+                                   <button type="button" class="btn btn-success" (click)="viewAddress(order.address)"> View Address </button>
+                                </p>
+                                <p>
+                                    <button type="button" class="btn btn-primary" (click)="viewCustomer(order.customer)"> View Customer </button>
+                                </p>
+                                <p>
+                                    <button type="button" class="btn btn-danger" (click)="viewProduct(order.product)"> View Product </button>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 </div>

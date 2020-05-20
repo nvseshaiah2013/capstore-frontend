@@ -15,7 +15,7 @@ declare var $:any;
   styleUrls: ['./all-merchant.component.css']
 })
 export class AllMerchantComponent implements OnInit,OnDestroy {
-
+  searchText:string;
   merchants:Merchant[] = [];
   merchant:Merchant;
   directMerchants:number = 0;

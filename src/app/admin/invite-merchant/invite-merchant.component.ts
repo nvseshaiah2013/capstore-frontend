@@ -65,6 +65,7 @@ export class InviteMerchantComponent implements OnInit,OnDestroy {
     invite.message = this.invitation.controls['message'].value;
     invite.merchant = this.merchant;
     // console.log(invite);
+    this.loaderService.show();
     this.inviteService.sendInvite(invite).subscribe(data=>{
       this.router.navigate(['admin','invites']);
     },(err:HttpErrorResponse)=>{
