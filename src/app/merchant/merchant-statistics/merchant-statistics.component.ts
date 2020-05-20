@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MerchantService } from '../services/merchant.service';
 import { Customer } from 'src/app/models/customer.model';
 import { Orders } from 'src/app/models/order.model';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'app-merchant-statistics',
   templateUrl: './merchant-statistics.component.html',
   styleUrls: ['./merchant-statistics.component.css']
 })
-export class MerchantStatisticsComponent implements OnInit {
+export class MerchantStatisticsComponent implements OnInit, OnDestroy {
 
   chart = [];
   date = [];
@@ -23,7 +24,7 @@ export class MerchantStatisticsComponent implements OnInit {
   customers: Customer[] = new Array();
   orders: Orders[];
 
-  constructor(private merchantService : MerchantService) { 
+  constructor(private merchantService : MerchantService, private loaderService:LoadingSpinnerService) { 
     this.date.push("17/05/20");
     this.date.push("16/05/20");
     this.date.push("15/05/20");
@@ -117,8 +118,16 @@ export class MerchantStatisticsComponent implements OnInit {
           ]
         }
       })
+      this.loaderService.hide();
+    }, err => {
+      this.loaderService.hide();
     })
 
+  }
+
+  
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 
 }

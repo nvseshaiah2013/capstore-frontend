@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy} from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MerchantService } from '../../services/merchant.service';
+import { LoadingSpinnerService } from '../../services/loading-spinner.service';
 
 @Component({
   selector: 'app-update-product',
   templateUrl: './update-product.component.html',
   styleUrls: ['./update-product.component.css']
 })
-export class UpdateProductComponent implements OnInit {
+export class UpdateProductComponent implements OnInit, OnDestroy {
   currentId:number;
   addProductForm:FormGroup;
   product:any;
   image: string;
   submitted:boolean=false;
   constructor(private formBuilder: FormBuilder,private router: Router, private service: MerchantService,
-  private route:ActivatedRoute) {
+  private route:ActivatedRoute, private loaderService:LoadingSpinnerService) {
     this.route.params.subscribe(params=>{
       this.currentId = params['id'];
     })
@@ -45,7 +46,7 @@ export class UpdateProductComponent implements OnInit {
       productInfo:['', [Validators.required]],
       productImage:['']
     })
-    
+    this.loaderService.hide();
   }
   updateproduct(){
     this.submitted = true;
@@ -62,6 +63,9 @@ export class UpdateProductComponent implements OnInit {
       window.location.reload();
     })
   }
+}
+ngOnDestroy(){
+  this.loaderService.show();
 }
 
 }

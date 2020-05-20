@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MerchantService } from '../services/merchant.service';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-merchant-home',
   templateUrl: './merchant-home.component.html',
   styleUrls: ['./merchant-home.component.css']
 })
-export class MerchantHomeComponent implements OnInit {
+export class MerchantHomeComponent implements OnInit,OnDestroy {
 
   todaySoldProducts : number;
   activeCustomers : number;
@@ -18,7 +20,7 @@ export class MerchantHomeComponent implements OnInit {
   trendingProducts : Product[];
   prod = new Product();
 
-  constructor(private merchantService : MerchantService) { }
+  constructor(private merchantService : MerchantService,  private loaderService:LoadingSpinnerService) { }
   
   
   ngOnInit() {
@@ -54,6 +56,9 @@ export class MerchantHomeComponent implements OnInit {
       if(this.trendingProducts.length >= 5){
         this.trendingProducts = this.trendingProducts.slice(0,5);
       }
+      this.loaderService.hide();
+    }, (err:HttpErrorResponse)=>{
+      this.loaderService.hide();
     });
   }
 
@@ -64,5 +69,8 @@ export class MerchantHomeComponent implements OnInit {
 
   counter(i:number){
     return new Array(i);
+  }
+  ngOnDestroy(){
+    this.loaderService.show();
   }
 }

@@ -4,6 +4,7 @@ import { CouponDetails } from 'src/app/models/CouponDetails';
 import { MerchantService } from '../services/merchant.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'app-add-coupon',
@@ -16,7 +17,7 @@ export class AddCouponComponent implements OnInit,OnDestroy {
   value: number = 1;
   addCouponForm:FormGroup;
   coupon:CouponDetails;
-  constructor(private formBuilder:FormBuilder, private service:MerchantService, public datepipe: DatePipe, private router: Router) {
+  constructor(private formBuilder:FormBuilder, private service:MerchantService, public datepipe: DatePipe, private router: Router,private loaderService:LoadingSpinnerService) {
       //this.loaderService.hide();
      }
   invalidStartDate:boolean = false;
@@ -40,6 +41,7 @@ export class AddCouponComponent implements OnInit,OnDestroy {
       couponStartDate: ['', Validators.required],
       couponEndDate: ['', Validators.required]
     })
+    this.loaderService.hide();
   }
   
   proceed2(){
@@ -142,7 +144,7 @@ export class AddCouponComponent implements OnInit,OnDestroy {
   }
   
   ngOnDestroy(){
-    
+    this.loaderService.show();
   }
 
 }
