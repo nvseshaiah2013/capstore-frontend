@@ -11,9 +11,13 @@
                     <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Category ..!</h4>
                 </div>
             </div>
+            <div *ngIf="categoryErrorFlag">
+                <h3 class="text-danger">{{categoryErrorMessage}}</h3>
+            </div>
             <button class="btn btn-success" style="margin-left:20%;width:10%;margin-top:2%" (click)="addCategory()">Add</button>
         </form>
     </div>
+
     <hr>
     <div>
         <table class="table table-striped table-responsive table-hover text-bold">
@@ -64,6 +68,7 @@
                                 </div>
                             </div>
 
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -113,6 +118,9 @@
                                 <div class="text-danger" *ngIf="addSubCategoryForm.controls.name.errors.required">
                                     <h4 style="margin-left: 5%;margin-top: 1%;">Please Enter the Sub Category ..!</h4>
                                 </div>
+                            </div>
+                            <div *ngIf="subCategoryErrorFlag">
+                                <h3 class="text-danger">{{subCategoryErrorMessage}}</h3>
                             </div>
                             <button class="btn btn-success" style="width:30%;margin-top:2% ;margin-left:50%;margin-bottom:2%" (click)="addSubCategory()">Add</button>
                         </form>
