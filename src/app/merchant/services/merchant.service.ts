@@ -4,6 +4,7 @@ import { Orders } from 'src/app/models/order.model';
 import { Merchant } from 'src/app/models/merchant.model';
 import { Product } from 'src/app/models/product.model';
 import { Invitation } from 'src/app/models/invitation.model';
+import { CouponDetails } from 'src/app/models/CouponDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Invitation } from 'src/app/models/invitation.model';
 export class MerchantService {
 
   url: string = "http://localhost:8083/merchant/";
+  url1: string = "http://localhost:8083/admin";
   constructor(private http: HttpClient) { }
 
   getMerchantOrders(){
@@ -58,4 +60,31 @@ export class MerchantService {
     return this.http.post(this.url + "/product/updateproduct?" + "prodId=" + proId + "&prodCount=" + prodCount + "&ProdPrice=" + prodPrice + "&Prodinfo=" + prodinfo, { responseType: 'text' as 'json' });
   }
 
+  checkCouponCode(code: any) {
+    return this.http.get(this.url1 + "/checkCouponCode?couponCode=" + code);
+  }
+
+  checkStartDate(startDate: any) {
+    return this.http.get(this.url1 + "/checkstartdate?start=" + startDate);
+  }
+
+  checkEndDate(startDate: any, endDate: any) {
+    return this.http.get(this.url1 + "/checkenddate?start=" + startDate + "&end=" + endDate);
+  }
+
+  createCoupon(Coupon: any) {
+    return this.http.post(this.url1 + "/addCoupon", Coupon, { responseType: 'text' as 'json' });
+  }
+
+  getCouponList() {
+    return this.http.get<CouponDetails[]>(this.url1 + "/listOfCoupons");
+  }
+
+  updateCoupon(couponCode: any, start: any, end: any) {
+    return this.http.post(this.url1 + "/updateCoupon?coupon=" + couponCode + "&start=" + start + "&end=" + end, { responseType: 'text' as 'json' });
+  }
+
+  deleteCoupon(coupon: any) {
+    return this.http.post(this.url1 + "/deleteCoupon?couponName=" + coupon, { responseType: 'text' as 'json' });
+  }
 }

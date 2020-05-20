@@ -11,7 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { InvitesComponent } from './invites/invites.component';
 import { AddProductComponent } from './merchant-product/add-product/add-product.component';
 import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AddCouponComponent } from './add-coupon/add-coupon.component';
+import { ListCouponComponent } from './list-coupon/list-coupon.component';
+import { FilterCouponPipe } from './pipes/filter-coupon.pipe';
 
 
 @NgModule({
@@ -23,12 +26,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MerchantHomeComponent, 
     AddProductComponent,
     UpdateProductComponent,
-    MerchantStatisticsComponent, InvitesComponent],
+    MerchantStatisticsComponent, InvitesComponent, AddCouponComponent, ListCouponComponent, FilterCouponPipe],
 
   imports: [
     CommonModule,
     MerchantRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule
   ]
 })
