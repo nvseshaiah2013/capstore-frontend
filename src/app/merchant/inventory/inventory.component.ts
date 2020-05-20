@@ -16,7 +16,7 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit() {
 
-    this.merchantService.getMerchantProducts('harsha98').subscribe(data=>
+    this.merchantService.getMerchantProducts().subscribe(data=>
       {
         this.products=data;
       }, err=>{

@@ -15,7 +15,7 @@ export class InvitesComponent implements OnInit {
   constructor(private router:Router,private merchantService:MerchantService) { }
 
   ngOnInit() {
-    this.merchantService.getMerchantInvites('harsha98').subscribe(invites=>{
+    this.merchantService.getMerchantInvites().subscribe(invites=>{
       this.invitations = invites;
     },(err:HttpErrorResponse)=>{
       if(err.status == 0){

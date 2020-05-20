@@ -16,7 +16,7 @@ export class MerchantStatisticsComponent implements OnInit {
   recentRevenues;
   recentOrdersCount;
   category = ['Clothes', 'Home', 'FootWear', 'Electronics']
-  categoryOrders = [1, 6, 7, 8];
+  categoryOrders = [1, 1, 1, 1];
   males: number = 1;
   females: number = 1;
   others: number = 1;
@@ -34,7 +34,7 @@ export class MerchantStatisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.orders = data;
       for (let i = 0; i < this.orders.length; i++) {
         if (this.orders[i].product.subCategory.category.name == "Clothes") {
@@ -69,7 +69,7 @@ export class MerchantStatisticsComponent implements OnInit {
     })
 
 
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       data.forEach(order => this.customers.push(order.customer));
       for (let i = 0; i < this.customers.length; i++) {
         if (this.customers[i].gender == 'Male') {
@@ -99,7 +99,7 @@ export class MerchantStatisticsComponent implements OnInit {
       })
     })
 
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.recentRevenues = data.map(order => order.transaction.transactionMoney);;
 
       this.chart = new Chart('revenueChart', {
@@ -119,7 +119,6 @@ export class MerchantStatisticsComponent implements OnInit {
       })
     })
 
-    
   }
 
 }

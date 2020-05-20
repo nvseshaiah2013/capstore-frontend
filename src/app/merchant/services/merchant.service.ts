@@ -13,25 +13,24 @@ export class MerchantService {
   url: string = "http://localhost:8083/merchant/";
   constructor(private http: HttpClient) { }
 
-  getMerchantOrders(username : string){
-    return this.http.get<Orders[]>(this.url + "merchantOrders/" + username);
+  getMerchantOrders(){
+    return this.http.get<Orders[]>(this.url + "merchantOrders/");
   }
 
   acceptMerchantOrder(orderId : string, status : string){
     return this.http.get<Orders>(this.url + "acceptMerchantOrder/" + orderId + "/" + status);
   }
 
-  getMerchantInfo(username : String){
-    return this.http.get<Merchant>(this.url + "merchantInfo/" + username);
+  getMerchantInfo(){
+    return this.http.get<Merchant>(this.url + "merchantInfo/");
   }
 
-  getMerchantProducts(username : string){
-    return this.http.get<Product[]>(this.url + "getMerchantProducts/" + username);
+  getMerchantProducts(){
+    return this.http.get<Product[]>(this.url + "getMerchantProducts/");
   }
 
-  getMerchantInvites(username : string ) {
-    let params = new HttpParams().set('username',username);
-    return this.http.get<Invitation[]>(this.url + 'invites',{params:params});
+  getMerchantInvites() {
+    return this.http.get<Invitation[]>(this.url + 'invites');
   }
   activateProduct(username:string ,id:number){
     let params = new HttpParams().set('username',username).set('id',id.toString());
@@ -58,4 +57,5 @@ export class MerchantService {
   getProductUpdate(proId, prodCount, prodPrice, prodinfo) {
     return this.http.post(this.url + "/product/updateproduct?" + "prodId=" + proId + "&prodCount=" + prodCount + "&ProdPrice=" + prodPrice + "&Prodinfo=" + prodinfo, { responseType: 'text' as 'json' });
   }
+
 }

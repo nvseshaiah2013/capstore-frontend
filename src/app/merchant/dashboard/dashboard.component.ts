@@ -20,9 +20,14 @@ export class DashboardComponent implements OnInit {
  
 
   ngOnInit() {
-    this.merchantService.getMerchantInfo('harsha98').subscribe(data => {
+    this.merchantService.getMerchantInfo().subscribe(data => {
       this.merchant = data;
     });
+  }
+
+  logOut(){
+    localStorage.removeItem('token');
+    window.location.href="home";
   }
 
 }

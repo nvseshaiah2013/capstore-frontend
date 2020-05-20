@@ -22,7 +22,7 @@ export class MerchantHomeComponent implements OnInit {
   
   
   ngOnInit() {
-    this.merchantService.getMerchantOrders('harsha98').subscribe(data => {
+    this.merchantService.getMerchantOrders().subscribe(data => {
       this.todaySoldProducts = data.length;
       data.forEach(element => {
         this.usernameList.add(element.customer.username);
@@ -40,7 +40,7 @@ export class MerchantHomeComponent implements OnInit {
       
     });
 
-    this.merchantService.getMerchantProducts('harsha98').subscribe(data => {
+    this.merchantService.getMerchantProducts().subscribe(data => {
       this.trendingProducts = data;
       this.trendingProducts = this.trendingProducts.sort((a , b) => {
         if(a.noOfViews >= b.noOfViews){
@@ -50,7 +50,7 @@ export class MerchantHomeComponent implements OnInit {
           return 1;
         }
       });
-      //console.log(this.trendingProducts);
+      console.log(this.trendingProducts);
       if(this.trendingProducts.length >= 5){
         this.trendingProducts = this.trendingProducts.slice(0,5);
       }
