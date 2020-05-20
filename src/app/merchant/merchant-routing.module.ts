@@ -28,7 +28,7 @@ const routes: Routes = [
     {path:'invites',component:InvitesComponent},
     
     { path: 'addProduct', component: AddProductComponent },
-    { path: 'updateStock/:id', component: UpdateProductComponent },
+    { path: 'inventory/updateStock/:id', component: UpdateProductComponent },
     {path:'listcoupon',component:ListCouponComponent},
     {path:'addcoupon',component:AddCouponComponent},
     {path:'**', component:MerchantHomeComponent}

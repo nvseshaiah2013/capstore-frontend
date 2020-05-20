@@ -6,7 +6,7 @@
     <!-- <div class="text-white">{{todaysDate | date: 'medium'}}</div> -->
     <ul class="navbar-nav px-3">
         <li class="nav-item">
-            <span class="text-white">{{merchant.username}} &nbsp;<i class="fa fa-user" aria-hidden="true"></i></span>
+            <span class="text-white" *ngIf="merchant">{{merchant.username}} &nbsp;<i class="fa fa-user" aria-hidden="true"></i></span>
         </li>
     </ul>
 </nav>
@@ -41,6 +41,11 @@
                         <span class="collapse" id="Inventory">
                             <a class="nav-link main ml-4" routerLink="inventory">
                                 - View all Products
+                            </a>
+                        </span>
+                        <span class="collapse" id="Inventory">
+                            <a class="nav-link main ml-4" routerLink="addProduct">
+                                - Add New Product
                             </a>
                         </span>
                     </li>

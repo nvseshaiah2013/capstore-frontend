@@ -40,7 +40,7 @@ export class AddProductComponent implements OnInit {
       noOfProducts:['', [Validators.required, Validators.min(1)]],
       productInfo:['', [Validators.required]],
       productImage:['', Validators.required],
-      username:['']
+      // username:['']
     })
 
   }
@@ -54,7 +54,7 @@ export class AddProductComponent implements OnInit {
       return;
     }
     // console.log
-    this.addProductForm.controls.username.setValue("Amarjeet.soni@gmail.com");
+    // this.addProductForm.controls.username.setValue("Amarjeet.soni@gmail.com");
     if(confirm('Do you want to add Product?')){
     this.service.addProduct(this.addProductForm.value).subscribe((data)=>{
          alert(data);
