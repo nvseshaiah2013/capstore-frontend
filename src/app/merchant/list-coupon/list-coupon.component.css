@@ -75,14 +75,3 @@
     from {transform: scale(0)} 
     to {transform: scale(1)}
   }
-  
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 200px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 50%;
-    }
-  }
