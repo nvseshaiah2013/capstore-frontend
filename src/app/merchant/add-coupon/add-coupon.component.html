@@ -55,22 +55,14 @@
     <br>
     <form [formGroup]="addCouponForm">
     <div *ngIf="value==1">
+        <h5><b>Coupon Name</b><i style="color:dimgray; font-size: 25px;"></i></h5>
         <br>
-        <h2><b>Coupon title</b><i style="color:dimgray; font-size: 25px;">(what customer will see)</i></h2>
-        <br>
-        <p>For a more effective coupon title, choose a definition that accurately describes the 
-            product group you added to your coupon. Example: "Save 20 rupee on perchage of at least 200 rupee"
-        </p>
-        <br>
-        
-            
             <div style="margin-left: 50%;">
-                <h3 style="margin-left: 15%;"><b>CouponCode Guidelines</b></h3>
+                <h5 style="margin-left: 15%;"><b>CouponCode Format</b></h5>
                 <br>
                  <h6><b>*</b> CouponCode must be unique. </h6> 
-                 <h6><b>*</b> CouponCode must <b>not</b> be overly complicated like <b>7GV256Asdfff3dasd</b>. </h6> 
-                 <h6><b>*</b> Coupon name that reflect <b>the deal and what they are getting</b> like <b>GET50</b>. </h6> 
-                 <h6><b>*</b> Coupon name must be <b>simple and easy to remember</b>. </h6> 
+                 <h6><b>*</b> CouponCode must <b>not</b> be complicated. </h6> 
+                 <h6><b>*</b> Coupon name that reflect the deal like <b>GET50</b>. </h6> 
             </div>
             <div class="inputField" style="margin-top: -15%;">
                 <span><img src="./../../../assets/couponIcon.png"  width=50 /></span>
@@ -78,17 +70,17 @@
             </div>
             <div *ngIf="submitted && addCouponForm.controls.couponCode.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponCode.errors.required" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the couponCode ..!</h6>
+                    <small style="margin-left: 5%;margin-top: 1%;">Please Enter the couponCode ..!</small>
                 </div>
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponCode.errors.minlength" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Length must be of minimum 3..!</h6>
+                    <small style="margin-left: 5%;margin-top: 1%;">Length must be of minimum 3..!</small>
                 </div>
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponCode.errors.pattern" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Invalid Pattern!</h6>
+                    <small style="margin-left: 5%;margin-top: 1%;">Invalid Pattern!</small>
                 </div>
             </div>
             <div class="text-danger" *ngIf="invalidCouponCode">
-                <h6 style="margin-left: 5%;margin-top: 1%;">CouponCode already Exist..</h6>
+                <h6 style="margin-left: 5%;margin-top: 1%;">Coupon Code already Exists..</h6>
             </div>
             <div class="inputField">
                 <span><img src="./../../../assets/description.png"  width=50 /></span>
@@ -96,24 +88,22 @@
             </div>
             <div *ngIf="submitted && addCouponForm.controls.couponDesc.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponDesc.errors.required" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the coupon description..!</h6>
+                    <small style="margin-left: 5%;margin-top: 1%;">Please Enter the coupon description..!</small>
                 </div>
             </div>
             <button class="btn btn-warning" style="margin-left:65%;width:20%;margin-top:-2%" (click)="proceed2()">Continue to next step</button>
        
     </div>
     <div *ngIf="value==2">
-        <h2><b>Discount</b></h2>
+        <h5><b>Discount</b></h5>
         <br>
         <p>
             Enter the discount amount you want to apply on the products in the coupon that you have added in 
-            privious step. We required the amount must be less then less then total product price.
+            previous step.
         </p>
-        <br>
-        
-            
+        <br> 
             <div style="margin-left: 50%;">
-                <h3 style="margin-left: 15%;"><b>Discount Guidelines</b></h3>
+                <h5 style="margin-left: 15%;"><b>Discount Format</b></h5>
                 <br>
                  <h6><b>*</b> Discount must be less then minimum order amount. </h6> 
                  <h6><b>*</b> Minimum required amount must be <b>greater then zero.</b></h6> 
@@ -124,49 +114,47 @@
             </div>
             <div *ngIf="submitted && addCouponForm.controls.couponAmount.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponAmount.errors.required" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the couponAmount ..!</h6>
+                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the Coupon Amount ..!</h6>
                 </div>
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponAmount.errors.min" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">amount must be greater then 0 ..!</h6>
+                    <h6 style="margin-left: 5%;margin-top: 1%;">Amount must be greater then 0 ..!</h6>
                 </div>
             </div>
             <div class="text-danger" *ngIf="invalidDate">
-                <h6 style="margin-left: 5%;margin-top: 1%;">Coupon amount mustbe less then total amount...</h6>
+                <h6 style="margin-left: 5%;margin-top: 1%;">Coupon amount must be less than total amount...</h6>
             </div>
             <br>
             <div class="inputField">
                 <span><img src="./../../../assets/minimumAmount.png"  width=50 /></span>
-                <input type="number" style="width:300px" class="categoryInput" formControlName="minOrderAmount" placeholder="minimum order amount"> 
+                <input type="number" style="width:300px" class="categoryInput" formControlName="minOrderAmount" placeholder="Minimum Order Amount"> 
             </div>
             <div *ngIf="submitted && addCouponForm.controls.minOrderAmount.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.minOrderAmount.errors.required" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the minOrderAmount ..!</h6>
+                    <h6 style="margin-left: 5%;margin-top: 1%;">Please Enter the Order Amount ..!</h6>
                 </div>
                 <div class="text-danger" *ngIf="addCouponForm.controls.minOrderAmount.errors.min" style="margin-left: 5%;">
-                    <h6 style="margin-left: 5%;margin-top: 1%;">minOrderAmount must be greater then 0..!</h6>
+                    <h6 style="margin-left: 5%;margin-top: 1%;">Min Order Amount must be greater then 0..!</h6>
                 </div>
             </div>
-            <button class="btn btn-warning" style="margin-left:60%;width:20%;" (click)="proceed3()">Continue to next step</button>
+            <button class="btn btn-warning" style="margin-left:60%;width:20%;" (click)="proceed3()">Continue to Next Step</button>
     </div>
 
     <div *ngIf="value==3">
-        <h2><b>Schedule</b></h2>
+        <h5><b>Schedule</b></h5>
         <br>
         <p>
-           select a duration for your coupon.
+           Select Duration for your Coupon.
         </p>
         <br>
-        
-            
             <div style="margin-left: 50%;">
-                <h3 style="margin-left: 15%;"><b>Schedule Guidelines</b></h3>
+                <h5 style="margin-left: 15%;"><b>Schedule Format</b></h5>
                 <br>
-                 <h6><b>*</b> Start Date must be greater then current date. </h6> 
-                 <h6><b>*</b> End Date must be greater then Start Date</h6>
+                 <h6><b>*</b> Start Date must be greater than current date. </h6> 
+                 <h6><b>*</b> End Date must be greater than Start Date</h6>
             </div>
             <div class="inputField" style="margin-top: -10%;">
-                <span><img src="./../../../assets/datefrom.png"  width=50 />START DATE</span>
-                <input type="datetime-local" class="categoryInput" formControlName="couponStartDate" placeholder="START DATE"> 
+                <span><img src="./../../../assets/datefrom.png"  width=50 />Start Date</span>
+                <input type="datetime-local" class="categoryInput" formControlName="couponStartDate" placeholder="Start Date"> 
             </div>
             <div *ngIf="submitted && addCouponForm.controls.couponStartDate.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponStartDate.errors.required" style="margin-left: 5%;">
@@ -174,12 +162,12 @@
                 </div>
             </div>
             <div *ngIf="invalidStartDate" class="text-danger">
-                <h6 style="margin-left: 5%;margin-top: 1%;">Invalid Start Date(must be greater then current)!</h6>
+                <h6 style="margin-left: 5%;margin-top: 1%;">Invalid Start Date(must be greater than current date)!</h6>
             </div>
             <br>
             <div class="inputField">
-                <span><img src="./../../../assets/dateto.png"  width=50 />END DATE</span>
-                <input type="datetime-local" class="categoryInput" formControlName="couponEndDate" placeholder="END DATE"> 
+                <span><img src="./../../../assets/dateto.png"  width=50 />End Date</span>
+                <input type="datetime-local" class="categoryInput" formControlName="couponEndDate" placeholder="End Date"> 
             </div>
             <div *ngIf="submitted && addCouponForm.controls.couponEndDate.errors">
                 <div class="text-danger" *ngIf="addCouponForm.controls.couponEndDate.errors.required" style="margin-left: 5%;">
@@ -187,15 +175,14 @@
                 </div>
             </div>
             <div *ngIf="invalidEndDate" class="text-danger">
-                <h6 style="margin-left: 5%;margin-top: 1%;">End Date must be greater then Start date...</h6>
+                <h6 style="margin-left: 5%;margin-top: 1%;">End Date must be greater than Start date...</h6>
             </div>
-            <button class="btn btn-warning" style="margin-left:60%;width:20%;margin-top: -10%;" (click)="proceed4()">Continue to next step</button>
+            <button class="btn btn-warning" style="margin-left:60%;width:20%;margin-top: -10%;" (click)="proceed4()">Continue to Next Step</button>
     </div>
 
     <div *ngIf="value==4">
-        <h2><b>Review and Submit</b></h2>
+        <h5><b>Review and Submit</b></h5>
         <hr>
-        <br>
         <table cellpadding="8">
             <tr>
                 <th>Coupon title</th>
@@ -216,23 +203,19 @@
                 <td>{{MinOrderAmount}}</td>
             </tr>
             <tr>
-                <th>START DATE</th>
+                <th>Start Date</th>
                 <td>{{CouponStartDate}}</td>
             </tr>
             <tr>
-                <th>END DATE</th>
+                <th>End Date</th>
                 <td>{{CouponEndDate}}</td>
             </tr>
             <tr>
                 <th>Generated by</th>
-                <td>Admin</td>
+                <td>Merchant</td>
             </tr>
         </table>
-        <br>
             <button class="btn btn-success" style="width:15%;margin-left: 14%;" (click)="addCoupon()">Submit Coupon</button>
     </div>
-
 </form> 
-
-
 </div>
