@@ -56,4 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.toastService.hideFail();
   }
 
+  logOut(){
+    localStorage.removeItem("token");
+  }
+
 }
