@@ -30,7 +30,8 @@
             </div>
             <hr>
             <div class="row">
-                <div class="offset-md-6 col-4 col-md-2">
+                <input type="text" class="form-control col-md-3" [(ngModel)]="searchText" placeholder="Enter Product Name.">
+                <div class="offset-md-3 col-4 col-md-2">
                     <a routerLink="/admin/merchant-products" class="btn btn-outline-info px-3"> Products <i class="fas fa-store-alt"></i></a>
                 </div>
                 <div class="col-4 col-md-2">
@@ -55,28 +56,35 @@
                 <p class="lead text-center">Oh I See! This merchant has'nt got any products Yet.</p>
                 <p class="text-muted text-center"> May be he's looking for the lockdown to open to add products. </p>
             </div>
-            <div class="row border p-2" *ngFor="let product of products">
-                <div class="col-12 col-md-6">
-
-                    <p>
-                        <span class="lead">Product Name : </span>
-                        <span class="text-muted">{{product.productName}}</span>
-                    </p>
-                    <p class="text-muted">
-                        {{ product.productInfo}}
-                    </p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <p class="text-center mt-2">
-                        <button type="button" class="btn btn-info" (click)="viewProduct(product)"> View Details </button>
-                    </p>
-                    <p class="text-center">
-                        <button *ngIf="product.productActivated" class="btn btn-danger" (click)="deActivateProduct(product)"> Mark As Unavailable </button>
-                        <button *ngIf="!product.productActivated" class="btn btn-success" (click)="activateProduct(product)">Mark As Available </button>
-                    </p>
-
+            <div *ngIf="(products | searchProduct : searchText ) as result">
+                <div class="col-12 col-md-10 offset-md-1" *ngIf="result.length == 0">
+                    <p class="lead text-center">Oh I See! Your search {{ searchText }} does not match any products of this merchant .</p>
+                    <!-- <p class="text-muted text-center"> May be he's looking for the lockdown to open to add products. </p> -->
                 </div>
 
+                <div class="row border p-2" *ngFor="let product of result">
+                    <div class="col-12 col-md-6">
+    
+                        <p>
+                            <span class="lead">Product Name : </span>
+                            <span class="text-muted">{{product.productName}}</span>
+                        </p>
+                        <p class="text-muted">
+                            {{ product.productInfo}}
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-center mt-2">
+                            <button type="button" class="btn btn-info" (click)="viewProduct(product)"> View Details </button>
+                        </p>
+                        <p class="text-center">
+                            <button *ngIf="product.productActivated" class="btn btn-danger" (click)="deActivateProduct(product)"> Mark As Unavailable </button>
+                            <button *ngIf="!product.productActivated" class="btn btn-success" (click)="activateProduct(product)">Mark As Available </button>
+                        </p>
+    
+                    </div>
+    
+                </div>
             </div>
         </div>
     </div>

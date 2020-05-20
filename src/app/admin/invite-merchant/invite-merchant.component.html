@@ -159,6 +159,7 @@
                     <i class="fas fa-star text-warning" *ngFor="let i of counter(merchant.rating);">
 
                     </i>
+                    <span class="text-muted" *ngIf="merchant.rating == 0"> Unrated </span>
                 </p>
             </div>
             <div class="modal-footer">
