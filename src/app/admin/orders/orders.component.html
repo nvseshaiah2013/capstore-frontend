@@ -44,9 +44,10 @@
           <td>{{order.orderStatus}}</td>
 
           <td><button data-toggle="modal" data-target="#orderModalCenter1" (click)="getIndex(i)"
-              class="btn btn-sm btn-outline-success">Details</button> &nbsp;
-            <button data-toggle="modal" data-target="#orderModalCenter" (click)="getIndex(i)"
-              class="btn btn-sm btn-outline-info" *ngIf="checkAvailable[i]">Update</button></td>
+            class="btn btn-sm btn-success">Details</button> &nbsp;
+          <button data-toggle="modal" data-target="#orderModalCenter" (click)="getIndex(i)"
+            class="btn btn-sm btn-info" *ngIf="checkAvailable[i]">Update</button>
+            <button class="btn btn-sm btn-info" *ngIf="!checkAvailable[i]" disabled>Update</button></td>
         </tr>
       </tbody>
     </table>
