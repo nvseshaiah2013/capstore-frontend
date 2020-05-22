@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  todaysDate = new Date();
 
-  constructor() { }
+  constructor() {  setInterval(() => {
+    this.todaysDate = new Date();
+  }, 1000);
+}
 
   ngOnInit() {
+  }
+
+  logout(){
+   localStorage.removeItem('token');
   }
 
 }
