@@ -35,8 +35,11 @@
                         Name is required ..!
                     </div>
                     <div class="text-danger" *ngIf="addForm.controls.name.errors.pattern">
-                        Name must start with a capital letter and should not contain any digit. ..!
+                        Name must start with a capital letter ..!
                     </div>
+                    <div class="text-danger" *ngIf="addForm.controls.name.errors.invalidMsg">
+                        Numeric values not allowed....
+                     </div>
                 </div>
             </div>
             <!-- End of name input field -->
@@ -102,7 +105,16 @@
                         Phone Number is required ..!
                     </div>
                     <div class="text-danger" *ngIf="addForm.controls.phoneNo.errors.pattern">
-                        Phone Number must be of 10 digits and should be numeric ..!
+                        Mobile Number should start from 6 to 9 ..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.phoneNo.errors.invalidMsg">
+                        Mobile Number should be numeric..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.phoneNo.errors.minlength">
+                        Mobile Number should be 10 digit long..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.phoneNo.errors.maxlength">
+                        Mobile Number should be 10 digit long..!
                     </div>
                 </div>
                 <div class="text-danger" *ngIf="phoneNoFlag">
@@ -126,7 +138,16 @@
                         Mobile Number is required ..!
                     </div>
                     <div class="text-danger" *ngIf="addForm.controls.alternatePhoneNo.errors.pattern">
-                        Mobile Number must be of 10 digits and should be numeric ..!
+                        Mobile Number should start from 6 to 9 ..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.alternatePhoneNo.errors.invalidMsg">
+                        Mobile Number should be numeric..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.alternatePhoneNo.errors.minlength">
+                        Mobile Number should be 10 digit long..!
+                    </div>
+                    <div class="text-danger" *ngIf="addForm.controls.alternatePhoneNo.errors.maxlength">
+                        Mobile Number should be 10 digit long..!
                     </div>
                 </div>
                 <div class="text-danger" *ngIf="alternatePhoneNoFlag">
@@ -168,12 +189,28 @@
                         Password is required ..!
                     </div>
                     <div class="text-danger" *ngIf="addForm.controls.password.errors.pattern">
-                        Password must have 1 Lowercase letters, 1 Uppercase letters, 1 Numbers and 1 Special characters ..!
+                        Password must have 1 Lowercase letters, 1 Uppercase letters, 1 Numbers and 1 Special characters and minimum length 9 ..!
                     </div>
                 </div>
             </div>
             <!-- End of password input field -->
 
+            <!-- Start of Confirm password input field -->
+
+            <div class="col-md-11">
+                <div class="input-group mb-3 input-field">
+                    <span><img src="https://img.icons8.com/ios-filled/50/000000/password.png" /></span>&nbsp;&nbsp;
+                    <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
+                </div>
+                <!-- Validation Messages -->
+                <div class="text-danger" *ngIf="addForm.errors?.misMatch">Password do not match</div>
+                <div *ngIf="submitted && addForm.controls.confirmPassword.errors">
+                    <div class="text-danger" *ngIf="addForm.controls.confirmPassword.errors.required">
+                        Password is required ..!
+                    </div>
+                </div>
+            </div>
+            <!-- End of confirm password input field -->
             <!-- Start of Security question field -->
 
             <div class="col-md-11">

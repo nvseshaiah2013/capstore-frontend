@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
 import { Order } from 'src/app/models/orders.model';
 import { Address } from 'src/app/models/address.model';
 import { Customer } from 'src/app/models/customer.model';
-
-
-
+import { Merchant } from 'src/app/models/merchant.model';
+import { CommonFeedback } from 'src/app/models/common-feedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,6 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl:string = 'http://localhost:8083/customer/'
   ShareOrder:Order={
     address:null,
     customer: null,
@@ -29,24 +26,6 @@ export class CustomerService {
     transaction:null
   }
 
-  registerNewUser(user: User) {
-    return this.http.post(this.baseUrl + 'addUser', user,  { responseType: 'text' as 'json' });
-  }
-
-  forgotPassword(uname,securityQue,securityAns) {
-   let forgotPassRequest={
-      "username":uname,
-      "securityQuestion":securityQue,
-      "securityAnswer":securityAns
-    }
-    return this.http.post<String>(this.baseUrl + 'forgotPassword',forgotPassRequest, { responseType: 'text' as 'json' });
-  }
-
-
-  changePassword(token, oldPassword, newPassword){
-    return this.http.get(this.baseUrl + 'changePassword/' +oldPassword+ '/' +newPassword,{ responseType: 'text' as 'json'} );
-  }
-
   public saveOrder(order:Order){ //sumit
     this.ShareOrder= order;
   }
@@ -54,34 +33,49 @@ export class CustomerService {
     return this.ShareOrder;
   }
   public getMyOrders(token){  //sumit
-    return this.http.get<Order[]>( this.baseUrl + "myorders");
+    return this.http.get<Order[]>("http://localhost:8083/customer/myorders");
   }
   public getStatus(token,orderId:number){ //sumit
-    return this.http.get<String>(`${this.baseUrl}${orderId}`,{responseType:'text' as 'json'});
+    let tokenStr = 'Bearer ' + token;
+    return this.http.get<String>(`http://localhost:8083/customer/getStatus/${orderId}`,{responseType:'text' as 'json'});
   }
-  public updateStatus(token,orderId:number,status:String){  //sumit
-    return this.http.get<Boolean>(`${this.baseUrl}updateStatus/${orderId}/${status}`);
+  public updateStatus(token,orderId:number,status:String){ //sumit
+    let tokenStr = 'Bearer ' + token;
+    return this.http.get<Boolean>(`http://localhost:8083/customer/updateStatus/${orderId}/${status}`);
   }
   addAddress(add:Address,token) //sagar
   {
-    return this.http.post(`${this.baseUrl}addAddress`,add);
+    let tokenStr = 'Bearer ' + token;
+    return this.http.post(`http://localhost:8083/customer/addAddress`,add);
   }
   viewAddress(token){ //sagar
-   
-    return this.http.get<Address[]>(`${this.baseUrl}viewAddress`);
+    let tokenStr = 'Bearer ' + token;
+    return this.http.get<Address[]>(`http://localhost:8083/customer/viewAddress`);
   }
   deleteAddress(addressId:number){  //sagar
-   
-    return this.http.get(`${this.baseUrl}deleteAddress/${addressId}`);
+    let tokenStr = 'Bearer ' + localStorage.token;
+    return this.http.get(`http://localhost:8083/customer/deleteAddress/${addressId}`);
   }
 
   public getcustomerdetails(token) //prajakta
   {
-    return this.http.get<Customer>(`${this.baseUrl}getUserDetails`);
+    return this.http.get<Customer>(`http://localhost:8083/customer/getUserDetails`);
   }
 
   public editUser(cust:Customer)//prajakta
   {
-   return this.http.put(`${this.baseUrl}editUser`,cust,{responseType:'text'})
+   return this.http.put("http://localhost:8083/customer/editUser",cust,{responseType:'text'})
+  }
+
+  getMerchantList(){
+    return this.http.get<string[]>("http://localhost:8083/customer/getMerchantNameList");
+  }
+
+  userFeedbackView(){
+    return this.http.get<CommonFeedback[]>("http://localhost:8083/customer/responseToUser");
+  }
+
+  userFeedback(feedback:CommonFeedback) {
+    return this.http.post("http://localhost:8083/customer/addfeedback",feedback);
   }
 }

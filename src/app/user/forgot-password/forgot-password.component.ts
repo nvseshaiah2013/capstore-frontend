@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CustomerService } from '../CustomerService/customer.service';
+import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,9 +20,20 @@ export class ForgotPasswordComponent implements OnInit {
      "In what town or city was your first full time job? ",
      "What is your spouse or partner's mother's maiden name? "
    ]
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
 
   ngOnInit(){
+
+    if(localStorage.token != null && localStorage.role!=null){
+      if(localStorage.role == 'ROLE_CUSTOMER'){
+       this.router.navigate(["/customer"]);
+      }
+      else if(localStorage.role == 'ROLE_MERCHANT'){
+         this.router.navigate(["/merchant"]);
+
+      }
+  }
+
     this.forgotPassForm = this.formBuilder.group({
       username: ['', Validators.required],
       securityQuestion: ['', Validators.required],
@@ -40,7 +52,7 @@ verifyQuestion() {
   // console.log(this.forgotPassForm.value);
   // this.userService.verification(uname,securityQue,ans) 
 
-  this.customerService.forgotPassword(uname,securityQue,ans).subscribe(data => {
+  this.service.forgotPassword(uname,securityQue,ans).subscribe(data => {
     
     if(data=="invalid"){
       alert("Incorrect Security Question or Answer")
@@ -50,10 +62,9 @@ verifyQuestion() {
       this.router.navigate(['/user/login']);
     }
   
-  
   },err => {
   console.log(err.error);
-  alert(err.error.message);
+  alert("The username doesn't Exist");
   
 });
 }

@@ -12,6 +12,7 @@ import { AddProductComponent } from './merchant-product/add-product/add-product.
 import { UpdateProductComponent } from './merchant-product/update-product/update-product.component';
 import { ListCouponComponent } from './list-coupon/list-coupon.component';
 import { AddCouponComponent } from './add-coupon/add-coupon.component';
+import { MerchantFeedbackHandlerComponent } from './merchant-feedback-handler/merchant-feedback-handler.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'inventory/updateStock/:id', component: UpdateProductComponent },
     {path:'listcoupon',component:ListCouponComponent},
     {path:'addcoupon',component:AddCouponComponent},
+    {path : 'common-feedbacks', component : MerchantFeedbackHandlerComponent},
     {path:'**', component:MerchantHomeComponent}
   ]}
 ];

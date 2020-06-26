@@ -1,0 +1,79 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            Feedbacks
+            <span class="badge badge-pill badge-info">{{count}}</span>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <div class="card" style="font-family: noto;">
+        <h3 class="card-title offset-md-1">Customer <img src="/assets/images/feedback4.png"><img
+                src="/assets/images/feedback7.png" style="float: right;"></h3>
+
+        <div class="row" *ngFor="let feedback of feedbacks">
+            <div class="col-sm-4">
+                <div class="card offset-sm-2">
+                    <div class="card-body">
+
+                        <span style="font-family: noto"><i class="fa fa-circle fa-1x"
+                                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<strong style=" font-size: larger">Merchant
+                                Name -</strong> {{m_username}}</span><br>
+                        <span style="font-family: noto"><i class="fa fa-circle fa-1x"
+                                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<strong style=" font-size: larger">Feedback Id
+                                -</strong>{{feedback.feedbackId}}</span> <br>
+                        <span style="font-family: noto"><i class="fa fa-circle fa-1x"
+                                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<strong style=" font-size: larger">Subject
+                                -</strong>{{feedback.feedbackSubject}}</span>
+                        <p class="acard-text">{{feedback.feedbackMessage}}</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Reply for the issue solution to the customer</h4>
+
+
+
+                        <form #ResponseForm="ngForm">
+                            <div class="col">
+                                <input type="number" class="form-control" type="text"
+                                    placeholder={{feedback.feedbackId}} name="feedbackId" value={{feedback.feedbackId}}
+                                    ngModel #feedbackId="ngModel" readonly>
+
+                                <br>
+                            </div>
+                            <div>
+
+
+                                <div class="input-group">
+
+                                    <textarea class="form-control" placeholder="Write your response " name="response"
+                                        ngModel #response="ngModel" required aria-label="With textarea"></textarea>
+
+
+                                </div>
+                                <div *ngIf="response.invalid && (response.dirty || response.touched)">
+                                    <div class="text-danger" *ngIf="response.errors?.required">
+                                        <font size="3">Response is required ..</font>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <button type="button" class="btn btn-outline-dark offset-sm-4"
+                                [disabled]="ResponseForm.invalid"
+                                (click)="send(ResponseForm.value,feedback.feedbackId)"> Send &nbsp;<i
+                                    class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><br>
+</div>

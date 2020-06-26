@@ -5,6 +5,8 @@ import { Merchant } from 'src/app/models/merchant.model';
 import { Product } from 'src/app/models/product.model';
 import { Invitation } from 'src/app/models/invitation.model';
 import { CouponDetails } from 'src/app/models/CouponDetails';
+import { CommonFeedback } from 'src/app/models/common-feedback.model';
+import { Response } from 'src/app/models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +95,13 @@ export class MerchantService {
   rejectInvite(id:number){
     let params = new HttpParams().set('id',id.toString())
     return this.http.post(this.url + 'rejectInvite',{},{params:params});
+  }
+
+  merchantFeedbackHandler(){
+    return this.http.get<CommonFeedback[]>(this.url + 'getFeedbacksMerchant');
+  }
+
+  merchantResponseHandler(response : Response){
+    return this.http.post(this.url + 'getMerchantResponse', response);
   }
 }

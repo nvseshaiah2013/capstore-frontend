@@ -9,7 +9,7 @@ input {
 }
 
 .loginButton {
-    width: 230px;
+    width: 180px;
     border-radius: 25px;
     background-color: yellowgreen;
     outline: none;
@@ -20,7 +20,7 @@ input {
     background-color: green;
 }
 .cancelButton {
-    width: 230px;
+    width: 180px;
     border-radius: 25px;
     background-color: rgb(241, 67, 67);
     outline: none;

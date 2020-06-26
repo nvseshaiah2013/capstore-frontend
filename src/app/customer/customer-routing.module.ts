@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { AddCustomerComponent } from './add-customer/add-customer.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AddAddressComponent } from './add-address/add-address.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { ManageAddressComponent } from './manage-address/manage-address.component';
@@ -11,20 +8,20 @@ import { OrderlistComponent } from './orderlist/orderlist.component';
 import { StatusComponent } from './status/status.component';
 import { ReturnComponent } from './return/return.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
+import { CommonFeedbackFormComponent } from './common-feedback-form/common-feedback-form.component';
+import { UserFeedbackViewComponent } from './user-feedback-view/user-feedback-view.component';
 
 
 const routes: Routes = [
   {path:'',component:DashboardComponent,children:[
-
-    // {path:'addCustomer',component:AddCustomerComponent},
-    {path:'forgotPassword',component:ForgotPasswordComponent},
-    {path:'changePassword', component:ChangePasswordComponent},
-    {path:'add-address', component:AddAddressComponent},
+  {path:'add-address', component:AddAddressComponent},
   {path:'edit-customer', component:EditCustomerComponent},
   {path:'manage-address', component:ManageAddressComponent},
   {path:'orderlist',component:OrderlistComponent},
   {path:'status',component:StatusComponent},
-  {path:'return',component:ReturnComponent},
+  {path:'return',component:ReturnComponent},  
+  {path:'give-feedback',component:CommonFeedbackFormComponent},
+  {path:'merchant-feedbacks',component:UserFeedbackViewComponent},
   {path:'**', component:CustomerHomeComponent}
     /*
     Write the same routing required here inside.

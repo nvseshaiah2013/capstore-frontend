@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Customer} from 'src/app/models/customer.model';
-
-
-import { $ } from 'protractor';
 import { CustomerService } from '../CustomerService/customer.service';
 @Component({
   selector: 'app-customer-home',
@@ -17,18 +14,25 @@ export class CustomerHomeComponent implements OnInit {
   constructor(private router:Router,private custservice:CustomerService) { }
 
   ngOnInit() {
-  
+  if(localStorage.role=="ROLE_MERCHANT")
+  this.router.navigate(["/merchant"]);
     this.getuser()
   }
 
   public getuser(){
     this.custservice.getcustomerdetails(localStorage.token).subscribe(data=>{
         console.log(data);
-        this.getcust=data;
+        if(data!=null)
+         this.getcust=data;
     },err=>{
-      console.log(err);
-      alert("Session Expired....Login Again");
+      console.log(err)
+      if(err.error=="Session Expired"){
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        alert("Session Expired....Login Again");
       this.router.navigate(["/user/login"])
+      }
+      
     });
   }
 

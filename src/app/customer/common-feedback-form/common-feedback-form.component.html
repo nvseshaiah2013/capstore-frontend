@@ -1,0 +1,98 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            Feedback Form
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="card" style="border-color: brown;">
+
+    </div>
+    <div class="card"
+        style="background-image: url('/assets/images/contactus1.gif');background-repeat: no-repeat;  background-size: 40%; ">
+        <div class="row">
+
+            <div class=" col-sm-4">
+                <h3 class=" offset-md-2" style="padding-top: 20px; font-family: noto;">Contact us...</h3>
+                <div class="offset-sm-1 col-sm-6" style="padding-top: 20px;">
+                    <i class="fa fa-address-book" style="font-size:34px">
+                        <p style="font-size: large;">Navin Road, Panipath Chowk, Mumbai 4022399</p>
+                    </i>
+
+                    <i class="fa fa-phone" style="font-size:34px ">
+                        <p style="font-size: large;">9056307777</p>
+                    </i>
+                    &nbsp;
+                    <i class="fa fa-envelope" style="font-size:34px">
+                        <p style="font-size: large;">capstore@outlook.com</p>
+                    </i>
+
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+
+                <div class="card-body">
+                    <form [formGroup]="feedbackForm" (ngSubmit)="send()">
+                        <div class="card"
+                            style="background-color:white; height: 80px; border-left: 0ch;border-right: 0px; ">
+                            <h3 style="font-family: noto;"> Give your feedback ... We will get back to you</h3>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <input class="form-control" type="text" formControlName="username" value={{username}}
+                                    hidden>
+                            </div>
+                        </div><br>
+                       
+                        <div>
+                        <select id="merchants" class="form-control" formControlName="merchant_name">
+                            <option value="">Select Merchant Name</option>
+                            <option *ngFor="let merchant of merchants" value={{merchant}}>{{merchant}}</option>
+                        </select>
+                        <div *ngIf="submitted && feedbackForm.controls.merchant_name.errors" class="error">
+                                <div class="text-danger" *ngIf="feedbackForm.controls.merchant_name.errors.required">
+                                    <font size="3">Merchant name is required ..</font>
+                                </div>
+                         </div>
+                         </div>
+                        <br>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Feedback Subject"
+                                formControlName="feedbackSubject">
+                            <div *ngIf="submitted && feedbackForm.controls.feedbackSubject.errors" class="error">
+                                <div class="text-danger" *ngIf="feedbackForm.controls.feedbackSubject.errors.required">
+                                    <font size="3">Subject is required ..</font>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><font size="4">Your Feedback Message</font></span>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea"
+                                formControlName="feedbackMessage"></textarea>
+
+                        </div>
+                        <div *ngIf="submitted && feedbackForm.controls.feedbackMessage.errors" class="error">
+                            <div class="text-danger" *ngIf="feedbackForm.controls.feedbackMessage.errors.required">
+                                <font size="3">Feedback Message is required ..</font>
+                            </div>
+                        </div>
+                        <br>
+
+                        <button class="btn btn-outline-dark offset-sm-4" type="submit">Send Message</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

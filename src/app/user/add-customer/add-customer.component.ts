@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, ValidatorFn, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.model';
-import { AlternatePhoneValidator, AlternateEmailValidator } from '../../customer/shared/password.validator';
+import { User } from '../models/user.model';
+import { AlternatePhoneValidator, AlternateEmailValidator,  AddUserPasswordValidator } from '../shared/password.validator';
 import { UserService } from '../user.service';
 
 @Component({
@@ -37,24 +37,56 @@ export class AddCustomerComponent implements OnInit {
      "What is your spouse or partner's mother's maiden name? "
    ]
 
-  constructor(private formBuilder:FormBuilder,private customerService: UserService,private router :Router) {
+  constructor(private formBuilder:FormBuilder,private service:UserService,private router :Router) {
 
    }
 
   ngOnInit() {
+    if(localStorage.token != null && localStorage.role!=null){
+      if(localStorage.role == 'ROLE_CUSTOMER'){
+       this.router.navigate(["/customer"]);
+      }
+      else if(localStorage.role == 'ROLE_MERCHANT'){
+         this.router.navigate(["/merchant"]);
+
+      }
+    }
+    
     this.addForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern("^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){0,2}$")]],
+      name: ['', [Validators.required,this.customPatternValid({
+        pattern: /^([^0-9]*)$/, msg: 'Numbers not Allowed..'}),
+         Validators.pattern("^[0-9A-Z][0-9a-zA-Z]*(?: [0-9A-Z][0-9a-zA-Z]*){0,2}$")]],
       username: ['', [Validators.required,Validators.email]],
-      phoneNo: ['', [Validators.required, Validators.pattern("[6-9][0-9]{9}")]],
-      alternatePhoneNo: ['', [Validators.required, Validators.pattern("[6-9][0-9]{9}")]],
+      phoneNo: ['', [Validators.required,  Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[a-zA-Z6-9][A-Za-z0-9]*"), this.customPatternValid({
+        pattern: /^([^a-b A-z]*)$/, msg: 'only numbers are expected'})]],
+      alternatePhoneNo: ['', [Validators.required,  Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[a-zA-Z6-9][A-Za-z0-9]*"), this.customPatternValid({
+        pattern: /^([^a-b A-z]*)$/, msg: 'only numbers are expected'})]],
       alternateEmail: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required, Validators.pattern("[A-Z][a-z]{2,6}")]],
       role:['',Validators.required],
       password: ['', [Validators.required, Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}")]],
+      confirmPassword:['',Validators.required],
       securityQuestion:['',Validators.required],
       securityAnswer:['',Validators.required]
-    },{ validators : [AlternatePhoneValidator,AlternateEmailValidator]})
+    },{ validators : [AddUserPasswordValidator,AlternatePhoneValidator,AlternateEmailValidator]})
   }
+
+
+  public customPatternValid(config: any): ValidatorFn {
+    return (control: FormControl) => {
+      let regExp: RegExp = config.pattern;
+      if (control.value && !control.value.match(regExp)) {
+        return {
+          invalidMsg: config.msg
+        };
+      }
+      else {
+        return null;
+      }
+    };
+  }
+
+
   addCustomer()
   {
     this.submitted=true;
@@ -63,7 +95,7 @@ export class AddCustomerComponent implements OnInit {
     console.log(this.addForm.value)
 
 
-    this.customerService.registerNewUser(this.addForm.value).subscribe(data => {
+    this.service.registerNewUser(this.addForm.value).subscribe(data => {
       alert(data);
       this.router.navigate(['user/login']);
 

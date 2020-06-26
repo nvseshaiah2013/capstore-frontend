@@ -3,19 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 
 
 @NgModule({
-  declarations: [LoginComponent,AddCustomerComponent],
+  declarations: [ DashboardComponent,
+    AddCustomerComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent,],
   imports: [
     CommonModule,
     UserRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

@@ -2,6 +2,8 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/customer" style="background-color: #524361;">
         <i class="fas fa-shopping-cart"></i> &nbsp;Capstore Customer
     </a>
+    <!-- <input class="form-control form-control w-25" type="text" placeholder="Search" aria-label="Search"> -->
+    <!-- <div class="text-white">{{todaysDate | date: 'medium'}}</div> -->
     <ul class="navbar-nav px-3">
         <li class="nav-item">
             <span class="text-white">Customer &nbsp;<i class="fa fa-user" aria-hidden="true"></i></span>
@@ -31,20 +33,31 @@
                             <i class="fas fa-people-carry"></i>&nbsp; Your Orders
 
                         </a>
+                        <a class="nav-link main" routerLink="status">
+                            <i class="fas fa-people-carry"></i> Order Status 
+                        </a>
                        
                     </li>
 
                     <li class="nav-item main">
                         <a class="nav-link" routerLink="whishlist" >
-                            <i class="fas fa-bookmark"></i>&nbsp; Whishlist
+                            <i class="fas fa-bookmark"></i>&nbsp; Wishlist
                         </a>
                        
                     </li>
                     
                     <li class="nav-item main">
-                        <a class="nav-link" routerLink="feedback">
-                            <i class="fas fa-clipboard-check"></i>&nbsp; Feedback
+                        <a class="nav-link main" data-toggle="collapse" href="#feedbacks" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fa fa-users" aria-hidden="true"></i>&nbsp; Feedbacks
                         </a>
+                        <span class="collapse" id="feedbacks">
+                            <a class="nav-link main ml-4" routerLink="give-feedback">
+                                - Give Merchant Feedback
+                            </a>
+                            <a class="nav-link main ml-4" routerLink="merchant-feedbacks">
+                                - View Merchant Feedback
+                            </a>
+                        </span>
                     </li>
                     <li class="nav-item main">
                         <a class="nav-link" (click)="logout()">
@@ -69,5 +82,3 @@
         </main>
     </div>
 </div>
-
-<!-- <router-outlet></router-outlet> -->

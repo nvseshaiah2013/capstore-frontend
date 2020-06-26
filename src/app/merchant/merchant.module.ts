@@ -17,6 +17,7 @@ import { ListCouponComponent } from './list-coupon/list-coupon.component';
 import { FilterCouponPipe } from './pipes/filter-coupon.pipe';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { LoadingSpinnerService } from './services/loading-spinner.service';
+import { MerchantFeedbackHandlerComponent } from './merchant-feedback-handler/merchant-feedback-handler.component';
 
 
 @NgModule({
@@ -28,7 +29,14 @@ import { LoadingSpinnerService } from './services/loading-spinner.service';
     MerchantHomeComponent, 
     AddProductComponent,
     UpdateProductComponent,
-    MerchantStatisticsComponent, InvitesComponent, AddCouponComponent, ListCouponComponent, FilterCouponPipe, LoadingSpinnerComponent],
+    MerchantStatisticsComponent, 
+    InvitesComponent, 
+    AddCouponComponent, 
+    ListCouponComponent, 
+    FilterCouponPipe, 
+    LoadingSpinnerComponent,
+    MerchantFeedbackHandlerComponent
+  ],
 
   imports: [
     CommonModule,

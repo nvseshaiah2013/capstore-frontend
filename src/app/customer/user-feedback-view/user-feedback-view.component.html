@@ -1,0 +1,47 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            Feedbacks
+            <span class="badge badge-pill badge-info">{{count}}</span>
+
+        </div>
+
+    </div>
+</div>
+<br>
+
+<div class="card">
+    <p style="padding-top: 2px; padding-left: 40px;font-family: noto; font-size: 55px;"><img class="round-circle"
+            src="/assets/images/flight2.gif" style="height: 150px;">The Feedbacks given by you
+    </p>
+    <div *ngFor="let feedback of feedbacks">
+        <div class="card offset-sm-1" style="border-right: 0ch;">
+            <div class="row">
+                <div class="col" style="padding-left: 5%; padding-top: 2%; font-family: noto;">
+                    <p>
+                        <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<strong
+                            style=" font-size: larger">
+                            Merchant -</strong>{{feedback.m_username}}
+                    </p>
+                    <p>
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        <strong style=" font-size: larger">Subject
+                            -</strong>
+                        {{feedback.feedbackSubject}}
+                    </p>
+                    <p class="acard-text">{{feedback.feedbackMessage}}</p>
+
+                </div>
+                <div class="col" style="padding-top:2%;">
+
+                    <span *ngIf="feedback.response" style="font-family: noto ; "><i
+                            class="fa fa-quote-left fa-2x fa-pull-left fa-border" aria-hidden="true"></i><strong
+                            style=" font-size: larger">Reply</strong>
+                        {{feedback.response}}</span>
+                    <span *ngIf="!feedback.response" class="text-success"> You did'nt recieve any response yet!</span>
+                </div>
+
+            </div>
+        </div><br>
+    </div>
+</div>

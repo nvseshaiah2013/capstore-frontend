@@ -12,7 +12,7 @@ caption {
     margin-right: 0px;
     margin-bottom: 0px;
     height: 40px;
-    width: 150px;
+    width: 170px;
     background: #977cb3;
     color: #fff;
     font-size: 15px;
@@ -24,8 +24,6 @@ caption {
   background: #372347;
   color: #ffffff;
   }
-
-
   .animated {
     animation: transitionIn 0.75s;
 }
